@@ -10,31 +10,6 @@ export default function Why() {
 
     return (
         <>
-
-            {/* <div className="mx-auto ">
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-white mb-7 md:mb-12">
-                    Why
-                </h1>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-4  lg:gap-y-6 gap4 lg:gap-6">
-                    {whyItems.map(item => (
-                        <div key={item.id} className="p-4 bg-[#0f0f11] shadow-lg rounded-lg">
-                            <figure className="flex justify-center">
-                                <img src={item.imgSrc} alt={`Portfolio-${item.id}`} className="w-10 md:w-12" />
-                            </figure>
-                            <div className="content text-center mt-4">
-                                <h5 className="text-base md:text-lg lg:text-xl font-semibold text-white mb-2">
-                                    {item.title}
-                                </h5>
-                                <span className="text-xs md:text-sm lg:text-base leading-snug">
-                                    {item.description}
-                                </span>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div> */}
-
-
             <section>
                 <div className='grid gap-y-3 md:gap-y-5'>
                     <div className='grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5'>

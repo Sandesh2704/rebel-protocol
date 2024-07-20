@@ -6,23 +6,23 @@ export default function HowItsWorks() {
   const steps = [
     {
       step: 1,
-      title: 'SpaceJet training',
-      description: 'At SpaceJet we provide complete training before and during your trip so you can enjoy the most thrilling excursions this side of Mars.'
+      title: 'Buy real-world Asset Token ',
+      description: 'With the Rebel App , you can easily purchase RWA tokens,like Rebel Gold Token , using either crypto or Fiat currency'
     },
     {
       step: 2,
-      title: 'Choose Your Flight',
-      description: 'Depart conveniently from Orlando, Houston, or Los Angeles.'
+      title: 'EARN YIELD AND GROW TREASURY',
+      description: 'Add your token to the REBEL Vaults and  earn yield so you can grow your treasury'
     },
     {
       step: 3,
-      title: 'SkyDrift Hotel reservations',
-      description: 'Book your stay at the world’s only orbital luxury hotel, where you’ll be treated to breathtaking views of earth, award-winning restaurants.'
+      title: 'Get your token in your wallet',
+      description: 'After the transaction is complete , we will mint your token and transfers them directly to your wallet'
     },
     {
       step: 4,
-      title: 'SpaceJet mobile app',
-      description: 'Book your flight and ground transportation, order floating room service, schedule a romantic spacewalk and so much more.'
+      title: 'Redeem your token',
+      description: 'You can redeem your RWA tokens with REBEL for either crypto ,fiat , or the asset it self'
     }
   ];
   return (

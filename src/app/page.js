@@ -7,9 +7,8 @@ import NavBar from "@/components/NavBar";
 import Presale from "@/components/Presale";
 import RoadMap from "@/components/RoadMap";
 import Tokenomic from "@/components/Tokenomic";
-import Why from "@/components/Why";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
-// import Provider from '../context/Provider'
+ import Why from "@/components/Why";
+
 
 
 
@@ -22,8 +21,8 @@ export default function Home() {
     <div className=' w-full '>
         <NavBar />
 
-        <div class="fixed  z-50  rainbow-gradient-circle "></div>
-        <div class="fixed z-50  theme-pink"></div>
+        <div className="fixed  z-50  rainbow-gradient-circle "></div>
+        <div className="fixed z-50  theme-pink"></div>
 
         <div id='/' className='my-12 md:mt-20 lg:mt-16'  >
           <Heropage/>

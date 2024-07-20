@@ -11,57 +11,25 @@ import { FaQuestion } from "react-icons/fa";
 import logo from '/public/images/logo192.png'
 import ETH from '/public/images/chain_logo/eth.png'
 import BSC from '/public/images/chain_logo/bsc.png'
-import PLG from '/public/images/chain_logo/plg.png' 
-import ARB from '/public/images/chain_logo/arb.png' 
-import BASE from '/public/images/chain_logo/base.png' 
-import BLAST from '/public/images/chain_logo/blast.png' 
-import LINES from '/public/images/chain_logo/linea.png' 
-import OP from '/public/images/chain_logo/op.png' 
-import  ZK from '/public/images/chain_logo/zk.png' 
+import PLG from '/public/images/chain_logo/plg.png'
+import ARB from '/public/images/chain_logo/arb.png'
+import BASE from '/public/images/chain_logo/base.png'
+import BLAST from '/public/images/chain_logo/blast.png'
+import LINES from '/public/images/chain_logo/linea.png'
+import OP from '/public/images/chain_logo/op.png'
+import ZK from '/public/images/chain_logo/zk.png'
 import USDC from '/public/images/chain_logo/USDC.webp'
 import USDT from '/public/images/chain_logo/usdt.webp'
 import UK from '/public/images/otherimages/uk_flag.png'
-import EURO from '/public/images/otherimages/euro.jpg' 
-import US from '/public/images/otherimages/us_flag.png' 
- import Link from 'next/link';
- import Image from 'next/image';
+import EURO from '/public/images/otherimages/euro.jpg'
+import US from '/public/images/otherimages/us_flag.png'
+import Link from 'next/link';
+import Image from 'next/image';
 
 
 
 export default function Presale() {
   const [tab, setTab] = useState('crypto');
-
-
-  const [selectedOption, setSelectedOption] = useState('Choose a Chain');
-  const [isOpen, setIsOpen] = useState(false);
-  const chain = [
-    { value: 'ETH', label: 'ETH', imgSrc: ETH },
-    { value: 'BSC', label: 'BSC', imgSrc: BSC },
-    { value: 'PLG', label: 'PLG', imgSrc: PLG },
-    { value: 'ARB', label: 'ARB', imgSrc: ARB },
-    { value: 'BASE', label: 'BASE', imgSrc: BASE },
-    { value: 'BLAST', label: 'BLAST', imgSrc: BLAST },
-    { value: 'LINES', label: 'LINES', imgSrc: LINES },
-    { value: 'OP', label: 'OP', imgSrc: OP },
-    { value: 'ZK', label: 'ZK', imgSrc: ZK },
-  ];
-
-  const [selectedOurChian, SetSelectedOurChian] = useState('');
-  const [ourChianOpen, setOurChian] = useState(false);
-  const ourChian = [
-    { value: 'ETH', label: 'ETH', imgSrc: ETH },
-    { value: 'USDC', label: 'USDC', imgSrc: USDC },
-    { value: 'USDT', label: 'USDT', imgSrc: USDT },
-  ];
-
-  const [selectedCountry, SetSelectedCountry] = useState('');
-  const [countryOpen, setCountryOpen] = useState(false);
-  const country = [
-    { value: 'UK', label: 'UK', imgSrc: UK },
-    { value: 'EURO', label: 'EURO', imgSrc: EURO },
-    { value: 'US', label: 'US', imgSrc: US },
-  ];
-
 
   const [time, setTime] = useState({
     days: 30,
@@ -69,7 +37,7 @@ export default function Presale() {
     minutes: 0,
     seconds: 0,
   });
-  
+
   useEffect(() => {
     const countdown = setInterval(() => {
       setTime(prevTime => {
@@ -78,25 +46,62 @@ export default function Presale() {
         const hours = Math.floor((totalSeconds % 86400) / 3600);
         const minutes = Math.floor((totalSeconds % 3600) / 60);
         const seconds = totalSeconds % 60;
-  
+
         if (totalSeconds <= 0) {
           clearInterval(countdown);
           return { days: 0, hours: 0, minutes: 0, seconds: 0 };
         }
-  
+
         return { days, hours, minutes, seconds };
       });
     }, 1000);
-  
+
     return () => clearInterval(countdown);
   }, []);
-  
+
   const formatTime = (value) => value.toString().padStart(2, '0');
 
-  const [popover, setPopover] = useState(true)
-  const ToggleBar = () =>{
-    setPopover(!popover)
-    console.log('hih')
+
+  const chain = [
+    { value: 'ETH', imgSrc: ETH },
+    { value: 'BSC', imgSrc: BSC },
+    { value: 'PLG', imgSrc: PLG },
+    { value: 'ARB', imgSrc: ARB },
+    { value: 'BASE', imgSrc: BASE },
+    { value: 'BLAST', imgSrc: BLAST },
+    { value: 'LINES', imgSrc: LINES },
+    { value: 'OP', imgSrc: OP },
+    { value: 'ZK', imgSrc: ZK },
+  ];
+  const [selectedChain, setSelectedChain] = useState(chain[0]);
+  const [chainOpen, setChainOpen] = useState(false);
+
+  const Currency = [
+    { value: 'ETH', imgSrc: ETH },
+    { value: 'USDC', imgSrc: USDC },
+    { value: 'USDT', imgSrc: USDT },
+  ];
+  const [CurrencyOpen, setCurrencyOpen] = useState(false);
+  const [selectedCurrency, SetSelectedCurrency] = useState(Currency[0]);
+  const [numberOfChain, setNumberOfChain] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(`Selected Currency value: ${selectedCurrency.value}`);
+    console.log(`Number of Chains: ${numberOfChain}`);
+    console.log(`Selected Chain value: ${selectedChain.value}`);
+  };
+
+  const country = [
+    { value: 'UK', imgSrc: UK },
+    { value: 'EURO', imgSrc: EURO },
+    { value: 'US', imgSrc: US },
+  ];
+  const [selectedCountry, SetSelectedCountry] = useState(country[0]);
+  const [countryOpen, setCountryOpen] = useState(false);
+
+  const BuyNow = (e) => {
+    e.preventDefault();
   }
 
   return (
@@ -139,10 +144,11 @@ export default function Presale() {
             <h1 className='text-center text-sm md:text-base font-medium'>1 REBEL = <span className='font-extrabold'> $0.03117 </span> </h1>
 
             <div className='flex justify-end mt-4'>
-              <div className='text-base  font-medium flex items-center gap-x-2 cursor-pointer' onClick={ToggleBar}>
+              <div className='text-base  font-medium flex items-center gap-x-2 cursor-pointer'>
                 <span className='hover:underline underline-offset-2 hover:text-[#cc3cd9] '>How To Buy </span>  <span className='bg-[#cc3cd9] p-1 text-sm rounded text-white' ><FaQuestion />
                 </span>
               </div>
+
             </div>
 
             <div className="grid grid-cols-2 text-base md:text-lg font-medium mt-4" >
@@ -163,30 +169,45 @@ export default function Presale() {
 
             <div className='mt-6'>
               {tab === 'crypto' && (
-                <form action="" >
+                <form onSubmit={handleSubmit}>
                   <div className="relative inline-block w-full">
-                    <div className={`block w-full p-3 md:p-4 text-base flex items-center justify-between border-2 rounded-lg bg-black  ${isOpen === false ? 'border-[#FFFFFF1A]' : 'border-[#cc3cd9]'}`} onClick={() => setIsOpen(!isOpen)}>
+                    <div className={`block w-full p-3 md:p-4 text-base flex items-center justify-between border-2 rounded-lg bg-black  ${chainOpen === false ? 'border-[#FFFFFF1A]' : 'border-[#cc3cd9]'}`} onClick={() => setChainOpen(!chainOpen)}>
                       <div className="flex items-center">
-                        <Image src={chain.find(country => country.label === selectedOption)?.imgSrc} alt={selectedOption} className="w-8 h-8 mr-2 rounded-full"  width={100} height={100} priority/>
-                        <span>{selectedOption}</span>
+
+                        {selectedChain.imgSrc && (
+                          <Image
+                            src={selectedChain.imgSrc}
+                            alt={selectedChain.value}
+                            className="w-8 h-8 mr-2 rounded-full"
+                            width={100} height={100} priority
+                          />
+                        )}
+                        {selectedChain.value && (
+                          <span>{selectedChain.value}</span>
+                        )}
+
+
                       </div>
-                      <span className={`tezt-2xl ${isOpen === false ? 'rotate-0' : 'rotate-180'}`}>
+                      <span className={`tezt-2xl ${chainOpen === false ? 'rotate-0' : 'rotate-180'}`}>
                         <FaAngleDown />
                       </span>
                     </div>
-                    <ul className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1 h-72 overflow-y-scroll ${isOpen === false ? 'hidden' : 'block'}`}
+                    <ul className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1 h-72 overflow-y-scroll ${chainOpen === false ? 'hidden' : 'block'}`}
                     >
-                      {chain.map((country) => (
+                      {chain.map((item) => (
                         <li
-                          key={country.value}
+                          key={item.value}
                           className="flex items-center py-2 px-3 border-b-2 border-b-[#FFFFFF1A]  hover:bg-gray-900 cursor-pointer "
                           onClick={() => {
-                            setSelectedOption(country.label);
-                            setIsOpen(false);
+                            setSelectedChain({ value: item.value, imgSrc: item.imgSrc });
+                            setChainOpen(false);
                           }}
                         >
-                          <Image src={country.imgSrc} alt={country.label} className="w-8 h-8 mr-4 rounded-full" width={100} height={100} priority/>
-                          {country.label}
+                          <Image src={item.imgSrc}
+                            alt={item.value}
+                            className="w-8 h-8 mr-4 rounded-full"
+                            width={100} height={100} priority />
+                          {item.value}
                         </li>
                       ))}
                     </ul>
@@ -194,34 +215,60 @@ export default function Presale() {
 
                   <div className="relative inline-block w-full mt-3 md:mt-4">
                     <div className="flex item-center text-base bg-black rounded-lg border-2 border-[#FFFFFF1A]">
-                      <div className={`w-fit p-3 md:p-4  flex items-center justify-between `} onClick={() => setOurChian(!ourChianOpen)}>
-                        <Image src={chain.find(country => country.label === selectedOurChian)?.imgSrc} alt={selectedOurChian} className="w-8 h-8 mr-2 rounded-full" width={100} height={100} priority/>
-                        <span className={`tezt-2xl ${ourChianOpen === false ? 'rotate-0' : 'rotate-180'}`}>
+                      <div className={`w-fit p-3 md:p-4 flex items-center justify-between`} onClick={() => setCurrencyOpen(!CurrencyOpen)}>
+                        {selectedCurrency.imgSrc && (
+                          <Image
+                            src={selectedCurrency.imgSrc}
+                            alt={selectedCurrency.value}
+                            className="w-8 h-8 mr-2 rounded-full"
+                            width={100}
+                            height={100}
+                            priority
+                          />
+                        )}
+                        <span className={`text-2xl ${CurrencyOpen === false ? 'rotate-0' : 'rotate-180'}`}>
                           <FaAngleDown />
                         </span>
                       </div>
-                      <input type="number" name='numberOfChain' className='p-3 md:p-4 w-full bg-black border-0  focus:outline-none focus:border-0' />
+                      <input
+                        type="number"
+                        name='numberOfChain'
+                        className='p-3 md:p-4 w-full bg-black border-0 focus:outline-none focus:border-0'
+                        value={numberOfChain}
+                        onChange={(e) => setNumberOfChain(e.target.value)}
+                      />
                     </div>
-                    <ul className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1  overflow-y-scroll ${ourChianOpen === false ? 'hidden' : 'block'}`}
-                    >
-                      {ourChian.map((country) => (
+                    <ul className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1 overflow-y-scroll ${CurrencyOpen === false ? 'hidden' : 'block'}`}>
+                      {Currency.map((country) => (
                         <li
                           key={country.value}
-                          className="flex items-center py-2 px-3 border-b-2 border-b-[#FFFFFF1A]  hover:bg-gray-900 cursor-pointer "
+                          className="flex items-center py-2 px-3 border-b-2 border-b-[#FFFFFF1A] hover:bg-gray-900 cursor-pointer"
                           onClick={() => {
-                            SetSelectedOurChian(country.label);
-                            setOurChian(false);
+                            SetSelectedCurrency({ value: country.value, imgSrc: country.imgSrc });
+                            setCurrencyOpen(false);
                           }}
                         >
-                          <Image src={country.imgSrc} alt={country.label} className="w-8 h-8 mr-4 rounded-full" width={100} height={100} priority/>
-                          {country.label}
+                          <Image
+                            src={country.imgSrc}
+                            alt={country.value}
+                            className="w-8 h-8 mr-4 rounded-full"
+                            width={100}
+                            height={100}
+                            priority />
+                          {country.value}
                         </li>
                       ))}
                     </ul>
                   </div>
 
                   <div className="flex items-center text-base mt-3 md:mt-4 p-3 md:p-4 bg-black rounded-lg border-2 border-[#FFFFFF1A]">
-                    <Image src={logo} alt="logo" className="w-8 h-8 rounded-full" width={100} height={100} priority/>
+                    <Image
+                      src={logo}
+                      alt="logo"
+                      className="w-8 h-8 rounded-full"
+                      width={100}
+                      height={100}
+                      priority />
                     <input type="number" name='pirce' className=' bg-black  w-full ml-5  focus:outline-none focus:border-0' />
                   </div>
 
@@ -230,40 +277,61 @@ export default function Presale() {
               )}
 
               {tab === 'credit' && (
-                <form action="" >
+                <form onSubmit={BuyNow}>
                   <div className="relative inline-block w-full mt-3 md:mt-4">
                     <div className="flex item-center text-base bg-black rounded-lg border-2 border-[#FFFFFF1A]">
-                      <div className={`w-fit p-3 md:p-4  flex items-center justify-between `} onClick={() => setCountryOpen(!countryOpen)}>
-                        <Image src={country.find(country => country.label === selectedCountry)?.imgSrc} alt={selectedCountry} className="w-8 h-8 mr-2 rounded-full" width={100} height={100} priority/>
-                        <span className={`tezt-2xl ${countryOpen === false ? 'rotate-0' : 'rotate-180'}`}>
+                      <div className={`w-fit p-3 md:p-4 flex items-center justify-between`} onClick={() => setCountryOpen(!countryOpen)}>
+                        {selectedCountry.imgSrc && (
+                          <Image
+                            src={selectedCountry.imgSrc}
+                            alt={selectedCountry.value}
+                            className="w-8 h-8 mr-2 rounded-full"
+                            width={100}
+                            height={100}
+                            priority
+                          />
+                        )}
+                        <span className={`text-2xl ${countryOpen === false ? 'rotate-0' : 'rotate-180'}`}>
                           <FaAngleDown />
                         </span>
                       </div>
-                      <input type="number" className='p-3 md:p-4 w-full bg-black border-0  focus:outline-none focus:border-0' />
+                      <input
+                        type="number"
+                        name='numberOfChain'
+                        className='p-3 md:p-4 w-full bg-black border-0 focus:outline-none focus:border-0'
+                        value={numberOfChain}
+                        onChange={(e) => setNumberOfChain(e.target.value)}
+                      />
                     </div>
-                    <ul className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1 overflow-y-scroll ${countryOpen === false ? 'hidden' : 'block'}`}
-                    >
+                    <ul className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1 overflow-y-scroll ${CurrencyOpen === false ? 'hidden' : 'block'}`}>
                       {country.map((country) => (
                         <li
                           key={country.value}
-                          className="flex items-center py-2 px-3 border-b-2 border-b-[#FFFFFF1A]  hover:bg-gray-900 cursor-pointer "
+                          className="flex items-center py-2 px-3 border-b-2 border-b-[#FFFFFF1A] hover:bg-gray-900 cursor-pointer"
                           onClick={() => {
-                            SetSelectedCountry(country.label);
+                            SetSelectedCountry({ value: country.value, imgSrc: country.imgSrc });
                             setCountryOpen(false);
                           }}
                         >
-                          <Image src={country.imgSrc} alt={country.label} className="w-8 h-8 mr-4 rounded-full" width={100} height={100} priority/>
-                          {country.label}
+                          <Image
+                            src={country.imgSrc}
+                            alt={country.value}
+                            className="w-8 h-8 mr-4 rounded-full"
+                            width={100} height={100} priority />
+                          {country.value}
                         </li>
                       ))}
                     </ul>
                   </div>
 
                   <div className="flex items-center text-base mt-3 md:mt-4 p-3 md:p-4 bg-black rounded-lg border-2 border-[#FFFFFF1A]">
-                    <Image src={logo} alt="logo" className="w-8 h-8 rounded-full" width={100} height={100} priority/>
+                    <Image
+                      src={logo}
+                      alt="logo"
+                      className="w-8 h-8 rounded-full"
+                      width={100} height={100} priority />
                     <input type="number" className=' bg-black  w-full ml-5  focus:outline-none focus:border-0' />
                   </div>
-
                   <button className='mt-6 text-center w-full rounded-full bg-[#cc3cd9] py-3 text-white text-base md:text-lg  font-medium' >Buy Now</button>
                 </form>
               )}
@@ -277,16 +345,6 @@ export default function Presale() {
           </div>
         </div>
 
-   
-          <div className={`absolute ${popover !== true ? 'flex' : "hidden"} items-center justify-center  w-full h-screen`}>
-            <div className='fixed top-20 bg-[#0f0f11] rounded-lg  py-4 px-4 md:px-5 w-[90%] h-[80%]'>
-             
-              <div className='absolute top-0 right-2' onClick={ToggleBar}>close</div>
-              
-            </div>
-          </div>
-        
-        
       </div>
     </>
   )
@@ -297,7 +355,6 @@ export default function Presale() {
 const TimeBlock = ({ label, value }) => {
   return (
     <div className="text-center">
-
       <div className="flex items-center justify-center space-x-0.5 md:space-x-1">
         {value.split('').map((digit, index) => (
           <div key={index} className="p-2 lg:p-3 bg-[#cc3cd9] rounded-md">
