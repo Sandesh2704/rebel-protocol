@@ -1,7 +1,10 @@
 'use client'
 import { useRef } from "react";
+import { CgClose } from "react-icons/cg";
 import Slider from "react-slick";
-export default function HowToBut() {
+
+
+export default function HowToBuy({togglehandler}) {
 
   const sliderRef = useRef(null);
 
@@ -42,9 +45,11 @@ export default function HowToBut() {
     <>
       {/* kijoi */}
       <div className='fixed top-0 bottom-0 left-0 right-0 bg-black/70 w-full h-full z-50 flex justify-center'>
-        <div className='w-[30%]  mt-20 bg-[#0f0f11] border-4 border-[#cc3cd9]  p-4'>
-          <h1 className='text-4xl font-bold text-white'>How To Buy ?</h1>
+        <div className='relative w-[30%]  mt-20 bg-[#0f0f11] border-4 border-[#cc3cd9]  p-4'>
+          <div className="absolute right-2 top-2 text-2xl" onClick={togglehandler}><CgClose/></div>
 
+          <h1 className='text-4xl font-bold text-white'>How To Buy ?</h1>
+{/* 
           <div className="relative">
             <Slider ref={sliderRef} {...settings} className="flex overflow-hidden bg-gray-100">
               {sliderData.map((content, index) => (
@@ -62,7 +67,7 @@ export default function HowToBut() {
                 &#8250;
               </button>
             </div>
-          </div>
+          </div> */}
 
           {/* <div id="indicators-carousel" class="relative w-full" data-carousel="static">
             <div class="relative flex h-56 overflow-hidden rounded-lg md:h-96">

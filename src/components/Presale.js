@@ -8,28 +8,6 @@ import { FaAngleDown } from "react-icons/fa6";
 import { MdOutlineWorkHistory } from "react-icons/md";
 import { LuBarChart } from "react-icons/lu";
 import { FaQuestion } from "react-icons/fa";
-<<<<<<< HEAD
-import logo from '/public/images/logo192.png'
-import ETH from '/public/images/chain_logo/eth.png'
-import BSC from '/public/images/chain_logo/bsc.png'
-import PLG from '/public/images/chain_logo/plg.png'
-import ARB from '/public/images/chain_logo/arb.png'
-import BASE from '/public/images/chain_logo/base.png'
-import BLAST from '/public/images/chain_logo/blast.png'
-import LINES from '/public/images/chain_logo/linea.png'
-import OP from '/public/images/chain_logo/op.png'
-import ZK from '/public/images/chain_logo/zk.png'
-import USDC from '/public/images/chain_logo/USDC.webp'
-import USDT from '/public/images/chain_logo/usdt.webp'
-import UK from '/public/images/otherimages/uk_flag.png'
-import EURO from '/public/images/otherimages/euro.jpg'
-import US from '/public/images/otherimages/us_flag.png'
-import Link from 'next/link';
-import Image from 'next/image';
-import HowToBut from './HowToBut';
-
-
-=======
 import logo from "/public/images/logo192.png";
 import ETH from "/public/images/chain_logo/ETH.png";
 import BSC from "/public/images/chain_logo/bsc.png";
@@ -50,7 +28,7 @@ import Image from "next/image";
 import { CustomConnect } from "./CustomConnect";
 import { useAccount, useReadContract } from "wagmi";
 import { walletClient } from "../utils/config";
->>>>>>> 940d46048c93a98484812fb576f4b7be1db1ab46
+import HowToBuy from "./HowToBuy";
 
 export default function Presale() {
   const [tab, setTab] = useState("crypto");
@@ -241,23 +219,17 @@ setPopover(!popover)
               1 REBEL = <span className="font-extrabold"> $0.03117 </span>{" "}
             </h1>
 
-<<<<<<< HEAD
-            <div className='flex justify-end mt-4'>
-              <div className='text-base  font-medium flex items-center gap-x-2 cursor-pointer'>
-                <span className='hover:underline underline-offset-2 hover:text-[#cc3cd9]' onClick={togglehandler}>How To Buy </span>  <span className='bg-[#cc3cd9] p-1 text-sm rounded text-white' ><FaQuestion />
-=======
             <div className="flex justify-end mt-4">
               <div className="text-base  font-medium flex items-center gap-x-2 cursor-pointer">
-                <span className="hover:underline underline-offset-2 hover:text-[#cc3cd9] ">
+                <span className="hover:underline underline-offset-2 hover:text-[#cc3cd9] " onClick={togglehandler}>
                   How To Buy{" "}
                 </span>{" "}
                 <span className="bg-[#cc3cd9] p-1 text-sm rounded text-white">
                   <FaQuestion />
->>>>>>> 940d46048c93a98484812fb576f4b7be1db1ab46
                 </span>
               </div>
             </div>
-            {popover && <HowToBut/>}
+            {popover && <HowToBuy togglehandler={togglehandler}/>}
 
             <div className="grid grid-cols-2 text-base md:text-lg font-medium mt-4">
               <button
@@ -288,13 +260,8 @@ setPopover(!popover)
               </button>
             </div>
 
-<<<<<<< HEAD
-            <div className='mt-6'>
-              {tab === 'crypto' && (
-=======
             <div className="mt-6">
               {tab === "crypto" && (
->>>>>>> 940d46048c93a98484812fb576f4b7be1db1ab46
                 <form onSubmit={handleSubmit}>
                   <div className="relative inline-block w-full">
                     <div
@@ -534,9 +501,6 @@ setPopover(!popover)
               )}
             </div>
 
-<<<<<<< HEAD
-            <div className='mt-6 text-center w-full flex items-center gap-2 justify-center cursor-pointer  border-t-2 border-t-[#FFFFFF1A] py-3 text-sm md:text-base  font-normal' > <span className='text-xl'><MdOutlineWorkHistory /></span> History of your transactions</div>
-=======
             <div className="mt-6 text-center w-full flex items-center gap-2 justify-center cursor-pointer  border-t-2 border-t-[#FFFFFF1A] py-3 text-sm md:text-base  font-normal">
               {" "}
               <span className="text-xl">
@@ -544,7 +508,6 @@ setPopover(!popover)
               </span>{" "}
               History of your transactions
             </div>
->>>>>>> 940d46048c93a98484812fb576f4b7be1db1ab46
           </div>
           <div className="bg-[#0f0f11] rounded-lg flex items-center  text-sm md:text-base gap-2 justify-center  py-4 mt-4">
             <span className="text-xl">
