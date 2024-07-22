@@ -25,6 +25,7 @@ import EURO from '/public/images/otherimages/euro.jpg'
 import US from '/public/images/otherimages/us_flag.png'
 import Link from 'next/link';
 import Image from 'next/image';
+import HowToBut from './HowToBut';
 
 
 
@@ -104,6 +105,11 @@ export default function Presale() {
     e.preventDefault();
   }
 
+  const [popover, setPopover] = useState(false)
+  const togglehandler =()=>{
+setPopover(!popover)
+  }
+
   return (
     <>
       <div className='relative grid grid-cols-12 gap-y-8 lg:gap-8'>
@@ -145,11 +151,11 @@ export default function Presale() {
 
             <div className='flex justify-end mt-4'>
               <div className='text-base  font-medium flex items-center gap-x-2 cursor-pointer'>
-                <span className='hover:underline underline-offset-2 hover:text-[#cc3cd9] '>How To Buy </span>  <span className='bg-[#cc3cd9] p-1 text-sm rounded text-white' ><FaQuestion />
+                <span className='hover:underline underline-offset-2 hover:text-[#cc3cd9]' onClick={togglehandler}>How To Buy </span>  <span className='bg-[#cc3cd9] p-1 text-sm rounded text-white' ><FaQuestion />
                 </span>
               </div>
-
             </div>
+            {popover && <HowToBut/>}
 
             <div className="grid grid-cols-2 text-base md:text-lg font-medium mt-4" >
               <button
@@ -165,7 +171,6 @@ export default function Presale() {
                 <span className='text-xl'><BsFillCreditCard2FrontFill />  </span>  Credit Card
               </button>
             </div>
-
 
             <div className='mt-6'>
               {tab === 'crypto' && (
@@ -337,14 +342,12 @@ export default function Presale() {
               )}
             </div>
 
-
             <div className='mt-6 text-center w-full flex items-center gap-2 justify-center cursor-pointer  border-t-2 border-t-[#FFFFFF1A] py-3 text-sm md:text-base  font-normal' > <span className='text-xl'><MdOutlineWorkHistory /></span> History of your transactions</div>
           </div>
           <div className='bg-[#0f0f11] rounded-lg flex items-center  text-sm md:text-base gap-2 justify-center  py-4 mt-4'>
             <span className='text-xl'><LuBarChart /></span> Round Details
           </div>
         </div>
-
       </div>
     </>
   )
