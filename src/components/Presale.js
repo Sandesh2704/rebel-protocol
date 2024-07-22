@@ -9,7 +9,7 @@ import { MdOutlineWorkHistory } from "react-icons/md";
 import { LuBarChart } from "react-icons/lu";
 import { FaQuestion } from "react-icons/fa";
 import logo from "/public/images/logo192.png";
-import ETH from "/public/images/chainlogo/ETH.png";
+
 import BSC from "/public/images/chainlogo/bsc.png";
 import PLG from "/public/images/chainlogo/plg.png";
 import ARB from "/public/images/chainlogo/arb.png";
@@ -70,7 +70,7 @@ export default function Presale() {
   const formatTime = (value) => value.toString().padStart(2, "0");
 
   const chain = [
-    { value: "ETH", imgSrc: ETH },
+    // { value: "ETH", imgSrc: ETH },
     { value: "BSC", imgSrc: BSC },
     { value: "PLG", imgSrc: PLG },
     { value: "ARB", imgSrc: ARB },
