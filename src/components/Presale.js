@@ -9,7 +9,7 @@ import { MdOutlineWorkHistory } from "react-icons/md";
 import { LuBarChart } from "react-icons/lu";
 import { FaQuestion } from "react-icons/fa";
 import logo from "/public/images/logo192.png";
-
+import ETH from "/public/images/chainlogo/eth.png";
 import BSC from "/public/images/chainlogo/bsc.png";
 import PLG from "/public/images/chainlogo/plg.png";
 import ARB from "/public/images/chainlogo/arb.png";
@@ -27,7 +27,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { CustomConnect } from "./CustomConnect";
 import { useAccount, useReadContract } from "wagmi";
-import { walletClient } from "../utils/config";
+import { WalletComponent } from "../utils/config";
+import { contractABI } from "../utils/abi.js";
+
 import HowToBuy from "./HowToBuy";
 
 export default function Presale() {
@@ -83,6 +85,7 @@ export default function Presale() {
   const [chainOpen, setChainOpen] = useState(false);
 
   const Currency = [
+    { value: "BNB", imgSrc: BSC },
     { value: "USDC", imgSrc: USDC },
     { value: "USDT", imgSrc: USDT },
   ];
@@ -106,20 +109,20 @@ export default function Presale() {
   const [countryOpen, setCountryOpen] = useState(false);
 
   const currencySCFn = {
-    BNB: "calculateAmountBNB",
-    USDT: "calculatePrice",
-    USDC: "calculatePrice",
+    BNB: "nativeToToken",
+    USDT: "usdtToToken",
+    USDC: "usdtToToken",
   };
 
   const buySCFn = {
-    BNB: "buyWithBNB",
-    USDT: "buyWithUSDT",
-    USDC: "buyWithUSDC",
+    BNB: "buyToken",
+    USDT: "buyTokenUSDT",
+    USDC: "buyTokenUSDC",
   };
 
   const BuyNow = async (e) => {
     const { result } = await publicClient.simulateContract({
-      address: "0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2", // TODO: change contract address here
+      address: "0x54BC69D76B91c8E192832BAED212866938a73e26", // TODO: change contract address here
       abi: [
         {
           type: "function",
@@ -133,27 +136,19 @@ export default function Presale() {
       account: address,
       args: [numberOfChain],
     });
-    await walletClient.writeContract(result);
+    await WalletComponent.writeContract(result);
   };
 
   const currencyAmount = useReadContract({
-    abi: [
-      {
-        type: "function",
-        name: "buyWithUSDT",
-        stateMutability: "view",
-        inputs: [{ name: "account", type: "address" }],
-        outputs: [{ type: "uint256" }],
-      },
-    ], // TODO: change ABI here
+    abi: contractABI, // TODO: change ABI here
     address: "0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2", // TODO: change contract address here
     functionName: currencySCFn[selectedCurrency],
     args: [numberOfChain],
   });
 
   const [popover, setPopover] = useState(false)
-  const togglehandler =()=>{
-setPopover(!popover)
+  const togglehandler = () => {
+    setPopover(!popover)
   }
 
   return (
@@ -227,15 +222,14 @@ setPopover(!popover)
                 </span>
               </div>
             </div>
-            {popover && <HowToBuy togglehandler={togglehandler}/>}
+            {popover && <HowToBuy togglehandler={togglehandler} />}
 
             <div className="grid grid-cols-2 text-base md:text-lg font-medium mt-4">
               <button
-                className={`flex items-center gap-2 justify-center py-2  border-b-2 ${
-                  tab === "crypto"
-                    ? "text-[#cc3cd9] border-[#cc3cd9]"
-                    : "border-[#FFFFFF1A]"
-                } `}
+                className={`flex items-center gap-2 justify-center py-2  border-b-2 ${tab === "crypto"
+                  ? "text-[#cc3cd9] border-[#cc3cd9]"
+                  : "border-[#FFFFFF1A]"
+                  } `}
                 onClick={() => setTab("crypto")}
               >
                 <span className="text-xl">
@@ -244,11 +238,10 @@ setPopover(!popover)
                 Crypto
               </button>
               <button
-                className={`flex items-center gap-2 justify-center py-2 border-b-2 ${
-                  tab === "credit"
-                    ? "text-[#cc3cd9]  border-[#cc3cd9]"
-                    : "border-[#FFFFFF1A]"
-                } `}
+                className={`flex items-center gap-2 justify-center py-2 border-b-2 ${tab === "credit"
+                  ? "text-[#cc3cd9]  border-[#cc3cd9]"
+                  : "border-[#FFFFFF1A]"
+                  } `}
                 onClick={() => setTab("credit")}
               >
                 <span className="text-xl">
@@ -263,11 +256,10 @@ setPopover(!popover)
                 <form onSubmit={handleSubmit}>
                   <div className="relative inline-block w-full">
                     <div
-                      className={`block w-full p-3 md:p-4 text-base flex items-center justify-between border-2 rounded-lg bg-black  ${
-                        chainOpen === false
-                          ? "border-[#FFFFFF1A]"
-                          : "border-[#cc3cd9]"
-                      }`}
+                      className={`block w-full p-3 md:p-4 text-base flex items-center justify-between border-2 rounded-lg bg-black  ${chainOpen === false
+                        ? "border-[#FFFFFF1A]"
+                        : "border-[#cc3cd9]"
+                        }`}
                       onClick={() => setChainOpen(!chainOpen)}
                     >
                       <div className="flex items-center">
@@ -286,17 +278,15 @@ setPopover(!popover)
                         )}
                       </div>
                       <span
-                        className={`tezt-2xl ${
-                          chainOpen === false ? "rotate-0" : "rotate-180"
-                        }`}
+                        className={`tezt-2xl ${chainOpen === false ? "rotate-0" : "rotate-180"
+                          }`}
                       >
                         <FaAngleDown />
                       </span>
                     </div>
                     <ul
-                      className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1 h-72 overflow-y-scroll ${
-                        chainOpen === false ? "hidden" : "block"
-                      }`}
+                      className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1 h-72 overflow-y-scroll ${chainOpen === false ? "hidden" : "block"
+                        }`}
                     >
                       {chain.map((item) => (
                         <li
@@ -341,9 +331,8 @@ setPopover(!popover)
                           />
                         )}
                         <span
-                          className={`text-2xl ${
-                            CurrencyOpen === false ? "rotate-0" : "rotate-180"
-                          }`}
+                          className={`text-2xl ${CurrencyOpen === false ? "rotate-0" : "rotate-180"
+                            }`}
                         >
                           <FaAngleDown />
                         </span>
@@ -357,9 +346,8 @@ setPopover(!popover)
                       />
                     </div>
                     <ul
-                      className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1 overflow-y-scroll ${
-                        CurrencyOpen === false ? "hidden" : "block"
-                      }`}
+                      className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1 overflow-y-scroll ${CurrencyOpen === false ? "hidden" : "block"
+                        }`}
                     >
                       {Currency.map((country) => (
                         <li
@@ -432,9 +420,8 @@ setPopover(!popover)
                           />
                         )}
                         <span
-                          className={`text-2xl ${
-                            countryOpen === false ? "rotate-0" : "rotate-180"
-                          }`}
+                          className={`text-2xl ${countryOpen === false ? "rotate-0" : "rotate-180"
+                            }`}
                         >
                           <FaAngleDown />
                         </span>
@@ -448,9 +435,8 @@ setPopover(!popover)
                       />
                     </div>
                     <ul
-                      className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1 overflow-y-scroll ${
-                        countryOpen === false ?  "hidden" : "block"
-                      }`}
+                      className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1 overflow-y-scroll ${CurrencyOpen === false ? "hidden" : "block"
+                        }`}
                     >
                       {country.map((country) => (
                         <li

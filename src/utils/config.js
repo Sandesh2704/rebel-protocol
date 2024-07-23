@@ -10,7 +10,7 @@
 'use client'
 import { useEffect, useState } from 'react';
 import { createWalletClient } from 'viem'; // replace with your actual library
-import { bsc, bscTestnet } from 'viem/chains';
+import { bsc, sepolia } from 'viem/chains';
 
 export default function WalletComponent() {
   const [walletClient, setWalletClient] = useState(null);
@@ -18,7 +18,7 @@ export default function WalletComponent() {
   useEffect(() => {
     if (typeof window !== 'undefined' && window.ethereum) {
       const client = createWalletClient({
-        chain: [bsc, bscTestnet],
+        chain: [bsc, sepolia],
         transport: custom(window.ethereum),
       });
       setWalletClient(client);
