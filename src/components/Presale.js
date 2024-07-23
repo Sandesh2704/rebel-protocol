@@ -9,7 +9,6 @@ import { MdOutlineWorkHistory } from "react-icons/md";
 import { LuBarChart } from "react-icons/lu";
 import { FaQuestion } from "react-icons/fa";
 import logo from "/public/images/logo192.png";
-import ETH from "/public/images/chainlogo/eth.png";
 import BSC from "/public/images/chainlogo/bsc.png";
 import PLG from "/public/images/chainlogo/plg.png";
 import ARB from "/public/images/chainlogo/arb.png";
@@ -123,15 +122,7 @@ export default function Presale() {
   const BuyNow = async (e) => {
     const { result } = await publicClient.simulateContract({
       address: "0x54BC69D76B91c8E192832BAED212866938a73e26", // TODO: change contract address here
-      abi: [
-        {
-          type: "function",
-          name: "buyWithUSDT",
-          stateMutability: "view",
-          inputs: [{ name: "account", type: "address" }],
-          outputs: [{ type: "uint256" }],
-        },
-      ], // TODO: change ABI here
+      abi: contractABI, // TODO: change ABI here
       functionName: buySCFn[selectedCurrency],
       account: address,
       args: [numberOfChain],
@@ -141,7 +132,7 @@ export default function Presale() {
 
   const currencyAmount = useReadContract({
     abi: contractABI, // TODO: change ABI here
-    address: "0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2", // TODO: change contract address here
+    address: "0x54BC69D76B91c8E192832BAED212866938a73e26", // TODO: change contract address here
     functionName: currencySCFn[selectedCurrency],
     args: [numberOfChain],
   });
