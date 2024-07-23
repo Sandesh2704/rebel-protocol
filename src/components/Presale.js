@@ -70,7 +70,6 @@ export default function Presale() {
   const formatTime = (value) => value.toString().padStart(2, "0");
 
   const chain = [
-    // { value: "ETH", imgSrc: ETH },
     { value: "BSC", imgSrc: BSC },
     { value: "PLG", imgSrc: PLG },
     { value: "ARB", imgSrc: ARB },
@@ -84,7 +83,6 @@ export default function Presale() {
   const [chainOpen, setChainOpen] = useState(false);
 
   const Currency = [
-    { value: "BNB", imgSrc: ETH },
     { value: "USDC", imgSrc: USDC },
     { value: "USDT", imgSrc: USDT },
   ];
@@ -451,7 +449,7 @@ setPopover(!popover)
                     </div>
                     <ul
                       className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1 overflow-y-scroll ${
-                        CurrencyOpen === false ? "hidden" : "block"
+                        countryOpen === false ?  "hidden" : "block"
                       }`}
                     >
                       {country.map((country) => (
