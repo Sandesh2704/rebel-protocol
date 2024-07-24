@@ -71,13 +71,13 @@ export default function Presale() {
 
   const chain = [
     { value: "BSC", imgSrc: BSC },
-    { value: "PLG", imgSrc: PLG },
-    { value: "ARB", imgSrc: ARB },
-    { value: "BASE", imgSrc: BASE },
-    { value: "BLAST", imgSrc: BLAST },
-    { value: "LINES", imgSrc: LINES },
-    { value: "OP", imgSrc: OP },
-    { value: "ZK", imgSrc: ZK },
+    // { value: "PLG", imgSrc: PLG },
+    // { value: "ARB", imgSrc: ARB },
+    // { value: "BASE", imgSrc: BASE },
+    // { value: "BLAST", imgSrc: BLAST },
+    // { value: "LINES", imgSrc: LINES },
+    // { value: "OP", imgSrc: OP },
+    // { value: "ZK", imgSrc: ZK },
   ];
   const [selectedChain, setSelectedChain] = useState(chain[0]);
   const [chainOpen, setChainOpen] = useState(false);
@@ -219,7 +219,7 @@ export default function Presale() {
             </p>
 
             <div className=" my-1 flex flex-col items-center justify-center">
-      <div className="relative w-full bg-[#acacac] h-5 rounded-lg overflow-hidden">
+      <div className="relative w-full bg-[#acacac] h-5 rounded overflow-hidden">
         <motion.div
           className="absolute left-0 top-0 h-full bg-[#cc3cd9]"
           initial={{ width: 0 }}
@@ -227,7 +227,7 @@ export default function Presale() {
           transition={{ duration: 2 }}
         />
         <div className="absolute inset-0 flex justify-center items-center">
-          <span className="text-white text-lg font-bold">{`${width}%`}</span>
+          <span className="text-white text-sm font-bold">{`${width}%`}</span>
         </div>
       </div>
     </div>
@@ -317,7 +317,7 @@ export default function Presale() {
                       </span>
                     </div>
                     <ul
-                      className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1 h-72 overflow-y-scroll ${
+                      className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1  overflow-y-scroll ${
                         chainOpen === false ? "hidden" : "block"
                       }`}
                     >
@@ -526,17 +526,22 @@ export default function Presale() {
               )}
             </div>
 
-            <div className="mt-6 text-center w-full flex justify-center cursor-pointer  border-t-2 border-t-[#FFFFFF1A] py-3 text-sm md:text-base  font-normal">
+            {/* <div className="mt-6 text-center w-full flex justify-center cursor-pointer  border-t-2 border-t-[#FFFFFF1A] py-3 text-sm md:text-base  font-normal">
             
               History of your transactions
-            </div>
+            </div> */}
           </div>
-          {/* <div className="bg-[#0f0f11] rounded-lg flex items-center  text-sm md:text-base gap-2 justify-center  py-4 mt-4">
-            <span className="text-xl">
-              <LuBarChart />
-            </span>{" "}
-            Round Details
-          </div> */}
+          <div className="bg-[#0f0f11] rounded-lg flex items-center  text-sm md:text-base gap-2 justify-center  py-4 mt-4">
+          <Image
+                      src={logo}
+                      alt="logo"
+                      className="w-7 h-7 rounded-full"
+                      width={100}
+                      height={100}
+                      priority
+                    />{" "}
+            Your Rebel Count
+          </div> 
         </div>
       </div>
     </>
