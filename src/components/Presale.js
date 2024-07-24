@@ -134,12 +134,11 @@ export default function Presale() {
   };
 
   const currencyAmountSC = async () => {
-    const args = selectedCurrency !== "BNB" ? [] : [numberOfChain, 1];
     const result = await readContract(config, {
       abi: contractABI,
       address: "0x54BC69D76B91c8E192832BAED212866938a73e26",
       functionName: currencySCFn[selectedCurrency],
-      args,
+      args: [numberOfChain],
     });
     setCurrencyAmount(result);
   };
