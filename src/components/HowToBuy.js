@@ -2,90 +2,114 @@
 import { useRef, useState } from "react";
 import { CgClose } from "react-icons/cg";
 import Slider from "react-slick";
-import { FaChevronLeft } from "react-icons/fa";
-import { FaChevronRight } from "react-icons/fa";
+import { TiArrowLeftOutline } from "react-icons/ti";
+import { TiArrowRightOutline } from "react-icons/ti";
 import '../style/HowToBuy.css'
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
+import Image from "next/image";
+import logo from '/public/logo192.png'
 
+export default function HowToBuy({ togglehandler }) {
 
-export default function HowToBuy({togglehandler}) {
-
-  const sliderRef = useRef(null);
 
   const StepsData = [
 
     {
-      number : 'step-1',
-      title : 'CONNECT',
-      content : "After completing your purchase, your $REB token balance will be displayed on the buy widget. You can claim these tokens once the $REB presale has concluded."
+      number: 'STEP1',
+      title: 'CONNECT',
+      content: "After completing your purchase, your $REB token balance will be displayed on the buy widget. You can claim these tokens once the $REB presale has concluded."
     },
     {
-      number : 'step-2',
-      title : 'SWAP',
-      content : "Next, you'll need some cryptocurrency to make your purchase. You can use ETH, BNB, MATIC, ARB, AVAX, OP, USDT, or USDC. Ensure you have enough funds in your wallet to cover both the purchase and any transaction fees. You can deposit funds or buy cryptocurrency directly within Best Wallet or any compatible wallet."
+      number: 'STEP2',
+      title: 'SWAP',
+      content: "Next, you'll need some cryptocurrency to make your purchase. You can use ETH, BNB, MATIC, ARB, AVAX, OP, USDT, or USDC. Ensure you have enough funds in your wallet to cover both the purchase and any transaction fees. You can deposit funds or buy cryptocurrency directly within Best Wallet or any compatible wallet."
     },
     {
-      number : 'step-3',
-      title : 'CLAIM',
-      content : "After completing your purchase, your $REB token balance will be displayed on the buy widget. You can claim these tokens once the $REB presale has concluded."
+      number: 'STEP3',
+      title: 'CLAIM',
+      content: "After completing your purchase, your $REB token balance will be displayed on the buy widget. You can claim these tokens once the $REB presale has concluded."
     },
     {
-      title : 'ADDITIONAL INFORMATION',
-      content : "Our platform supports transactions across multiple networks, including Ethereum, BNB Chain, Polygon, Arbitrum, Avalanche, Optimism, and Base. This wide support ensures flexibility and convenience for users, allowing you to choose the network that best suits your needs."
+      title: 'ADDITIONAL INFORMATION',
+      content: "Our platform supports transactions across multiple networks, including Ethereum, BNB Chain, Polygon, Arbitrum, Avalanche, Optimism, and Base. This wide support ensures flexibility and convenience for users, allowing you to choose the network that best suits your needs."
     },
   ];
-  
+
   const [currentIndex, setCurrentIndex] = useState(0);
+
   const settings = {
     dots: true,
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    nextArrow:  <NextArrow /> ,
-    prevArrow:   <PrevArrow /> ,
-    customPaging: i => (
-      <div className={`w-3 h-3 rounded-full  mx-1 ${i === currentIndex ? 'bg-yellow-500' : 'bg-gray-100'}`} />
-    ),
-    beforeChange: (oldIndex, newIndex) => setCurrentIndex(newIndex),
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+    afterChange: (index) => setCurrentIndex(index),
   };
+
+  let sliderRef;
 
 
   return (
     <>
-      {/* kijoi */}
       <div className='fixed top-0 bottom-0 left-0 right-0 bg-black/70  h-full z-50 flex justify-center'>
-        <div className='relative w-[30%]  mt-20 bg-[#0f0f11] h-fit border-4 border-[#cc3cd9]  p-4'>
-          <div className="absolute right-2 top-2 text-2xl" onClick={togglehandler}><CgClose/></div>
+        <div className='font-extrabold relative w-[90%]  md:w-[55%] lg:w-[40%] xl:w-[30%] mt-16 md:mt-20 bg-[#0f0f11] h-fit border-2 border-[#cc3cd9]  p-3'>
+          <div className="absolute right-2 top-2 text-base p-2 border border-stone-500" onClick={togglehandler}><CgClose /></div>
 
-          <h1 className='text-4xl font-bold text-white'>How To Buy ?</h1>
-          <Slider {...settings} className="relative">
-      {StepsData.map((step, index) => (
-        <div key={index} className="p-4 ">
-          <div className="flex">
-          <span className="text-2xl font-bold mb-2">{step.number}</span>
-          <span className="text-3xl font-bold text-white mb-2">{step.title}</span>
+          <h1 className='text-3xl py-2  text-white'>How To Buy ?</h1>
+          <div className="flex justify-center mt-10">
+            <Image src={logo} alt="Corporate Logo" className="w-20" width={100} height={100} priority />
           </div>
-          <p className="text-lg text-gray-300">{step.content}</p>
-        </div>
-      ))}
-    </Slider>
+
+          <div className="">
+            <Slider ref={c => (sliderRef = c)} {...settings}>
+              {StepsData.map((step, index) => (
+                <div key={index} className="p-4 border-2 border-stone-600 h-52 mt-3">
+                  <div className="flex text-xl  gap-2">
+                    {
+                      step.number && <span className="text-stone-500">{step.number} - </span>
+                    }
+                    <span className=" text-white "> {step.title}</span>
+                  </div>
+                  <p className="text-sm text-gray-300 font-medium mt-2">{step.content}</p>
+                </div>
+              ))}
+            </Slider>
+            <div className="flex text-white items-center justify-center mt-8 gap-5">
+              <div className={`text-2xl py-2 px-3 cursor-pointer ${currentIndex === 0 ? 'border border-stone-500' : 'bg-[#cc3cd9]'}`} onClick={() => sliderRef.slickPrev()}>
+                <TiArrowLeftOutline />
+              </div>
+              <div className="flex items-center gap-1">
+                {StepsData.map((_, i) => (
+                  <div
+                    key={i}
+                    className={`w-2 h-2 rounded-full  ${i === currentIndex ? 'bg-[#cc3cd9]' : 'bg-stone-500'}`}
+                    onClick={() => sliderRef.slickGoTo(i)}
+                  />
+                ))}
+              </div>
+              <div className={`text-2xl text-white py-2 px-3 cursor-pointer ${currentIndex === StepsData.length - 1 ? 'border border-stone-500' : 'bg-[#cc3cd9]'}`} onClick={() => sliderRef.slickNext()}>
+                <TiArrowRightOutline/>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
-
     </>
   )
 }
 
 const NextArrow = ({ onClick }) => (
-  <div className="right-2 absolute bottom-2  text-3xl cursor-pointer;" onClick={onClick}>
-    <FaChevronRight/>
+  <div className="hidden" onClick={onClick}>
+   
   </div>
 );
 
 const PrevArrow = ({ onClick }) => (
-  <div className="left-2 absolute bottom-2  text-3xl cursor-pointer;" onClick={onClick}>
-    <FaChevronLeft />
+  <div className="hidden " onClick={onClick}>
+   
   </div>
 );

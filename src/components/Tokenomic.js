@@ -17,7 +17,7 @@ export default function Tokenomic() {
       'Liquidity 30%',
       'Marketing 8%',
       'Ecosystem 15%',
-      'Partnership & KOL 2%'
+      'KOL 2%'
     ],
     datasets: [{
       data: [5, 14, 10, 10, 30, 10, 15, 5],

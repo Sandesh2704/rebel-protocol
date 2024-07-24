@@ -5,10 +5,8 @@ import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaBitcoin } from "react-icons/fa";
 import { BsFillCreditCard2FrontFill } from "react-icons/bs";
 import { FaAngleDown } from "react-icons/fa6";
-import { MdOutlineWorkHistory } from "react-icons/md";
-import { LuBarChart } from "react-icons/lu";
 import { FaQuestion } from "react-icons/fa";
-import logo from "/public/images/logo192.png";
+import logo from "/public/logo192.png";
 import BSC from "/public/images/chainlogo/bsc.png";
 import PLG from "/public/images/chainlogo/plg.png";
 import ARB from "/public/images/chainlogo/arb.png";
@@ -29,8 +27,8 @@ import { useAccount } from "wagmi";
 import { config } from "../utils/config";
 import { contractABI } from "../utils/abi.js";
 import { readContract, simulateContract, writeContract } from "@wagmi/core";
-
 import HowToBuy from "./HowToBuy";
+import { motion } from "framer-motion";
 
 export default function Presale() {
   const [tab, setTab] = useState("crypto");
@@ -155,6 +153,12 @@ export default function Presale() {
     setPopover(!popover);
   };
 
+  const [width, setWidth] = useState(0);
+  const value = 89
+  useEffect(() => {
+    setWidth(value);
+  }, [value]);
+
   return (
     <>
       <div className="relative grid grid-cols-12 gap-y-8 lg:gap-8">
@@ -188,14 +192,16 @@ export default function Presale() {
 
           <div className="flex items-center justify-center xl:justify-start space-x-3 md:space-x-5 ">
             <Link
-              href="https://t.me/rebelprotocol_bot"
+              href="https://t.me/rebelprotocol"
               className="hover:text-[#cc3cd9] text-2xl md:text-3xl"
+              target="_blank"
             >
               <FaTelegram />
             </Link>
             <Link
-              href="https://x.com/airdropinspect?s=21"
+              href="https://x.com/rebelprotocol"
               className="hover:text-[#cc3cd9] text-2xl md:text-3xl"
+              target="_blank"
             >
               <FaSquareXTwitter />
             </Link>
@@ -211,7 +217,22 @@ export default function Presale() {
               USD Raise:{" "}
               <span className="font-extrabold"> $2,079,416 / $2,086,196 </span>
             </p>
-            <div className="my-3 h-1 w-full bg-[#cc3cd9] rounded-full" />
+
+            <div className=" my-1 flex flex-col items-center justify-center">
+      <div className="relative w-full bg-[#acacac] h-5 rounded-lg overflow-hidden">
+        <motion.div
+          className="absolute left-0 top-0 h-full bg-[#cc3cd9]"
+          initial={{ width: 0 }}
+          animate={{ width: `${width}%` }}
+          transition={{ duration: 2 }}
+        />
+        <div className="absolute inset-0 flex justify-center items-center">
+          <span className="text-white text-lg font-bold">{`${width}%`}</span>
+        </div>
+      </div>
+    </div>
+
+            {/* <div className=" h-1 w-full bg-[#cc3cd9] rounded-full" /> */}
             <h1 className="text-center text-sm md:text-base font-medium">
               1 REBEL = <span className="font-extrabold"> $0.03117 </span>{" "}
             </h1>
@@ -510,12 +531,12 @@ export default function Presale() {
               History of your transactions
             </div>
           </div>
-          <div className="bg-[#0f0f11] rounded-lg flex items-center  text-sm md:text-base gap-2 justify-center  py-4 mt-4">
+          {/* <div className="bg-[#0f0f11] rounded-lg flex items-center  text-sm md:text-base gap-2 justify-center  py-4 mt-4">
             <span className="text-xl">
               <LuBarChart />
             </span>{" "}
             Round Details
-          </div>
+          </div> */}
         </div>
       </div>
     </>

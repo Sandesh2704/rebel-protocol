@@ -11,7 +11,6 @@ export default function Heropage() {
   return (
     <>
       <div className='relative px-4 sm:px-7  lg:px-40 grid grid-cols-1 md:grid-cols-2  gap-y-10 lg:gap-16 pt-24 md:py-10 lg:py-28 overflow-hidden'>
-        
         <div className='flex items-center justify-center md:justify-start lg:justify-center'>
           <Image src={carcousel} height={100} width={100} alt="carousel" className='w-64 md:w-80  lg:w-full' priority/>
         </div>
