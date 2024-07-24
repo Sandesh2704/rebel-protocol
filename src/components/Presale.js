@@ -35,7 +35,7 @@ export default function Presale() {
   const { address, isConnected } = useAccount();
 
   const [time, setTime] = useState({
-    days: 30,
+    days: 15,
     hours: 24,
     minutes: 0,
     seconds: 0,
