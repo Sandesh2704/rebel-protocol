@@ -476,11 +476,8 @@ export default function Presale() {
               )}
             </div>
 
-            <div className="mt-6 text-center w-full flex items-center gap-2 justify-center cursor-pointer  border-t-2 border-t-[#FFFFFF1A] py-3 text-sm md:text-base  font-normal">
-              {" "}
-              <span className="text-xl">
-                <MdOutlineWorkHistory />
-              </span>{" "}
+            <div className="mt-6 text-center w-full flex justify-center cursor-pointer  border-t-2 border-t-[#FFFFFF1A] py-3 text-sm md:text-base  font-normal">
+            
               History of your transactions
             </div>
           </div>

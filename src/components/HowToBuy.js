@@ -1,5 +1,5 @@
 'use client'
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { CgClose } from "react-icons/cg";
 import Slider from "react-slick";
 import { FaChevronLeft } from "react-icons/fa";
@@ -7,7 +7,6 @@ import { FaChevronRight } from "react-icons/fa";
 import '../style/HowToBuy.css'
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
-
 
 
 export default function HowToBuy({togglehandler}) {
@@ -37,60 +36,21 @@ export default function HowToBuy({togglehandler}) {
     },
   ];
   
-  // const settings = {
-  //   dots: true,
-  //   infinite: true,
-  //   speed: 500,
-  //   slidesToShow: 1,
-  //   slidesToScroll: 1,
-  //   arrows: false,
-  //   customPaging: i => (
-  //     <button className="dot w-4 h-4 mx-2 rounded-full border border-gray-400 bg-gray-400 focus:outline-none" />
-  //   ),
-  //   appendDots: dots => (
-  //     <div className="flex justify-center mt-4">
-  //       <ul className="flex">{dots}</ul>
-  //     </div>
-  //   )
-  // };
-
+  const [currentIndex, setCurrentIndex] = useState(0);
   const settings = {
     dots: true,
     infinite: true,
-    slidesToShow: 1, 
+    speed: 500,
+    slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: false,
-    autoplaySpeed: null,
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
-    swipeToSlide: true,
-    cssEase: "ease-in-out", 
+    nextArrow:  <NextArrow /> ,
+    prevArrow:   <PrevArrow /> ,
+    customPaging: i => (
+      <div className={`w-3 h-3 rounded-full  mx-1 ${i === currentIndex ? 'bg-yellow-500' : 'bg-gray-100'}`} />
+    ),
+    beforeChange: (oldIndex, newIndex) => setCurrentIndex(newIndex),
   };
 
-
-  // const settings = {
-  //   dots: false,
-  //   infinite: true,
-  //   speed: 500,
-  //   slidesToShow: 1, // Show one slide at a time
-  //   slidesToScroll: 1,
-  //   autoplay: true,
-  //   autoplaySpeed: null,
-  //   nextArrow: <NextArrow />,
-  //   prevArrow: <PrevArrow />,
-  //   swipeToSlide: true,
-  //   cssEase: "ease-in-out", 
-  //   // appendDots: dots => <Dots dots={dots}/>,
-  //   // customPaging: () => <PagingDot />
-  // };
-
-  const nextSlide = () => {
-    sliderRef.current.slickNext();
-  };
-
-  const prevSlide = () => {
-    sliderRef.current.slickPrev();
-  };
 
   return (
     <>
@@ -118,77 +78,14 @@ export default function HowToBuy({togglehandler}) {
   )
 }
 
-
 const NextArrow = ({ onClick }) => (
-  <div onClick={onClick}>
-    <FaChevronRight className="absolute bottom-0 right-20 " />
+  <div className="right-2 absolute bottom-2  text-3xl cursor-pointer;" onClick={onClick}>
+    <FaChevronRight/>
   </div>
-)
+);
 
 const PrevArrow = ({ onClick }) => (
-  <div onClick={onClick} className="absolute bottom-0  left-20">
- <FaChevronLeft />
+  <div className="left-2 absolute bottom-2  text-3xl cursor-pointer;" onClick={onClick}>
+    <FaChevronLeft />
   </div>
-)
-
-// const NextArrow = ({ onClick }) => (
-//   <div
-//     className="absolute z-10 right-0 top-1/2 transform -translate-y-1/2 bg-white text-gray-400 shadow  hidden md:flex md:py-3 lg:py-4 px-0 md:px-1 lg:px-2 rounded-l-sm cursor-pointer"
-//     onClick={onClick}
-//   >
-//    <FaChevronRight/>
-//   </div>
-// );
-
-// const PrevArrow = ({ onClick }) => (
-//   <div
-//     className="z-10 left-0 top-1/2 transform -translate-y-1/2  bg-white text-gray-400 shadow hidden md:flex py-2  md:py-3 lg:py-4 px-0 md:px-1 lg:px-2 rounded-r-sm cursor-pointer"
-//     onClick={onClick}
-//   >
-//    <FaChevronLeft className=''/>
-//   </div>
-// );
-
-
-
-
-{/* <div className="flex ">
-<Slider {...settings} className='w-40 '>
-
-  { StepsData.map((steps, index) => (
-    
-
-          <div key={index} className="">
-           <h1>{steps.title}</h1>
-           <p>{steps.content}</p>
-          </div>
-        ))}
-  
-        
-      </Slider>
-</div> */}
-{/* <div id="default-carousel" class="relative w-full" data-carousel="slide">
-
-    <Slider {...settings} class="relative flex h-56 overflow-hidden rounded-lg md:h-96">
-        <div class=" duration-700 ease-in-out  w-96" data-carousel-item>
-        <h1>hi</h1>
-        <p>After completing your purchase, your $REB token balance will be displayed on the buy widget. You can claim these tokens once the $REB presale has concluded.</p>
-        </div>
-
-        <div class=" duration-700 ease-in-out" data-carousel-item>
-        <h1>hi</h1>
-        <p>After completing your purchase, your $REB token balance will be displayed on the buy widget. You can claim these tokens once the $REB presale has concluded.</p>
-        </div>
-
-        <div class="duration-700 ease-in-out" data-carousel-item>
-        <h1>hi</h1>
-        <p>After completing your purchase, your $REB token balance will be displayed on the buy widget. You can claim these tokens once the $REB presale has concluded.</p>
-        </div>
-
-        <div class="duration-700 ease-in-out" data-carousel-item>
-        <h1>hi</h1>
-        <p>After completing your purchase, your $REB token balance will be displayed on the buy widget. You can claim these tokens once the $REB presale has concluded.</p>
-        </div>
-    </Slider>
-
-</div> */}
+);
