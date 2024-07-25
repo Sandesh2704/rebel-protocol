@@ -122,7 +122,7 @@ export default function Presale() {
   const BuyNow = async () => {
     const args = selectedCurrency !== "BNB" ? [] : [numberOfChain];
     const { request } = await simulateContract(config, {
-      address: "0x54BC69D76B91c8E192832BAED212866938a73e26",
+      address: "0xb92Bc21e9E8b5Ce6F4118F2Ef7809a0e232D3471",
       abi: contractABI,
       functionName: buySCFn[selectedCurrency],
       account: address,
@@ -134,7 +134,7 @@ export default function Presale() {
   const currencyAmountSC = async () => {
     const result = await readContract(config, {
       abi: contractABI,
-      address: "0x54BC69D76B91c8E192832BAED212866938a73e26",
+      address: "0xb92Bc21e9E8b5Ce6F4118F2Ef7809a0e232D3471",
       functionName: currencySCFn[selectedCurrency],
       args: [numberOfChain],
     });
@@ -219,18 +219,18 @@ export default function Presale() {
             </p>
 
             <div className=" my-1 flex flex-col items-center justify-center">
-      <div className="relative w-full bg-[#acacac] h-5 rounded overflow-hidden">
-        <motion.div
-          className="absolute left-0 top-0 h-full bg-[#cc3cd9]"
-          initial={{ width: 0 }}
-          animate={{ width: `${width}%` }}
-          transition={{ duration: 2 }}
-        />
-        <div className="absolute inset-0 flex justify-center items-center">
-          <span className="text-white text-sm font-bold">{`${width}%`}</span>
-        </div>
-      </div>
-    </div>
+              <div className="relative w-full bg-[#acacac] h-5 rounded overflow-hidden">
+                <motion.div
+                  className="absolute left-0 top-0 h-full bg-[#cc3cd9]"
+                  initial={{ width: 0 }}
+                  animate={{ width: `${width}%` }}
+                  transition={{ duration: 2 }}
+                />
+                <div className="absolute inset-0 flex justify-center items-center">
+                  <span className="text-white text-sm font-bold">{`${width}%`}</span>
+                </div>
+              </div>
+            </div>
 
             {/* <div className=" h-1 w-full bg-[#cc3cd9] rounded-full" /> */}
             <h1 className="text-center text-sm md:text-base font-medium">
@@ -254,11 +254,10 @@ export default function Presale() {
 
             <div className="grid grid-cols-2 text-base md:text-lg font-medium mt-4">
               <button
-                className={`flex items-center gap-2 justify-center py-2  border-b-2 ${
-                  tab === "crypto"
-                    ? "text-[#cc3cd9] border-[#cc3cd9]"
-                    : "border-[#FFFFFF1A]"
-                } `}
+                className={`flex items-center gap-2 justify-center py-2  border-b-2 ${tab === "crypto"
+                  ? "text-[#cc3cd9] border-[#cc3cd9]"
+                  : "border-[#FFFFFF1A]"
+                  } `}
                 onClick={() => setTab("crypto")}
               >
                 <span className="text-xl">
@@ -267,11 +266,10 @@ export default function Presale() {
                 Crypto
               </button>
               <button
-                className={`flex items-center gap-2 justify-center py-2 border-b-2 ${
-                  tab === "credit"
-                    ? "text-[#cc3cd9]  border-[#cc3cd9]"
-                    : "border-[#FFFFFF1A]"
-                } `}
+                className={`flex items-center gap-2 justify-center py-2 border-b-2 ${tab === "credit"
+                  ? "text-[#cc3cd9]  border-[#cc3cd9]"
+                  : "border-[#FFFFFF1A]"
+                  } `}
                 onClick={() => setTab("credit")}
               >
                 <span className="text-xl">
@@ -286,11 +284,10 @@ export default function Presale() {
                 <form onSubmit={handleSubmit}>
                   <div className="relative inline-block w-full">
                     <div
-                      className={`block w-full p-3 md:p-4 text-base flex items-center justify-between border-2 rounded-lg bg-black  ${
-                        chainOpen === false
-                          ? "border-[#FFFFFF1A]"
-                          : "border-[#cc3cd9]"
-                      }`}
+                      className={`block w-full p-3 md:p-4 text-base flex items-center justify-between border-2 rounded-lg bg-black  ${chainOpen === false
+                        ? "border-[#FFFFFF1A]"
+                        : "border-[#cc3cd9]"
+                        }`}
                       onClick={() => setChainOpen(!chainOpen)}
                     >
                       <div className="flex items-center">
@@ -309,17 +306,15 @@ export default function Presale() {
                         )}
                       </div>
                       <span
-                        className={`tezt-2xl ${
-                          chainOpen === false ? "rotate-0" : "rotate-180"
-                        }`}
+                        className={`tezt-2xl ${chainOpen === false ? "rotate-0" : "rotate-180"
+                          }`}
                       >
                         <FaAngleDown />
                       </span>
                     </div>
                     <ul
-                      className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1  overflow-y-scroll ${
-                        chainOpen === false ? "hidden" : "block"
-                      }`}
+                      className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1  overflow-y-scroll ${chainOpen === false ? "hidden" : "block"
+                        }`}
                     >
                       {chain.map((item) => (
                         <li
@@ -364,9 +359,8 @@ export default function Presale() {
                           />
                         )}
                         <span
-                          className={`text-2xl ${
-                            CurrencyOpen === false ? "rotate-0" : "rotate-180"
-                          }`}
+                          className={`text-2xl ${CurrencyOpen === false ? "rotate-0" : "rotate-180"
+                            }`}
                         >
                           <FaAngleDown />
                         </span>
@@ -380,9 +374,8 @@ export default function Presale() {
                       />
                     </div>
                     <ul
-                      className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1 overflow-y-scroll ${
-                        CurrencyOpen === false ? "hidden" : "block"
-                      }`}
+                      className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1 overflow-y-scroll ${CurrencyOpen === false ? "hidden" : "block"
+                        }`}
                     >
                       {Currency.map((country) => (
                         <li
@@ -459,9 +452,8 @@ export default function Presale() {
                           />
                         )}
                         <span
-                          className={`text-2xl ${
-                            countryOpen === false ? "rotate-0" : "rotate-180"
-                          }`}
+                          className={`text-2xl ${countryOpen === false ? "rotate-0" : "rotate-180"
+                            }`}
                         >
                           <FaAngleDown />
                         </span>
@@ -475,9 +467,8 @@ export default function Presale() {
                       />
                     </div>
                     <ul
-                      className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1 overflow-y-scroll ${
-                        CurrencyOpen === false ? "hidden" : "block"
-                      }`}
+                      className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1 overflow-y-scroll ${CurrencyOpen === false ? "hidden" : "block"
+                        }`}
                     >
                       {country.map((country) => (
                         <li
@@ -532,16 +523,16 @@ export default function Presale() {
             </div> */}
           </div>
           <div className="bg-[#0f0f11] rounded-lg flex items-center  text-sm md:text-base gap-2 justify-center  py-4 mt-4">
-          <Image
-                      src={logo}
-                      alt="logo"
-                      className="w-7 h-7 rounded-full"
-                      width={100}
-                      height={100}
-                      priority
-                    />{" "}
+            <Image
+              src={logo}
+              alt="logo"
+              className="w-7 h-7 rounded-full"
+              width={100}
+              height={100}
+              priority
+            />{" "}
             Your Rebel Count
-          </div> 
+          </div>
         </div>
       </div>
     </>
