@@ -7,7 +7,9 @@ import NavBar from "@/components/NavBar";
 import Presale from "@/components/Presale";
 import RoadMap from "@/components/RoadMap";
 import Tokenomic from "@/components/Tokenomic";
+import UpScrolbutton from "@/components/UpScrolbutton";
 import Why from "@/components/Why";
+import { FaUpRightFromSquare } from "react-icons/fa6";
 
 
 
@@ -18,7 +20,7 @@ export default function Home() {
     <>
 
       {/* <Provider/> */}
-      <div className=' w-full '>
+      <div className='relative w-full '>
         <NavBar />
 
         <div className="fixed  z-50  rainbow-gradient-circle "></div>
@@ -66,6 +68,7 @@ export default function Home() {
 
 
         <Footer />
+        <UpScrolbutton/>
       </div>
     </>
   );
