@@ -29,7 +29,7 @@ import { contractABI } from "../utils/abi.js";
 import { readContract, simulateContract, writeContract } from "@wagmi/core";
 import HowToBuy from "./HowToBuy";
 import { motion } from "framer-motion";
-
+import { parseUnits,formatUnits } from "ethers";
 export default function Presale() {
   const [tab, setTab] = useState("crypto");
   const { address, isConnected } = useAccount();
@@ -119,26 +119,55 @@ export default function Presale() {
     USDC: "buyTokenUSDC",
   };
 
+  
   const BuyNow = async () => {
-    const args = selectedCurrency !== "BNB" ? [] : [numberOfChain];
-    const { request } = await simulateContract(config, {
-      address: "0xb92Bc21e9E8b5Ce6F4118F2Ef7809a0e232D3471",
-      abi: contractABI,
-      functionName: buySCFn[selectedCurrency],
-      account: address,
-      args,
-    });
-    await writeContract(config, request);
-  };
+    if (!numberOfChain || isNaN(numberOfChain) || Number(numberOfChain) <= 0) {
+        console.error('Invalid number of chains');
+        return;
+    }
+
+    let args = [];
+    let value = undefined;
+
+    if (selectedCurrency.value === "BNB") {
+        value = parseUnits(numberOfChain, 18).toString(); // Convert to string for the transaction
+        args = [value]; // Pass the value as an argument
+    } else {
+        args = [parseUnits(numberOfChain, 18).toString()]; // Convert to string for token amount
+    }
+
+    try {
+        const { request } = await simulateContract({
+            address: "0xb92Bc21e9E8b5Ce6F4118F2Ef7809a0e232D3471",
+            abi: contractABI,
+            functionName: buySCFn[selectedCurrency.value],
+            args:args,
+            account: address,
+        });
+
+        await writeContract({
+            ...request,
+            value: selectedCurrency.value === "BNB" ? value : undefined, // Only set value if it is defined
+        });
+    } catch (error) {
+        console.error('Contract execution error:', error);
+    }
+};
+
+
 
   const currencyAmountSC = async () => {
+    if (!numberOfChain || isNaN(numberOfChain) || Number(numberOfChain) <= 0) {
+      setCurrencyAmount(0);
+      return;
+    }
     const result = await readContract(config, {
       abi: contractABI,
       address: "0xb92Bc21e9E8b5Ce6F4118F2Ef7809a0e232D3471",
-      functionName: currencySCFn[selectedCurrency],
-      args: [numberOfChain],
+      functionName: currencySCFn[selectedCurrency.value],
+      args: [parseUnits(numberOfChain, 18), 0],
     });
-    setCurrencyAmount(result);
+    setCurrencyAmount(formatUnits(result, 18));
   };
 
   useEffect(() => {
