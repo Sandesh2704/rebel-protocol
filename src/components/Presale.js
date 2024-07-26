@@ -26,11 +26,11 @@ import { CustomConnect } from "./CustomConnect";
 import { useAccount } from "wagmi";
 import { config } from "../utils/config";
 import { contractABI } from "../utils/abi.js";
-import {tokenABI} from "../utils/tokenabi.js";
+import { tokenABI } from "../utils/tokenabi.js";
 import { readContract, simulateContract, writeContract } from "@wagmi/core";
 import HowToBuy from "./HowToBuy";
 import { motion } from "framer-motion";
-import { parseUnits,formatUnits , getDefaultProvider, Contract , SigningKey, BrowserProvider , BigNumber} from "ethers";
+import { parseUnits, formatUnits, getDefaultProvider, Contract, SigningKey, BrowserProvider, BigNumber } from "ethers";
 
 export default function Presale() {
   const [tab, setTab] = useState("crypto");
@@ -118,24 +118,35 @@ export default function Presale() {
   const buySCFn = {
     BNB: "buyToken",
     USDT: "buyTokenUSDT",
-    USDC: "buyTokenUSC",
+    USDC: "buyTokenUSDC",
   };
+
 
   const BuyNow = async () => {
     let args = [];
     let value = "0";
-    
+
     // Convert the amount to the appropriate unit based on the selected currency
     if (selectedCurrency.value === "BNB") {
       // Convert the amount to wei for BNB transactions
       const weiEquivalent = parseUnits(numberOfChain.toString(), 'ether');
       args = [weiEquivalent];
       value = weiEquivalent; // Set the value to send with the transaction, as BNB transactions are payable
-    } else {  
-      args = numberOfChain.toString();
-      }
-     
-  
+    } else {
+      args = [parseUnits(numberOfChain.toString(), 18)];
+    }
+
+    // Ensure address and selectedCurrency are defined
+    if (!address || !selectedCurrency.value) {
+      throw new Error('Address or selected currency is not defined');
+    }
+
+    // Log the current state
+    console.log("Address:", address);
+    console.log("Selected Currency:", selectedCurrency.value);
+    console.log("Args:", args);
+    console.log("Value:", value);
+
     try {
       // Simulate the contract transaction to ensure it's likely to succeed
       const { request } = await simulateContract(config, {
@@ -146,15 +157,64 @@ export default function Presale() {
         args,
         value,
       });
-  
+
       // Execute the transaction
       await writeContract(config, request);
     } catch (error) {
-      console.error("Failed to execute BuyNow transaction:", error);
+      console.error("Failed to execute BuyNow transaction:", error.message);
       // Handle errors appropriately in your UI here
+      if (error.name === 'AbiFunctionNotFoundError') {
+        console.error("Function not found in ABI");
+      }
     }
   };
-  
+
+  // const BuyNow = async () => {
+  //   let args = [];
+  //   let value = "0";
+
+  //   // Convert the amount to the appropriate unit based on the selected currency
+  //   if (selectedCurrency.value === "BNB") {
+  //     // Convert the amount to wei for BNB transactions
+  //     const weiEquivalent = parseUnits(numberOfChain.toString(), 'ether');
+  //     args = [weiEquivalent];
+  //     value = weiEquivalent; // Set the value to send with the transaction, as BNB transactions are payable
+  //   } else {
+  //     args = numberOfChain.toString();
+  //   }
+
+
+  //   try {
+
+  //     // update     // Ensure address and selectedCurrency are defined
+  //     if (!address || !selectedCurrency.value) {
+  //       throw new Error('Address or selected currency is not defined');
+  //     }
+
+  //     // Log the current state
+  //     console.log("Address:", address);
+  //     console.log("Selected Currency:", selectedCurrency.value);
+  //     console.log("Args:", args);
+  //     console.log("Value:", value);
+  //     // Simulate the contract transaction to ensure it's likely to succeed
+  //     const { request } = await simulateContract(config, {
+  //       address: "0x4Da52cB50C7D89A67431C43ec843AabdE97EcbA2",
+  //       abi: contractABI,
+  //       functionName: buySCFn[selectedCurrency.value],
+  //       account: address,
+  //       args,
+  //       value,
+  //     });
+
+  //     // Execute the transaction
+  //     await writeContract(config, request);
+  //   } catch (error) {
+  //     console.error("Failed to execute BuyNow transaction:", error);
+  //     // Handle errors appropriately in your UI here
+  //   }
+  // };
+
+
 
   const currencyAmountSC = async () => {
     let args = [];
@@ -164,30 +224,42 @@ export default function Presale() {
     }
     if (selectedCurrency.value === "BNB") {
       args = [parseUnits(numberOfChain, 18), 0]
+      // args = [parseUnits(numberOfChain, 18)]
+
     } else {
-      args = [numberOfChain,0]
+      args = [numberOfChain, 0]
     }
-    
+
     const result = await readContract(config, {
       abi: contractABI,
       address: "0x4Da52cB50C7D89A67431C43ec843AabdE97EcbA2",
       functionName: currencySCFn[selectedCurrency.value],
       args: args,
     });
-    if (selectedCurrency.value === "BNB"){
+    if (selectedCurrency.value === "BNB") {
       setCurrencyAmount(formatUnits(result, 18));
-    }else{
+    } else {
       setCurrencyAmount(formatUnits(result, 12));
     }
-    
+
   };
+
 
   useEffect(() => {
     if (isConnected) {
+      console.log("Address:", address);
+      console.log("Selected Currency:", selectedCurrency.value);
       currencyAmountSC();
-      console.log(currencyAmount);
+      console.log("Currency Amount:", currencyAmount);
     }
-  }, [selectedCurrency, numberOfChain]);
+  }, [selectedCurrency, numberOfChain, isConnected, address]);
+
+  // useEffect(() => {
+  //   if (isConnected) {
+  //     currencyAmountSC();
+  //     console.log(currencyAmount);
+  //   }
+  // }, [selectedCurrency, numberOfChain]);
 
   const [popover, setPopover] = useState(false);
   const togglehandler = () => {
