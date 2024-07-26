@@ -133,7 +133,8 @@ export default function Presale() {
       args = [weiEquivalent];
       value = weiEquivalent; // Set the value to send with the transaction, as BNB transactions are payable
     } else {
-      args = [parseUnits(numberOfChain.toString(), 18)];
+      // args = [parseUnits(numberOfChain.toString(), 18)];
+      args = [parseUnits(numberOfChain.toString(), 6)];
     }
 
     // Ensure address and selectedCurrency are defined
@@ -223,11 +224,12 @@ export default function Presale() {
       return;
     }
     if (selectedCurrency.value === "BNB") {
-      args = [parseUnits(numberOfChain, 18), 0]
+      args = [parseUnits(numberOfChain, 18), 2]
       // args = [parseUnits(numberOfChain, 18)]
 
     } else {
-      args = [numberOfChain, 0]
+      args = [numberOfChain, 2]
+      // args = [parseUnits(numberOfChain, 6), 2]
     }
 
     const result = await readContract(config, {
