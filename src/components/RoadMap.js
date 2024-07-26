@@ -8,7 +8,7 @@ export default function RoadMap() {
   const timelineSteps = [
     {
       year: 'Q3 2024',
-      points: ['White paper', 'Dashboard', 'Private sale', 'Presale', 'Public sale'],
+      points: ['White paper', 'Dashboard',  'Presale', ],
       position: 'bottom'
     },
     {
