@@ -26,10 +26,12 @@ import { CustomConnect } from "./CustomConnect";
 import { useAccount } from "wagmi";
 import { config } from "../utils/config";
 import { contractABI } from "../utils/abi.js";
+import {tokenABI} from "../utils/tokenabi.js";
 import { readContract, simulateContract, writeContract } from "@wagmi/core";
 import HowToBuy from "./HowToBuy";
 import { motion } from "framer-motion";
-import { parseUnits,formatUnits } from "ethers";
+import { parseUnits,formatUnits , getDefaultProvider, Contract , SigningKey, BrowserProvider , BigNumber} from "ethers";
+
 export default function Presale() {
   const [tab, setTab] = useState("crypto");
   const { address, isConnected } = useAccount();
@@ -90,7 +92,7 @@ export default function Presale() {
   const [CurrencyOpen, setCurrencyOpen] = useState(false);
   const [selectedCurrency, SetSelectedCurrency] = useState(Currency[0]);
   const [numberOfChain, setNumberOfChain] = useState("");
-
+  console.log(numberOfChain);
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(`Selected Currency value: ${selectedCurrency.value}`);
@@ -116,58 +118,68 @@ export default function Presale() {
   const buySCFn = {
     BNB: "buyToken",
     USDT: "buyTokenUSDT",
-    USDC: "buyTokenUSDC",
+    USDC: "buyTokenUSC",
   };
 
-  
   const BuyNow = async () => {
-    if (!numberOfChain || isNaN(numberOfChain) || Number(numberOfChain) <= 0) {
-        console.error('Invalid number of chains');
-        return;
-    }
-
     let args = [];
-    let value = undefined;
-
+    let value = "0";
+    
+    // Convert the amount to the appropriate unit based on the selected currency
     if (selectedCurrency.value === "BNB") {
-        value = parseUnits(numberOfChain, 18).toString(); // Convert to string for the transaction
-        args = [value]; // Pass the value as an argument
-    } else {
-        args = [parseUnits(numberOfChain, 18).toString()]; // Convert to string for token amount
-    }
-
+      // Convert the amount to wei for BNB transactions
+      const weiEquivalent = parseUnits(numberOfChain.toString(), 'ether');
+      args = [weiEquivalent];
+      value = weiEquivalent; // Set the value to send with the transaction, as BNB transactions are payable
+    } else {  
+      args = numberOfChain.toString();
+      }
+     
+  
     try {
-        const { request } = await simulateContract({
-            address: "0xb92Bc21e9E8b5Ce6F4118F2Ef7809a0e232D3471",
-            abi: contractABI,
-            functionName: buySCFn[selectedCurrency.value],
-            args:args,
-            account: address,
-        });
-
-        await writeContract({
-            ...request,
-            value: selectedCurrency.value === "BNB" ? value : undefined, // Only set value if it is defined
-        });
+      // Simulate the contract transaction to ensure it's likely to succeed
+      const { request } = await simulateContract(config, {
+        address: "0x4Da52cB50C7D89A67431C43ec843AabdE97EcbA2",
+        abi: contractABI,
+        functionName: buySCFn[selectedCurrency.value],
+        account: address,
+        args,
+        value,
+      });
+  
+      // Execute the transaction
+      await writeContract(config, request);
     } catch (error) {
-        console.error('Contract execution error:', error);
+      console.error("Failed to execute BuyNow transaction:", error);
+      // Handle errors appropriately in your UI here
     }
-};
-
-
+  };
+  
 
   const currencyAmountSC = async () => {
+    let args = [];
     if (!numberOfChain || isNaN(numberOfChain) || Number(numberOfChain) <= 0) {
       setCurrencyAmount(0);
       return;
     }
+    if (selectedCurrency.value === "BNB") {
+      args = [parseUnits(numberOfChain, 18), 0]
+    } else {
+      args = [numberOfChain,0]
+    }
+    
     const result = await readContract(config, {
       abi: contractABI,
-      address: "0xb92Bc21e9E8b5Ce6F4118F2Ef7809a0e232D3471",
+      address: "0x4Da52cB50C7D89A67431C43ec843AabdE97EcbA2",
       functionName: currencySCFn[selectedCurrency.value],
-      args: [parseUnits(numberOfChain, 18), 0],
+      args: args,
     });
-    setCurrencyAmount(formatUnits(result, 18));
+    if (selectedCurrency.value === "BNB"){
+      setCurrencyAmount(formatUnits(result, 18));
+    }else{
+      setCurrencyAmount(formatUnits(result, 12));
+    }
+    
   };
 
   useEffect(() => {
