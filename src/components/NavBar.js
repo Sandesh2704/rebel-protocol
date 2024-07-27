@@ -29,10 +29,10 @@ export default function NavBar() {
             <ScrollLink to="section4" smooth={true} duration={500}  className="hover:text-[#cc3cd9]">Tokenomic</ScrollLink>
             <ScrollLink to="section5" smooth={true} duration={500}  className="hover:text-[#cc3cd9]">Roadmap</ScrollLink>
             <ScrollLink to="section6" smooth={true} duration={500}  className="hover:text-[#cc3cd9]">Presale</ScrollLink>
-            <Link smooth={true} duration={500} href="https://app.gitbook.com/o/ioClQ7WLvbjNjU7qZrL0/s/xjyEG72qduPrWHW4ogEE/" target="_blanks"  className="hover:text-[#cc3cd9]">WhitePaper</Link>
+            <a href="https://app.gitbook.com/o/ioClQ7WLvbjNjU7qZrL0/s/xjyEG72qduPrWHW4ogEE/" target="_blanks"  className="hover:text-[#cc3cd9]">WhitePaper</a>
              <div className="flex items-center space-x-7">
-              <Link href="https://t.me/rebelprotocol" target="_blank" className="hover:text-[#cc3cd9] text-2xl"><FaTelegram/></Link>
-              <Link  href="https://x.com/rebelprotocol" target="_blank"  className="hover:text-[#cc3cd9] text-2xl"><FaSquareXTwitter/></Link>
+              <a href="https://t.me/rebelprotocol" target="_blank" className="hover:text-[#cc3cd9] text-2xl"><FaTelegram/></a>
+              <a  href="https://x.com/rebelprotocol" target="_blank"  className="hover:text-[#cc3cd9] text-2xl"><FaSquareXTwitter/></a>
               </div>
             </div>
  
@@ -58,10 +58,10 @@ export default function NavBar() {
             <ScrollLink to="section4" smooth={true} duration={500} href="tokenomic1"className="hover:text-[#cc3cd9] py-2" style={{ borderBottom: '1px solid hsla(0, 0%, 100%, 0.1)'}} onClick={toggleMobileMenu}>Tokenomic</ScrollLink>
             <ScrollLink to="section5" smooth={true} duration={500} href="roadmap" className="hover:text-[#cc3cd9] py-2" style={{ borderBottom: '1px solid hsla(0, 0%, 100%, 0.1)'}} onClick={toggleMobileMenu}>Roadmap</ScrollLink>
             <ScrollLink to="section6" smooth={true} duration={500} href="presale" className="hover:text-[#cc3cd9] py-2" style={{ borderBottom: '1px solid hsla(0, 0%, 100%, 0.1)'}} onClick={toggleMobileMenu}>Presale</ScrollLink>
-            <Link  href="https://app.gitbook.com/o/ioClQ7WLvbjNjU7qZrL0/s/xjyEG72qduPrWHW4ogEE/" target="_blanks"  className="hover:text-[#cc3cd9] py-2" style={{ borderBottom: '1px solid hsla(0, 0%, 100%, 0.1)'}}onClick={toggleMobileMenu}>WhitePaper</Link>
+            <a  href="https://app.gitbook.com/o/ioClQ7WLvbjNjU7qZrL0/s/xjyEG72qduPrWHW4ogEE/" target="_blanks"  className="hover:text-[#cc3cd9] py-2" style={{ borderBottom: '1px solid hsla(0, 0%, 100%, 0.1)'}}onClick={toggleMobileMenu}>WhitePaper</a>
              <div className="flex items-center space-x-5 py-4 justify-center">
-              <Link href="https://t.me/rebelprotocol" target="_blank" className="hover:text-[#cc3cd9] text-3xl"><FaTelegram/></Link>
-              <Link  href="https://x.com/rebelprotocol"target="_blank" className="hover:text-[#cc3cd9] text-3xl"><FaSquareXTwitter/></Link>
+              <a href="https://t.me/rebelprotocol" target="_blank" className="hover:text-[#cc3cd9] text-3xl"><FaTelegram/></a>
+              <a  href="https://x.com/rebelprotocol"target="_blank" className="hover:text-[#cc3cd9] text-3xl"><FaSquareXTwitter/></a>
               </div>
             </div>
           </div>

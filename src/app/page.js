@@ -30,7 +30,7 @@ export default function Home() {
           <Heropage />
         </div>
 
-        <div className='relative flex flex-col px-3 sm:px-7 lg:px-16  xl:px-28 overflow-hidden   py-16 gap-y-16 md:gap-y-20 xl:gap-y-24'>
+        <div className='relative flex flex-col px-3 sm:px-7 lg:px-16  xl:px-28 overflow-hidden gap-y-16 md:gap-y-20 xl:gap-y-24'>
           <div id='section6'>
             <Presale />
           </div>
@@ -58,8 +58,8 @@ export default function Home() {
             </h1>
             <Tokenomic />
           </div>
-          <div id='section5'>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-white mb-8  md:pb-20">
+          <div id='section5 '>
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-white mb-8 md:mb-10 lg:pb-20">
               RoadMap
             </h1>
             <RoadMap />

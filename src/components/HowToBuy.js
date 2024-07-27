@@ -23,7 +23,7 @@ export default function HowToBuy({ togglehandler }) {
     {
       number: 'STEP2',
       title: 'SWAP',
-      content: "Next, you'll need some cryptocurrency to make your purchase. You can use ETH, BNB, MATIC, ARB, AVAX, OP, USDT, or USDC. Ensure you have enough funds in your wallet to cover both the purchase and any transaction fees. You can deposit funds or buy cryptocurrency directly within Best Wallet or any compatible wallet."
+      content: "Next, you'll need some cryptocurrency to make your purchase. You can use BNB, USDT, or USDC. Ensure you have enough funds in your wallet to cover both the purchase and any transaction fees. You can deposit funds or buy cryptocurrency directly within Best Wallet or any compatible wallet."
     },
     {
       number: 'STEP3',
@@ -39,7 +39,7 @@ export default function HowToBuy({ togglehandler }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const settings = {
-    dots: true,
+    dots: false,
     infinite: false,
     speed: 500,
     slidesToShow: 1,
@@ -64,16 +64,16 @@ export default function HowToBuy({ togglehandler }) {
           </div>
 
           <div className="">
-            <Slider ref={c => (sliderRef = c)} {...settings}>
+            <Slider ref={c => (sliderRef = c)} {...settings} className="lg:p-2">
               {StepsData.map((step, index) => (
-                <div key={index} className="p-4 border-2 border-stone-600 h-52 mt-3">
+                <div key={index} className="p-2 lg:p-4 border-2 border-stone-600 h-72 md:h-52 mt-3">
                   <div className="flex text-xl  gap-2">
                     {
                       step.number && <span className="text-stone-500">{step.number} - </span>
                     }
                     <span className=" text-white "> {step.title}</span>
                   </div>
-                  <p className="text-sm text-gray-300 font-medium mt-2">{step.content}</p>
+                  <p className="text-sm text-gray-300 font-medium my-2">{step.content}</p>
                 </div>
               ))}
             </Slider>

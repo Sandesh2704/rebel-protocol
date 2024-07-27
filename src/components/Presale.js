@@ -252,35 +252,17 @@ export default function Presale() {
             </div>
             {popover && <HowToBuy togglehandler={togglehandler} />}
 
-            <div className="grid grid-cols-2 text-base md:text-lg font-medium mt-4">
-              <button
-                className={`flex items-center gap-2 justify-center py-2  border-b-2 ${tab === "crypto"
-                  ? "text-[#cc3cd9] border-[#cc3cd9]"
-                  : "border-[#FFFFFF1A]"
-                  } `}
-                onClick={() => setTab("crypto")}
+              <div
+                className={`text-base md:text-lg font-medium mt-4 flex justify-center w-full items-center gap-2 justify-center py-2 text-[#cc3cd9] border-[#cc3cd9] border-b-2`}
               >
                 <span className="text-xl">
                   <FaBitcoin />{" "}
                 </span>{" "}
                 Crypto
-              </button>
-              <button
-                className={`flex items-center gap-2 justify-center py-2 border-b-2 ${tab === "credit"
-                  ? "text-[#cc3cd9]  border-[#cc3cd9]"
-                  : "border-[#FFFFFF1A]"
-                  } `}
-                onClick={() => setTab("credit")}
-              >
-                <span className="text-xl">
-                  <BsFillCreditCard2FrontFill />{" "}
-                </span>{" "}
-                Credit Card
-              </button>
-            </div>
+              </div>
+
 
             <div className="mt-6">
-              {tab === "crypto" && (
                 <form onSubmit={handleSubmit}>
                   <div className="relative inline-block w-full">
                     <div
@@ -306,7 +288,7 @@ export default function Presale() {
                         )}
                       </div>
                       <span
-                        className={`tezt-2xl ${chainOpen === false ? "rotate-0" : "rotate-180"
+                        className={`text-lg ${chainOpen === false ? "rotate-0" : "rotate-180"
                           }`}
                       >
                         <FaAngleDown />
@@ -359,7 +341,7 @@ export default function Presale() {
                           />
                         )}
                         <span
-                          className={`text-2xl ${CurrencyOpen === false ? "rotate-0" : "rotate-180"
+                          className={`text-lg ${CurrencyOpen === false ? "rotate-0" : "rotate-180"
                             }`}
                         >
                           <FaAngleDown />
@@ -416,7 +398,7 @@ export default function Presale() {
                       value={currencyAmount}
                       type="number"
                       name="pirce"
-                      className=" bg-black  w-full ml-5  focus:outline-none focus:border-0"
+                      className=" bg-black full ml-5  focus:outline-none focus:border-0"
                     />
                   </div>
                   <CustomConnect />
@@ -431,9 +413,62 @@ export default function Presale() {
                     </button>
                   )}
                 </form>
-              )}
+            
 
-              {tab === "credit" && (
+            </div>
+          </div>
+          <div className="bg-[#0f0f11] rounded-lg flex items-center  text-sm md:text-base gap-2 justify-center  py-4 mt-4">
+            <Image
+              src={logo}
+              alt="logo"
+              className="w-7 h-7 rounded-full"
+              width={100}
+              height={100}
+              priority
+            />{" "}
+            Your Rebel Count
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+const TimeBlock = ({ label, value }) => {
+  return (
+    <div className="text-center">
+      <div className="flex items-center justify-center space-x-0.5 md:space-x-1">
+        {value.split("").map((digit, index) => (
+          <div key={index} className="p-2 lg:p-3 bg-[#cc3cd9] rounded-md">
+            <div className="inset-0 flex items-center justify-center text-2xl md:text-3xl lg:text-5xl font-bold text-white">
+              {digit}
+            </div>
+          </div>
+        ))}
+      </div>
+      <span className="block mt-2 text-xs lg:text-sm font-medium">{label}</span>
+    </div>
+  );
+};
+
+
+
+{/* <button
+                className={`flex items-center gap-2 justify-center py-2 border-b-2 ${tab === "credit"
+                  ? "text-[#cc3cd9]  border-[#cc3cd9]"
+                  : "border-[#FFFFFF1A]"
+                  } `}
+                onClick={() => setTab("credit")}
+              >
+                <span className="text-xl">
+                  <BsFillCreditCard2FrontFill />{" "}
+                </span>{" "}
+                Credit Card
+              </button> */}
+
+
+{/* 
+              {tab == "credit" && (
                 <form onSubmit={BuyNow}>
                   <div className="relative inline-block w-full mt-3 md:mt-4">
                     <div className="flex item-center text-base bg-black rounded-lg border-2 border-[#FFFFFF1A]">
@@ -514,44 +549,4 @@ export default function Presale() {
                     Buy Now
                   </button>
                 </form>
-              )}
-            </div>
-
-            {/* <div className="mt-6 text-center w-full flex justify-center cursor-pointer  border-t-2 border-t-[#FFFFFF1A] py-3 text-sm md:text-base  font-normal">
-            
-              History of your transactions
-            </div> */}
-          </div>
-          <div className="bg-[#0f0f11] rounded-lg flex items-center  text-sm md:text-base gap-2 justify-center  py-4 mt-4">
-            <Image
-              src={logo}
-              alt="logo"
-              className="w-7 h-7 rounded-full"
-              width={100}
-              height={100}
-              priority
-            />{" "}
-            Your Rebel Count
-          </div>
-        </div>
-      </div>
-    </>
-  );
-}
-
-const TimeBlock = ({ label, value }) => {
-  return (
-    <div className="text-center">
-      <div className="flex items-center justify-center space-x-0.5 md:space-x-1">
-        {value.split("").map((digit, index) => (
-          <div key={index} className="p-2 lg:p-3 bg-[#cc3cd9] rounded-md">
-            <div className="inset-0 flex items-center justify-center text-2xl md:text-3xl lg:text-5xl font-bold text-white">
-              {digit}
-            </div>
-          </div>
-        ))}
-      </div>
-      <span className="block mt-2 text-xs lg:text-sm font-medium">{label}</span>
-    </div>
-  );
-};
+              )} */}
