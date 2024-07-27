@@ -30,7 +30,15 @@ import { tokenABI } from "../utils/tokenabi.js";
 import { readContract, simulateContract, writeContract } from "@wagmi/core";
 import HowToBuy from "./HowToBuy";
 import { motion } from "framer-motion";
-import { parseUnits, formatUnits, getDefaultProvider, Contract, SigningKey, BrowserProvider, BigNumber } from "ethers";
+import {
+  parseUnits,
+  formatUnits,
+  getDefaultProvider,
+  Contract,
+  SigningKey,
+  BrowserProvider,
+  BigNumber,
+} from "ethers";
 
 export default function Presale() {
   const [tab, setTab] = useState("crypto");
@@ -92,7 +100,6 @@ export default function Presale() {
   const [CurrencyOpen, setCurrencyOpen] = useState(false);
   const [selectedCurrency, SetSelectedCurrency] = useState(Currency[0]);
   const [numberOfChain, setNumberOfChain] = useState("");
-  console.log(numberOfChain);
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(`Selected Currency value: ${selectedCurrency.value}`);
@@ -108,6 +115,7 @@ export default function Presale() {
   const [selectedCountry, SetSelectedCountry] = useState(country[0]);
   const [countryOpen, setCountryOpen] = useState(false);
   const [currencyAmount, setCurrencyAmount] = useState(0);
+  const [userRebelCount, setUserRebelCount] = useState();
 
   const currencySCFn = {
     BNB: "nativeToToken",
@@ -121,6 +129,17 @@ export default function Presale() {
     USDC: "buyTokenUSDC",
   };
 
+  const getRebelCount = async () => {
+    const result = await readContract(config, {
+      abi: contractABI,
+      address: "0x4Da52cB50C7D89A67431C43ec843AabdE97EcbA2",
+      functionName: "users",
+      args: [address],
+    });
+    const finalResult = result[5 != 0n] ? parseUnits(Number(result[5])) : 0;
+    console.log(finalResult);
+    setUserRebelCount(finalResult);
+  };
 
   const BuyNow = async () => {
     let args = [];
@@ -129,7 +148,7 @@ export default function Presale() {
     // Convert the amount to the appropriate unit based on the selected currency
     if (selectedCurrency.value === "BNB") {
       // Convert the amount to wei for BNB transactions
-      const weiEquivalent = parseUnits(numberOfChain.toString(), 'ether');
+      const weiEquivalent = parseUnits(numberOfChain.toString(), "ether");
       args = [weiEquivalent];
       value = weiEquivalent; // Set the value to send with the transaction, as BNB transactions are payable
     } else {
@@ -139,7 +158,7 @@ export default function Presale() {
 
     // Ensure address and selectedCurrency are defined
     if (!address || !selectedCurrency.value) {
-      throw new Error('Address or selected currency is not defined');
+      throw new Error("Address or selected currency is not defined");
     }
 
     // Log the current state
@@ -164,7 +183,7 @@ export default function Presale() {
     } catch (error) {
       console.error("Failed to execute BuyNow transaction:", error.message);
       // Handle errors appropriately in your UI here
-      if (error.name === 'AbiFunctionNotFoundError') {
+      if (error.name === "AbiFunctionNotFoundError") {
         console.error("Function not found in ABI");
       }
     }
@@ -183,7 +202,6 @@ export default function Presale() {
   //   } else {
   //     args = numberOfChain.toString();
   //   }
-
 
   //   try {
 
@@ -215,8 +233,6 @@ export default function Presale() {
   //   }
   // };
 
-
-
   const currencyAmountSC = async () => {
     let args = [];
     if (!numberOfChain || isNaN(numberOfChain) || Number(numberOfChain) <= 0) {
@@ -224,11 +240,10 @@ export default function Presale() {
       return;
     }
     if (selectedCurrency.value === "BNB") {
-      args = [parseUnits(numberOfChain, 18), 2]
+      args = [parseUnits(numberOfChain, 18), 2];
       // args = [parseUnits(numberOfChain, 18)]
-
     } else {
-      args = [numberOfChain, 2]
+      args = [numberOfChain, 2];
       // args = [parseUnits(numberOfChain, 6), 2]
     }
 
@@ -243,9 +258,7 @@ export default function Presale() {
     } else {
       setCurrencyAmount(formatUnits(result, 12));
     }
-
   };
-
 
   useEffect(() => {
     if (isConnected) {
@@ -269,7 +282,7 @@ export default function Presale() {
   };
 
   const [width, setWidth] = useState(0);
-  const value = 89
+  const value = 89;
   useEffect(() => {
     setWidth(value);
   }, [value]);
@@ -369,10 +382,11 @@ export default function Presale() {
 
             <div className="grid grid-cols-2 text-base md:text-lg font-medium mt-4">
               <button
-                className={`flex items-center gap-2 justify-center py-2  border-b-2 ${tab === "crypto"
-                  ? "text-[#cc3cd9] border-[#cc3cd9]"
-                  : "border-[#FFFFFF1A]"
-                  } `}
+                className={`flex items-center gap-2 justify-center py-2  border-b-2 ${
+                  tab === "crypto"
+                    ? "text-[#cc3cd9] border-[#cc3cd9]"
+                    : "border-[#FFFFFF1A]"
+                } `}
                 onClick={() => setTab("crypto")}
               >
                 <span className="text-xl">
@@ -381,10 +395,11 @@ export default function Presale() {
                 Crypto
               </button>
               <button
-                className={`flex items-center gap-2 justify-center py-2 border-b-2 ${tab === "credit"
-                  ? "text-[#cc3cd9]  border-[#cc3cd9]"
-                  : "border-[#FFFFFF1A]"
-                  } `}
+                className={`flex items-center gap-2 justify-center py-2 border-b-2 ${
+                  tab === "credit"
+                    ? "text-[#cc3cd9]  border-[#cc3cd9]"
+                    : "border-[#FFFFFF1A]"
+                } `}
                 onClick={() => setTab("credit")}
               >
                 <span className="text-xl">
@@ -399,10 +414,11 @@ export default function Presale() {
                 <form onSubmit={handleSubmit}>
                   <div className="relative inline-block w-full">
                     <div
-                      className={`block w-full p-3 md:p-4 text-base flex items-center justify-between border-2 rounded-lg bg-black  ${chainOpen === false
-                        ? "border-[#FFFFFF1A]"
-                        : "border-[#cc3cd9]"
-                        }`}
+                      className={`block w-full p-3 md:p-4 text-base flex items-center justify-between border-2 rounded-lg bg-black  ${
+                        chainOpen === false
+                          ? "border-[#FFFFFF1A]"
+                          : "border-[#cc3cd9]"
+                      }`}
                       onClick={() => setChainOpen(!chainOpen)}
                     >
                       <div className="flex items-center">
@@ -421,15 +437,17 @@ export default function Presale() {
                         )}
                       </div>
                       <span
-                        className={`tezt-2xl ${chainOpen === false ? "rotate-0" : "rotate-180"
-                          }`}
+                        className={`tezt-2xl ${
+                          chainOpen === false ? "rotate-0" : "rotate-180"
+                        }`}
                       >
                         <FaAngleDown />
                       </span>
                     </div>
                     <ul
-                      className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1  overflow-y-scroll ${chainOpen === false ? "hidden" : "block"
-                        }`}
+                      className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1  overflow-y-scroll ${
+                        chainOpen === false ? "hidden" : "block"
+                      }`}
                     >
                       {chain.map((item) => (
                         <li
@@ -474,8 +492,9 @@ export default function Presale() {
                           />
                         )}
                         <span
-                          className={`text-2xl ${CurrencyOpen === false ? "rotate-0" : "rotate-180"
-                            }`}
+                          className={`text-2xl ${
+                            CurrencyOpen === false ? "rotate-0" : "rotate-180"
+                          }`}
                         >
                           <FaAngleDown />
                         </span>
@@ -489,8 +508,9 @@ export default function Presale() {
                       />
                     </div>
                     <ul
-                      className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1 overflow-y-scroll ${CurrencyOpen === false ? "hidden" : "block"
-                        }`}
+                      className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1 overflow-y-scroll ${
+                        CurrencyOpen === false ? "hidden" : "block"
+                      }`}
                     >
                       {Currency.map((country) => (
                         <li
@@ -567,8 +587,9 @@ export default function Presale() {
                           />
                         )}
                         <span
-                          className={`text-2xl ${countryOpen === false ? "rotate-0" : "rotate-180"
-                            }`}
+                          className={`text-2xl ${
+                            countryOpen === false ? "rotate-0" : "rotate-180"
+                          }`}
                         >
                           <FaAngleDown />
                         </span>
@@ -582,8 +603,9 @@ export default function Presale() {
                       />
                     </div>
                     <ul
-                      className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1 overflow-y-scroll ${CurrencyOpen === false ? "hidden" : "block"
-                        }`}
+                      className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1 overflow-y-scroll ${
+                        CurrencyOpen === false ? "hidden" : "block"
+                      }`}
                     >
                       {country.map((country) => (
                         <li
@@ -637,7 +659,10 @@ export default function Presale() {
               History of your transactions
             </div> */}
           </div>
-          <div className="bg-[#0f0f11] rounded-lg flex items-center  text-sm md:text-base gap-2 justify-center  py-4 mt-4">
+          <button
+            onClick={getRebelCount}
+            className="cursor-pointer bg-[#0f0f11] rounded-lg flex items-center w-full  text-sm md:text-base gap-2 justify-center  py-4 mt-4"
+          >
             <Image
               src={logo}
               alt="logo"
@@ -647,6 +672,9 @@ export default function Presale() {
               priority
             />{" "}
             Your Rebel Count
+          </button>
+          <div className="text-center text-md mt-2">
+            {userRebelCount > 0 ? userRebelCount : "0"} Rebel
           </div>
         </div>
       </div>
