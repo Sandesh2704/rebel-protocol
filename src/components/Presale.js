@@ -26,9 +26,11 @@ import { CustomConnect } from "./CustomConnect";
 import { useAccount } from "wagmi";
 import { config } from "../utils/config";
 import { contractABI } from "../utils/abi.js";
+import { tokenABI } from "../utils/tokenabi.js";
 import { readContract, simulateContract, writeContract } from "@wagmi/core";
 import HowToBuy from "./HowToBuy";
 import { motion } from "framer-motion";
+import { parseUnits, formatUnits, getDefaultProvider, Contract, SigningKey, BrowserProvider, BigNumber } from "ethers";
 
 export default function Presale() {
   const [tab, setTab] = useState("crypto");
@@ -90,7 +92,7 @@ export default function Presale() {
   const [CurrencyOpen, setCurrencyOpen] = useState(false);
   const [selectedCurrency, SetSelectedCurrency] = useState(Currency[0]);
   const [numberOfChain, setNumberOfChain] = useState("");
-
+  console.log(numberOfChain);
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(`Selected Currency value: ${selectedCurrency.value}`);
@@ -119,34 +121,147 @@ export default function Presale() {
     USDC: "buyTokenUSDC",
   };
 
+
   const BuyNow = async () => {
-    const args = selectedCurrency !== "BNB" ? [] : [numberOfChain];
-    const { request } = await simulateContract(config, {
-      address: "0xb92Bc21e9E8b5Ce6F4118F2Ef7809a0e232D3471",
-      abi: contractABI,
-      functionName: buySCFn[selectedCurrency],
-      account: address,
-      args,
-    });
-    await writeContract(config, request);
+    let args = [];
+    let value = "0";
+
+    // Convert the amount to the appropriate unit based on the selected currency
+    if (selectedCurrency.value === "BNB") {
+      // Convert the amount to wei for BNB transactions
+      const weiEquivalent = parseUnits(numberOfChain.toString(), 'ether');
+      args = [weiEquivalent];
+      value = weiEquivalent; // Set the value to send with the transaction, as BNB transactions are payable
+    } else {
+      // args = [parseUnits(numberOfChain.toString(), 18)];
+      args = [parseUnits(numberOfChain.toString(), 6)];
+    }
+
+    // Ensure address and selectedCurrency are defined
+    if (!address || !selectedCurrency.value) {
+      throw new Error('Address or selected currency is not defined');
+    }
+
+    // Log the current state
+    console.log("Address:", address);
+    console.log("Selected Currency:", selectedCurrency.value);
+    console.log("Args:", args);
+    console.log("Value:", value);
+
+    try {
+      // Simulate the contract transaction to ensure it's likely to succeed
+      const { request } = await simulateContract(config, {
+        address: "0x4Da52cB50C7D89A67431C43ec843AabdE97EcbA2",
+        abi: contractABI,
+        functionName: buySCFn[selectedCurrency.value],
+        account: address,
+        args,
+        value,
+      });
+
+      // Execute the transaction
+      await writeContract(config, request);
+    } catch (error) {
+      console.error("Failed to execute BuyNow transaction:", error.message);
+      // Handle errors appropriately in your UI here
+      if (error.name === 'AbiFunctionNotFoundError') {
+        console.error("Function not found in ABI");
+      }
+    }
   };
 
+  // const BuyNow = async () => {
+  //   let args = [];
+  //   let value = "0";
+
+  //   // Convert the amount to the appropriate unit based on the selected currency
+  //   if (selectedCurrency.value === "BNB") {
+  //     // Convert the amount to wei for BNB transactions
+  //     const weiEquivalent = parseUnits(numberOfChain.toString(), 'ether');
+  //     args = [weiEquivalent];
+  //     value = weiEquivalent; // Set the value to send with the transaction, as BNB transactions are payable
+  //   } else {
+  //     args = numberOfChain.toString();
+  //   }
+
+
+  //   try {
+
+  //     // update     // Ensure address and selectedCurrency are defined
+  //     if (!address || !selectedCurrency.value) {
+  //       throw new Error('Address or selected currency is not defined');
+  //     }
+
+  //     // Log the current state
+  //     console.log("Address:", address);
+  //     console.log("Selected Currency:", selectedCurrency.value);
+  //     console.log("Args:", args);
+  //     console.log("Value:", value);
+  //     // Simulate the contract transaction to ensure it's likely to succeed
+  //     const { request } = await simulateContract(config, {
+  //       address: "0x4Da52cB50C7D89A67431C43ec843AabdE97EcbA2",
+  //       abi: contractABI,
+  //       functionName: buySCFn[selectedCurrency.value],
+  //       account: address,
+  //       args,
+  //       value,
+  //     });
+
+  //     // Execute the transaction
+  //     await writeContract(config, request);
+  //   } catch (error) {
+  //     console.error("Failed to execute BuyNow transaction:", error);
+  //     // Handle errors appropriately in your UI here
+  //   }
+  // };
+
+
+
   const currencyAmountSC = async () => {
+    let args = [];
+    if (!numberOfChain || isNaN(numberOfChain) || Number(numberOfChain) <= 0) {
+      setCurrencyAmount(0);
+      return;
+    }
+    if (selectedCurrency.value === "BNB") {
+      args = [parseUnits(numberOfChain, 18), 2]
+      // args = [parseUnits(numberOfChain, 18)]
+
+    } else {
+      args = [numberOfChain, 2]
+      // args = [parseUnits(numberOfChain, 6), 2]
+    }
+
     const result = await readContract(config, {
       abi: contractABI,
-      address: "0xb92Bc21e9E8b5Ce6F4118F2Ef7809a0e232D3471",
-      functionName: currencySCFn[selectedCurrency],
-      args: [numberOfChain],
+      address: "0x4Da52cB50C7D89A67431C43ec843AabdE97EcbA2",
+      functionName: currencySCFn[selectedCurrency.value],
+      args: args,
     });
-    setCurrencyAmount(result);
+    if (selectedCurrency.value === "BNB") {
+      setCurrencyAmount(formatUnits(result, 18));
+    } else {
+      setCurrencyAmount(formatUnits(result, 12));
+    }
+
   };
+
 
   useEffect(() => {
     if (isConnected) {
+      console.log("Address:", address);
+      console.log("Selected Currency:", selectedCurrency.value);
       currencyAmountSC();
-      console.log(currencyAmount);
+      console.log("Currency Amount:", currencyAmount);
     }
-  }, [selectedCurrency, numberOfChain]);
+  }, [selectedCurrency, numberOfChain, isConnected, address]);
+
+  // useEffect(() => {
+  //   if (isConnected) {
+  //     currencyAmountSC();
+  //     console.log(currencyAmount);
+  //   }
+  // }, [selectedCurrency, numberOfChain]);
 
   const [popover, setPopover] = useState(false);
   const togglehandler = () => {
