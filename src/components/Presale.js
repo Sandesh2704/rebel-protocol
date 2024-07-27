@@ -30,7 +30,15 @@ import { tokenABI } from "../utils/tokenabi.js";
 import { readContract, simulateContract, writeContract } from "@wagmi/core";
 import HowToBuy from "./HowToBuy";
 import { motion } from "framer-motion";
-import { parseUnits, formatUnits, getDefaultProvider, Contract, SigningKey, BrowserProvider, BigNumber } from "ethers";
+import {
+  parseUnits,
+  formatUnits,
+  getDefaultProvider,
+  Contract,
+  SigningKey,
+  BrowserProvider,
+  BigNumber,
+} from "ethers";
 
 export default function Presale() {
   const [tab, setTab] = useState("crypto");
@@ -92,7 +100,6 @@ export default function Presale() {
   const [CurrencyOpen, setCurrencyOpen] = useState(false);
   const [selectedCurrency, SetSelectedCurrency] = useState(Currency[0]);
   const [numberOfChain, setNumberOfChain] = useState("");
-  console.log(numberOfChain);
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(`Selected Currency value: ${selectedCurrency.value}`);
@@ -108,6 +115,7 @@ export default function Presale() {
   const [selectedCountry, SetSelectedCountry] = useState(country[0]);
   const [countryOpen, setCountryOpen] = useState(false);
   const [currencyAmount, setCurrencyAmount] = useState(0);
+  const [userRebelCount, setUserRebelCount] = useState();
 
   const currencySCFn = {
     BNB: "nativeToToken",
@@ -121,6 +129,18 @@ export default function Presale() {
     USDC: "buyTokenUSDC",
   };
 
+  const getRebelCount = async () => {
+    const result = await readContract(config, {
+      abi: contractABI,
+      address: "0x4Da52cB50C7D89A67431C43ec843AabdE97EcbA2",
+      functionName: "users",
+      args: [address],
+    });
+    console.log(result);
+    const finalResult = result[5] != 0n ? Number((result[5])) / 1e18 : 0;
+    console.log(finalResult);
+    setUserRebelCount(finalResult);
+  };
 
   const BuyNow = async () => {
     let args = [];
@@ -129,7 +149,7 @@ export default function Presale() {
     // Convert the amount to the appropriate unit based on the selected currency
     if (selectedCurrency.value === "BNB") {
       // Convert the amount to wei for BNB transactions
-      const weiEquivalent = parseUnits(numberOfChain.toString(), 'ether');
+      const weiEquivalent = parseUnits(numberOfChain.toString(), "ether");
       args = [weiEquivalent];
       value = weiEquivalent; // Set the value to send with the transaction, as BNB transactions are payable
     } else {
@@ -139,8 +159,22 @@ export default function Presale() {
 
     // Ensure address and selectedCurrency are defined
     if (!address || !selectedCurrency.value) {
-      throw new Error('Address or selected currency is not defined');
+      throw new Error("Address or selected currency is not defined");
     }
+
+    // if (selectedCurrency === "USDT") {
+    //   const { request } = await simulateContract(config, {
+    //     address: "0x7A4E40Fa26ca4A383aa63A8916c4D843502aaE2A ",
+    //     abi: tokenABI,
+    //     functionName: "approve",
+    //     account: address,
+    //     args: ["0x4Da52cB50C7D89A67431C43ec843AabdE97EcbA2", 1000000],
+
+    //   });
+    //   await writeContract(config, request);
+    // }
+
+
 
     // Log the current state
     console.log("Address:", address);
@@ -164,7 +198,7 @@ export default function Presale() {
     } catch (error) {
       console.error("Failed to execute BuyNow transaction:", error.message);
       // Handle errors appropriately in your UI here
-      if (error.name === 'AbiFunctionNotFoundError') {
+      if (error.name === "AbiFunctionNotFoundError") {
         console.error("Function not found in ABI");
       }
     }
@@ -183,7 +217,6 @@ export default function Presale() {
   //   } else {
   //     args = numberOfChain.toString();
   //   }
-
 
   //   try {
 
@@ -215,8 +248,6 @@ export default function Presale() {
   //   }
   // };
 
-
-
   const currencyAmountSC = async () => {
     let args = [];
     if (!numberOfChain || isNaN(numberOfChain) || Number(numberOfChain) <= 0) {
@@ -224,11 +255,10 @@ export default function Presale() {
       return;
     }
     if (selectedCurrency.value === "BNB") {
-      args = [parseUnits(numberOfChain, 18), 2]
+      args = [parseUnits(numberOfChain, 18), 2];
       // args = [parseUnits(numberOfChain, 18)]
-
     } else {
-      args = [numberOfChain, 2]
+      args = [numberOfChain, 2];
       // args = [parseUnits(numberOfChain, 6), 2]
     }
 
@@ -243,9 +273,7 @@ export default function Presale() {
     } else {
       setCurrencyAmount(formatUnits(result, 12));
     }
-
   };
-
 
   useEffect(() => {
     if (isConnected) {
@@ -269,7 +297,7 @@ export default function Presale() {
   };
 
   const [width, setWidth] = useState(0);
-  const value = 89
+  const value = 89;
   useEffect(() => {
     setWidth(value);
   }, [value]);
@@ -368,25 +396,20 @@ export default function Presale() {
             {popover && <HowToBuy togglehandler={togglehandler} />}
 
               <div
-                className={`text-base md:text-lg font-medium mt-4 flex justify-center w-full items-center gap-2 justify-center py-2 text-[#cc3cd9] border-[#cc3cd9] border-b-2`}
+                className={`text-base md:text-lg lg:text-xl font-medium mt-4 flex justify-center w-full items-center gap-2 justify-center py-2 text-[#cc3cd9] border-[#cc3cd9] border-b-2`}
               >
-                <span className="text-xl">
+                <span className="text-2xl">
                   <FaBitcoin />{" "}
                 </span>{" "}
                 Crypto
               </div>
-
+           
 
             <div className="mt-6">
                 <form onSubmit={handleSubmit}>
                   <div className="relative inline-block w-full">
                     <div
-                      className={`block w-full p-3 md:p-4 text-base flex items-center justify-between border-2 rounded-lg bg-black  ${chainOpen === false
-                        ? "border-[#FFFFFF1A]"
-                        : "border-[#cc3cd9]"
-                        }`}
-                      onClick={() => setChainOpen(!chainOpen)}
-                    >
+                      className={`block w-full p-3 md:p-4 text-base flex items-center justify-between border-2 rounded-lg bg-black border-[#cc3cd9]`}                    >
                       <div className="flex items-center">
                         {selectedChain.imgSrc && (
                           <Image
@@ -403,7 +426,7 @@ export default function Presale() {
                         )}
                       </div>
                       <span
-                        className={`text-lg ${chainOpen === false ? "rotate-0" : "rotate-180"
+                        className={`tezt-2xl ${chainOpen === false ? "rotate-0" : "rotate-180"
                           }`}
                       >
                         <FaAngleDown />
@@ -456,7 +479,7 @@ export default function Presale() {
                           />
                         )}
                         <span
-                          className={`text-lg ${CurrencyOpen === false ? "rotate-0" : "rotate-180"
+                          className={`text-base ${CurrencyOpen === false ? "rotate-0" : "rotate-180"
                             }`}
                         >
                           <FaAngleDown />
@@ -513,7 +536,7 @@ export default function Presale() {
                       value={currencyAmount}
                       type="number"
                       name="pirce"
-                      className=" bg-black full ml-5  focus:outline-none focus:border-0"
+                      className=" bg-black  w-full ml-5  focus:outline-none focus:border-0"
                     />
                   </div>
                   <CustomConnect />
@@ -528,11 +551,17 @@ export default function Presale() {
                     </button>
                   )}
                 </form>
-            
-
             </div>
+
+            {/* <div className="mt-6 text-center w-full flex justify-center cursor-pointer  border-t-2 border-t-[#FFFFFF1A] py-3 text-sm md:text-base  font-normal">
+            
+              History of your transactions
+            </div> */}
           </div>
-          <div className="bg-[#0f0f11] rounded-lg flex items-center  text-sm md:text-base gap-2 justify-center  py-4 mt-4">
+          <button
+            onClick={getRebelCount}
+            className="cursor-pointer bg-[#0f0f11] rounded-lg flex items-center w-full  text-sm md:text-base gap-2 justify-center  py-4 mt-4"
+          >
             <Image
               src={logo}
               alt="logo"
@@ -542,6 +571,9 @@ export default function Presale() {
               priority
             />{" "}
             Your Rebel Count
+          </button>
+          <div className="text-center text-md mt-2">
+            {userRebelCount > 0 ? userRebelCount.toFixed(2) : "0"} Rebel
           </div>
         </div>
       </div>
@@ -568,100 +600,86 @@ const TimeBlock = ({ label, value }) => {
 
 
 
-{/* <button
-                className={`flex items-center gap-2 justify-center py-2 border-b-2 ${tab === "credit"
-                  ? "text-[#cc3cd9]  border-[#cc3cd9]"
-                  : "border-[#FFFFFF1A]"
-                  } `}
-                onClick={() => setTab("credit")}
-              >
-                <span className="text-xl">
-                  <BsFillCreditCard2FrontFill />{" "}
-                </span>{" "}
-                Credit Card
-              </button> */}
 
+// {tab === "credit" && (
+//   <form onSubmit={BuyNow}>
+//     <div className="relative inline-block w-full mt-3 md:mt-4">
+//       <div className="flex item-center text-base bg-black rounded-lg border-2 border-[#FFFFFF1A]">
+//         <div
+//           className={`w-fit p-3 md:p-4 flex items-center justify-between`}
+//           onClick={() => setCountryOpen(!countryOpen)}
+//         >
+//           {selectedCountry.imgSrc && (
+//             <Image
+//               src={selectedCountry.imgSrc}
+//               alt={selectedCountry.value}
+//               className="w-8 h-8 mr-2 rounded-full"
+//               width={100}
+//               height={100}
+//               priority
+//             />
+//           )}
+//           <span
+//             className={`text-2xl ${countryOpen === false ? "rotate-0" : "rotate-180"
+//               }`}
+//           >
+//             <FaAngleDown />
+//           </span>
+//         </div>
+//         <input
+//           type="number"
+//           name="numberOfChain"
+//           className="p-3 md:p-4 w-full bg-black border-0 focus:outline-none focus:border-0"
+//           value={numberOfChain}
+//           onChange={(e) => setNumberOfChain(e.target.value)}
+//         />
+//       </div>
+//       <ul
+//         className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1 overflow-y-scroll ${CurrencyOpen === false ? "hidden" : "block"
+//           }`}
+//       >
+//         {country.map((country) => (
+//           <li
+//             key={country.value}
+//             className="flex items-center py-2 px-3 border-b-2 border-b-[#FFFFFF1A] hover:bg-gray-900 cursor-pointer"
+//             onClick={() => {
+//               SetSelectedCountry({
+//                 value: country.value,
+//                 imgSrc: country.imgSrc,
+//               });
+//               setCountryOpen(false);
+//             }}
+//           >
+//             <Image
+//               src={country.imgSrc}
+//               alt={country.value}
+//               className="w-8 h-8 mr-4 rounded-full"
+//               width={100}
+//               height={100}
+//               priority
+//             />
+//             {country.value}
+//           </li>
+//         ))}
+//       </ul>
+//     </div>
 
-{/* 
-              {tab == "credit" && (
-                <form onSubmit={BuyNow}>
-                  <div className="relative inline-block w-full mt-3 md:mt-4">
-                    <div className="flex item-center text-base bg-black rounded-lg border-2 border-[#FFFFFF1A]">
-                      <div
-                        className={`w-fit p-3 md:p-4 flex items-center justify-between`}
-                        onClick={() => setCountryOpen(!countryOpen)}
-                      >
-                        {selectedCountry.imgSrc && (
-                          <Image
-                            src={selectedCountry.imgSrc}
-                            alt={selectedCountry.value}
-                            className="w-8 h-8 mr-2 rounded-full"
-                            width={100}
-                            height={100}
-                            priority
-                          />
-                        )}
-                        <span
-                          className={`text-2xl ${countryOpen === false ? "rotate-0" : "rotate-180"
-                            }`}
-                        >
-                          <FaAngleDown />
-                        </span>
-                      </div>
-                      <input
-                        type="number"
-                        name="numberOfChain"
-                        className="p-3 md:p-4 w-full bg-black border-0 focus:outline-none focus:border-0"
-                        value={numberOfChain}
-                        onChange={(e) => setNumberOfChain(e.target.value)}
-                      />
-                    </div>
-                    <ul
-                      className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1 overflow-y-scroll ${CurrencyOpen === false ? "hidden" : "block"
-                        }`}
-                    >
-                      {country.map((country) => (
-                        <li
-                          key={country.value}
-                          className="flex items-center py-2 px-3 border-b-2 border-b-[#FFFFFF1A] hover:bg-gray-900 cursor-pointer"
-                          onClick={() => {
-                            SetSelectedCountry({
-                              value: country.value,
-                              imgSrc: country.imgSrc,
-                            });
-                            setCountryOpen(false);
-                          }}
-                        >
-                          <Image
-                            src={country.imgSrc}
-                            alt={country.value}
-                            className="w-8 h-8 mr-4 rounded-full"
-                            width={100}
-                            height={100}
-                            priority
-                          />
-                          {country.value}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="flex items-center text-base mt-3 md:mt-4 p-3 md:p-4 bg-black rounded-lg border-2 border-[#FFFFFF1A]">
-                    <Image
-                      src={logo}
-                      alt="logo"
-                      className="w-8 h-8 rounded-full"
-                      width={100}
-                      height={100}
-                      priority
-                    />
-                    <input
-                      type="number"
-                      className=" bg-black  w-full ml-5  focus:outline-none focus:border-0"
-                    />
-                  </div>
-                  <button className="mt-6 text-center w-full rounded-full bg-[#cc3cd9] py-3 text-white text-base md:text-lg  font-medium">
-                    Buy Now
-                  </button>
-                </form>
-              )} */}
+//     <div className="flex items-center text-base mt-3 md:mt-4 p-3 md:p-4 bg-black rounded-lg border-2 border-[#FFFFFF1A]">
+//       <Image
+//         src={logo}
+//         alt="logo"
+//         className="w-8 h-8 rounded-full"
+//         width={100}
+//         height={100}
+//         priority
+//       />
+//       <input
+//         type="number"
+//         className=" bg-black  w-full ml-5  focus:outline-none focus:border-0"
+//       />
+//     </div>
+//     <button className="mt-6 text-center w-full rounded-full bg-[#cc3cd9] py-3 text-white text-base md:text-lg  font-medium">
+//       Buy Now
+//     </button>
+//   </form>
+// )}
