@@ -59,7 +59,7 @@ export default function Home() {
             <Tokenomic />
           </div>
           <div id='section5'>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-white pb-8  md:pb-28">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-white mb-8  md:pb-20">
               RoadMap
             </h1>
             <RoadMap />
