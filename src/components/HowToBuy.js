@@ -32,7 +32,7 @@ export default function HowToBuy({ togglehandler }) {
     },
     {
       title: 'ADDITIONAL INFORMATION',
-      content: "Our platform supports transactions across multiple networks, including Ethereum, BNB Chain, Polygon, Arbitrum, Avalanche, Optimism, and Base. This wide support ensures flexibility and convenience for users, allowing you to choose the network that best suits your needs."
+      content: "Our platform supports transactions across multiple payment options including BNB chain , USDT, USDC. This wide support ensures flexibility and convenience for users, allowing you to choose the payment options that best suits your needs."
     },
   ];
 

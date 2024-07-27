@@ -15,7 +15,7 @@ export default function Tokenomic() {
         <div className='flex justify-center mb-5 '>
           <div className=' px-10 py-3 rounded-lg bg-[#cc3cd9]/10'>
             <h1 className='text-center text-sm text-[#cc3cd9]'>Total Supply</h1>
-            <p className='text-3xl font-semibold text-[#cc3cd9]'>5,000,000,000</p>
+            <p className='text-3xl font-semibold text-[#cc3cd9]'>1,000,000,000</p>
           </div>
         </div>
 
@@ -60,16 +60,16 @@ export default function Tokenomic() {
 
 const Card = ({ text, percentage }) => {
   return (
-    <div className="relative bg-[#0f0f11] rounded-lg shadow-lg p-4 w-full  mb-4">
-      <div className="text-base md:text-base text-white font-semibold">{text}</div>
+    <div className="relative bg-[#cc3cd9]/10 rounded-lg shadow-lg p-4 w-full  mb-4">
+      <div className="text-base md:text-base text-white font-medium">{text}</div>
       <div className="flex items-center mt-2">
-        <div className="w-full bg-fuchsia-200 rounded-full h-2">
+        <div className="w-full bg-[#cc3cd9]/15  rounded-full h-2">
           <div
-            className="bg-[#cc3cd9] h-2 rounded-full"
+            className="bg-fuchsia-700 h-2 rounded-full"
             style={{ width: `${percentage}%` }}
           ></div>
         </div>
-        <div className="ml-4 text-sm md:text-base text-white font-semibold">{percentage}%</div>
+        <div className="ml-4 text-sm md:text-base text-white font-medium">{percentage}%</div>
       </div>
     </div>
   );
