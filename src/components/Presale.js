@@ -136,7 +136,8 @@ export default function Presale() {
       functionName: "users",
       args: [address],
     });
-    const finalResult = result[5 != 0n] ? parseUnits(Number(result[5])) : 0;
+    console.log(result);
+    const finalResult = result[5] != 0n ? Number((result[5])) / 1e18 : 0;
     console.log(finalResult);
     setUserRebelCount(finalResult);
   };
@@ -160,6 +161,20 @@ export default function Presale() {
     if (!address || !selectedCurrency.value) {
       throw new Error("Address or selected currency is not defined");
     }
+
+    // if (selectedCurrency === "USDT") {
+    //   const { request } = await simulateContract(config, {
+    //     address: "0x7A4E40Fa26ca4A383aa63A8916c4D843502aaE2A ",
+    //     abi: tokenABI,
+    //     functionName: "approve",
+    //     account: address,
+    //     args: ["0x4Da52cB50C7D89A67431C43ec843AabdE97EcbA2", 1000000],
+
+    //   });
+    //   await writeContract(config, request);
+    // }
+
+
 
     // Log the current state
     console.log("Address:", address);
@@ -382,11 +397,10 @@ export default function Presale() {
 
             <div className="grid grid-cols-2 text-base md:text-lg font-medium mt-4">
               <button
-                className={`flex items-center gap-2 justify-center py-2  border-b-2 ${
-                  tab === "crypto"
-                    ? "text-[#cc3cd9] border-[#cc3cd9]"
-                    : "border-[#FFFFFF1A]"
-                } `}
+                className={`flex items-center gap-2 justify-center py-2  border-b-2 ${tab === "crypto"
+                  ? "text-[#cc3cd9] border-[#cc3cd9]"
+                  : "border-[#FFFFFF1A]"
+                  } `}
                 onClick={() => setTab("crypto")}
               >
                 <span className="text-xl">
@@ -395,11 +409,10 @@ export default function Presale() {
                 Crypto
               </button>
               <button
-                className={`flex items-center gap-2 justify-center py-2 border-b-2 ${
-                  tab === "credit"
-                    ? "text-[#cc3cd9]  border-[#cc3cd9]"
-                    : "border-[#FFFFFF1A]"
-                } `}
+                className={`flex items-center gap-2 justify-center py-2 border-b-2 ${tab === "credit"
+                  ? "text-[#cc3cd9]  border-[#cc3cd9]"
+                  : "border-[#FFFFFF1A]"
+                  } `}
                 onClick={() => setTab("credit")}
               >
                 <span className="text-xl">
@@ -414,11 +427,10 @@ export default function Presale() {
                 <form onSubmit={handleSubmit}>
                   <div className="relative inline-block w-full">
                     <div
-                      className={`block w-full p-3 md:p-4 text-base flex items-center justify-between border-2 rounded-lg bg-black  ${
-                        chainOpen === false
-                          ? "border-[#FFFFFF1A]"
-                          : "border-[#cc3cd9]"
-                      }`}
+                      className={`block w-full p-3 md:p-4 text-base flex items-center justify-between border-2 rounded-lg bg-black  ${chainOpen === false
+                        ? "border-[#FFFFFF1A]"
+                        : "border-[#cc3cd9]"
+                        }`}
                       onClick={() => setChainOpen(!chainOpen)}
                     >
                       <div className="flex items-center">
@@ -437,17 +449,15 @@ export default function Presale() {
                         )}
                       </div>
                       <span
-                        className={`tezt-2xl ${
-                          chainOpen === false ? "rotate-0" : "rotate-180"
-                        }`}
+                        className={`tezt-2xl ${chainOpen === false ? "rotate-0" : "rotate-180"
+                          }`}
                       >
                         <FaAngleDown />
                       </span>
                     </div>
                     <ul
-                      className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1  overflow-y-scroll ${
-                        chainOpen === false ? "hidden" : "block"
-                      }`}
+                      className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1  overflow-y-scroll ${chainOpen === false ? "hidden" : "block"
+                        }`}
                     >
                       {chain.map((item) => (
                         <li
@@ -492,9 +502,8 @@ export default function Presale() {
                           />
                         )}
                         <span
-                          className={`text-2xl ${
-                            CurrencyOpen === false ? "rotate-0" : "rotate-180"
-                          }`}
+                          className={`text-2xl ${CurrencyOpen === false ? "rotate-0" : "rotate-180"
+                            }`}
                         >
                           <FaAngleDown />
                         </span>
@@ -508,9 +517,8 @@ export default function Presale() {
                       />
                     </div>
                     <ul
-                      className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1 overflow-y-scroll ${
-                        CurrencyOpen === false ? "hidden" : "block"
-                      }`}
+                      className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1 overflow-y-scroll ${CurrencyOpen === false ? "hidden" : "block"
+                        }`}
                     >
                       {Currency.map((country) => (
                         <li
@@ -587,9 +595,8 @@ export default function Presale() {
                           />
                         )}
                         <span
-                          className={`text-2xl ${
-                            countryOpen === false ? "rotate-0" : "rotate-180"
-                          }`}
+                          className={`text-2xl ${countryOpen === false ? "rotate-0" : "rotate-180"
+                            }`}
                         >
                           <FaAngleDown />
                         </span>
@@ -603,9 +610,8 @@ export default function Presale() {
                       />
                     </div>
                     <ul
-                      className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1 overflow-y-scroll ${
-                        CurrencyOpen === false ? "hidden" : "block"
-                      }`}
+                      className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1 overflow-y-scroll ${CurrencyOpen === false ? "hidden" : "block"
+                        }`}
                     >
                       {country.map((country) => (
                         <li
@@ -674,7 +680,7 @@ export default function Presale() {
             Your Rebel Count
           </button>
           <div className="text-center text-md mt-2">
-            {userRebelCount > 0 ? userRebelCount : "0"} Rebel
+            {userRebelCount > 0 ? userRebelCount.toFixed(2) : "0"} Rebel
           </div>
         </div>
       </div>
