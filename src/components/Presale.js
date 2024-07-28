@@ -120,10 +120,7 @@ export default function Presale() {
   const [countryOpen, setCountryOpen] = useState(false);
   const [currencyAmount, setCurrencyAmount] = useState(0);
   const [userRebelCount, setUserRebelCount] = useState();
-  const [totalBNB, setTotalBNB] = useState();
-  const [totalUSDT, setTotalUSDT] = useState();
-  const [totalUSDC, setTotalUSDC] = useState();
-  const [totalPurchasedToken, setTotalPurchasedToken] = useState();
+
 
 
   const currencySCFn = {
