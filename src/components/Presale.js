@@ -173,6 +173,7 @@ export default function Presale() {
     //   });
     //   await writeContract(config, request);
     // }
+    // approval
 
 
 
@@ -395,172 +396,172 @@ export default function Presale() {
             </div>
             {popover && <HowToBuy togglehandler={togglehandler} />}
 
-              <div
-                className={`text-base md:text-lg lg:text-xl font-medium mt-4 flex justify-center w-full items-center gap-2 justify-center py-2 text-[#cc3cd9] border-[#cc3cd9] border-b-2`}
-              >
-                <span className="text-2xl">
-                  <FaBitcoin />{" "}
-                </span>{" "}
-                Crypto
-              </div>
-           
+            <div
+              className={`text-base md:text-lg lg:text-xl font-medium mt-4 flex justify-center w-full items-center gap-2 justify-center py-2 text-[#cc3cd9] border-[#cc3cd9] border-b-2`}
+            >
+              <span className="text-2xl">
+                <FaBitcoin />{" "}
+              </span>{" "}
+              Crypto
+            </div>
+
 
             <div className="mt-6">
-                <form onSubmit={handleSubmit}>
-                  <div className="relative inline-block w-full">
+              <form onSubmit={handleSubmit}>
+                <div className="relative inline-block w-full">
+                  <div
+                    className={`block w-full p-3 md:p-4 text-base flex items-center justify-between border-2 rounded-lg bg-black border-[#cc3cd9]`}                    >
+                    <div className="flex items-center">
+                      {selectedChain.imgSrc && (
+                        <Image
+                          src={selectedChain.imgSrc}
+                          alt={selectedChain.value}
+                          className="w-8 h-8 mr-2 rounded-full"
+                          width={100}
+                          height={100}
+                          priority
+                        />
+                      )}
+                      {selectedChain.value && (
+                        <span>{selectedChain.value}</span>
+                      )}
+                    </div>
+                    <span
+                      className={`tezt-2xl ${chainOpen === false ? "rotate-0" : "rotate-180"
+                        }`}
+                    >
+                      <FaAngleDown />
+                    </span>
+                  </div>
+                  <ul
+                    className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1  overflow-y-scroll ${chainOpen === false ? "hidden" : "block"
+                      }`}
+                  >
+                    {chain.map((item) => (
+                      <li
+                        key={item.value}
+                        className="flex items-center py-2 px-3 border-b-2 border-b-[#FFFFFF1A]  hover:bg-gray-900 cursor-pointer "
+                        onClick={() => {
+                          setSelectedChain({
+                            value: item.value,
+                            imgSrc: item.imgSrc,
+                          });
+                          setChainOpen(false);
+                        }}
+                      >
+                        <Image
+                          src={item.imgSrc}
+                          alt={item.value}
+                          className="w-8 h-8 mr-4 rounded-full"
+                          width={100}
+                          height={100}
+                          priority
+                        />
+                        {item.value}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="relative inline-block w-full mt-3 md:mt-4">
+                  <div className="flex item-center text-base bg-black rounded-lg border-2 border-[#FFFFFF1A]">
                     <div
-                      className={`block w-full p-3 md:p-4 text-base flex items-center justify-between border-2 rounded-lg bg-black border-[#cc3cd9]`}                    >
-                      <div className="flex items-center">
-                        {selectedChain.imgSrc && (
-                          <Image
-                            src={selectedChain.imgSrc}
-                            alt={selectedChain.value}
-                            className="w-8 h-8 mr-2 rounded-full"
-                            width={100}
-                            height={100}
-                            priority
-                          />
-                        )}
-                        {selectedChain.value && (
-                          <span>{selectedChain.value}</span>
-                        )}
-                      </div>
+                      className={`w-fit p-3 md:p-4 flex items-center justify-between`}
+                      onClick={() => setCurrencyOpen(!CurrencyOpen)}
+                    >
+                      {selectedCurrency.imgSrc && (
+                        <Image
+                          src={selectedCurrency.imgSrc}
+                          alt={selectedCurrency.value}
+                          className="w-8 h-8 mr-2 rounded-full"
+                          width={100}
+                          height={100}
+                          priority
+                        />
+                      )}
                       <span
-                        className={`tezt-2xl ${chainOpen === false ? "rotate-0" : "rotate-180"
+                        className={`text-base ${CurrencyOpen === false ? "rotate-0" : "rotate-180"
                           }`}
                       >
                         <FaAngleDown />
                       </span>
                     </div>
-                    <ul
-                      className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1  overflow-y-scroll ${chainOpen === false ? "hidden" : "block"
-                        }`}
-                    >
-                      {chain.map((item) => (
-                        <li
-                          key={item.value}
-                          className="flex items-center py-2 px-3 border-b-2 border-b-[#FFFFFF1A]  hover:bg-gray-900 cursor-pointer "
-                          onClick={() => {
-                            setSelectedChain({
-                              value: item.value,
-                              imgSrc: item.imgSrc,
-                            });
-                            setChainOpen(false);
-                          }}
-                        >
-                          <Image
-                            src={item.imgSrc}
-                            alt={item.value}
-                            className="w-8 h-8 mr-4 rounded-full"
-                            width={100}
-                            height={100}
-                            priority
-                          />
-                          {item.value}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="relative inline-block w-full mt-3 md:mt-4">
-                    <div className="flex item-center text-base bg-black rounded-lg border-2 border-[#FFFFFF1A]">
-                      <div
-                        className={`w-fit p-3 md:p-4 flex items-center justify-between`}
-                        onClick={() => setCurrencyOpen(!CurrencyOpen)}
-                      >
-                        {selectedCurrency.imgSrc && (
-                          <Image
-                            src={selectedCurrency.imgSrc}
-                            alt={selectedCurrency.value}
-                            className="w-8 h-8 mr-2 rounded-full"
-                            width={100}
-                            height={100}
-                            priority
-                          />
-                        )}
-                        <span
-                          className={`text-base ${CurrencyOpen === false ? "rotate-0" : "rotate-180"
-                            }`}
-                        >
-                          <FaAngleDown />
-                        </span>
-                      </div>
-                      <input
-                        type="number"
-                        name="numberOfChain"
-                        className="p-3 md:p-4 w-full bg-black border-0 focus:outline-none focus:border-0"
-                        value={numberOfChain}
-                        onChange={(e) => setNumberOfChain(e.target.value)}
-                      />
-                    </div>
-                    <ul
-                      className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1 overflow-y-scroll ${CurrencyOpen === false ? "hidden" : "block"
-                        }`}
-                    >
-                      {Currency.map((country) => (
-                        <li
-                          key={country.value}
-                          className="flex items-center py-2 px-3 border-b-2 border-b-[#FFFFFF1A] hover:bg-gray-900 cursor-pointer"
-                          onClick={() => {
-                            SetSelectedCurrency({
-                              value: country.value,
-                              imgSrc: country.imgSrc,
-                            });
-                            setCurrencyOpen(false);
-                          }}
-                        >
-                          <Image
-                            src={country.imgSrc}
-                            alt={country.value}
-                            className="w-8 h-8 mr-4 rounded-full"
-                            width={100}
-                            height={100}
-                            priority
-                          />
-                          {country.value}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="flex items-center text-base mt-3 md:mt-4 p-3 md:p-4 bg-black rounded-lg border-2 border-[#FFFFFF1A]">
-                    <Image
-                      src={logo}
-                      alt="logo"
-                      className="w-8 h-8 rounded-full"
-                      width={100}
-                      height={100}
-                      priority
-                    />
                     <input
-                      value={currencyAmount}
                       type="number"
-                      name="pirce"
-                      className=" bg-black  w-full ml-5  focus:outline-none focus:border-0"
+                      name="numberOfChain"
+                      className="p-3 md:p-4 w-full bg-black border-0 focus:outline-none focus:border-0"
+                      value={numberOfChain}
+                      onChange={(e) => setNumberOfChain(e.target.value)}
                     />
                   </div>
-                  <CustomConnect />
+                  <ul
+                    className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1 overflow-y-scroll ${CurrencyOpen === false ? "hidden" : "block"
+                      }`}
+                  >
+                    {Currency.map((country) => (
+                      <li
+                        key={country.value}
+                        className="flex items-center py-2 px-3 border-b-2 border-b-[#FFFFFF1A] hover:bg-gray-900 cursor-pointer"
+                        onClick={() => {
+                          SetSelectedCurrency({
+                            value: country.value,
+                            imgSrc: country.imgSrc,
+                          });
+                          setCurrencyOpen(false);
+                        }}
+                      >
+                        <Image
+                          src={country.imgSrc}
+                          alt={country.value}
+                          className="w-8 h-8 mr-4 rounded-full"
+                          width={100}
+                          height={100}
+                          priority
+                        />
+                        {country.value}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
 
-                  {isConnected && address && (
-                    <button
-                      onClick={BuyNow}
-                      type="button"
-                      className="mt-6 text-center w-full rounded-full bg-[#cc3cd9] py-3 text-white text-base md:text-lg  font-medium"
-                    >
-                      Buy Now
-                    </button>
-                  )}
-                </form>
+                <div className="flex items-center text-base mt-3 md:mt-4 p-3 md:p-4 bg-black rounded-lg border-2 border-[#FFFFFF1A]">
+                  <Image
+                    src={logo}
+                    alt="logo"
+                    className="w-8 h-8 rounded-full"
+                    width={100}
+                    height={100}
+                    priority
+                  />
+                  <input
+                    value={currencyAmount}
+                    type="number"
+                    name="pirce"
+                    className=" bg-black  w-full ml-5  focus:outline-none focus:border-0"
+                  />
+                </div>
+                <CustomConnect />
+
+                {isConnected && address && (
+                  <button
+                    onClick={BuyNow}
+                    type="button"
+                    className="mt-6 text-center w-full rounded-full bg-[#cc3cd9] py-3 text-white text-base md:text-lg  font-medium"
+                  >
+                    Buy Now
+                  </button>
+                )}
+              </form>
             </div>
 
             <div className="mt-6 text-center w-full flex justify-center cursor-pointer  border-t-2 border-t-[#FFFFFF1A] py-3 text-sm md:text-base  font-normal">
-            
+
               History of your transactions
             </div>
 
-<div className=" bg-blue-900 h-7"> 
+            <div className=" bg-blue-900 h-7">
 
-</div>
+            </div>
 
           </div>
           <button
