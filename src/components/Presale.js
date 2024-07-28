@@ -145,11 +145,11 @@ export default function Presale() {
     setUserRebelCount(finalResult);
   };
 
-  const Approve = async (tokenAmount) =>{
+  const Approve = async (tokenAddress , tokenAmount) =>{
     try {
       // Simulate the contract transaction to ensure it's likely to succeed
       const { request } = await simulateContract(config, {
-        address: "0x7A4E40Fa26ca4A383aa63A8916c4D843502aaE2A",
+        address: tokenAddress,
         abi: tokenABI,
         functionName: "approve",
         account: address,
@@ -201,7 +201,15 @@ export default function Presale() {
         value,
       });
 
-      await Approve(args)
+      if (args[0] === parseUnits(numberOfChain.toString(), 6)) {
+        let tokenAddress;
+        if(buySCFn[selectedCurrency.value] === "USDT"){
+          tokenAddress= "0x7A4E40Fa26ca4A383aa63A8916c4D843502aaE2A"; // USDT Address Here
+        }else{
+          tokenAddress="0x7A4E40Fa26ca4A383aa63A8916c4D843502aaE2A"; //USDC Address Here
+        }
+        await Approve(tokenAddress,args);
+      }
       // Execute the transaction
       await writeContract(config, request);
     } catch (error) {
