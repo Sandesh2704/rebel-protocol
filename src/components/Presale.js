@@ -119,6 +119,11 @@ export default function Presale() {
   const [countryOpen, setCountryOpen] = useState(false);
   const [currencyAmount, setCurrencyAmount] = useState(0);
   const [userRebelCount, setUserRebelCount] = useState();
+  const [totalBNB, setTotalBNB] = useState();
+  const [totalUSDT, setTotalUSDT] = useState();
+  const [totalUSDC, setTotalUSDC] = useState();
+  const [totalPurchasedToken, setTotalPurchasedToken] = useState();
+
 
   const currencySCFn = {
     BNB: "nativeToToken",
@@ -318,6 +323,27 @@ export default function Presale() {
   useEffect(() => {
     setWidth(value);
   }, [value]);
+
+
+  const userHistory = async () => {
+    const result = await readContract(config, {
+      abi: contractABI,
+      address: "0x4Da52cB50C7D89A67431C43ec843AabdE97EcbA2",
+      functionName: "users",
+      args: [address],
+    });
+    const bnbResult = result[0] != 0n ? Number((result[0])) / 1e18 : 0;
+    const usdtResult = result[1] != 0n ? Number((result[1])) / 1e6 : 0;
+    const usdcResult = result[2] != 0n ? Number((result[2])) / 1e6 : 0;
+    const totalpurchasedToken = result[5] != 0n ? Number((result[5])) / 1e18 : 0;
+    setTotalBNB(bnbResult);
+    setTotalUSDT(usdtResult);
+    setTotalUSDC(usdcResult);
+    setTotalPurchasedToken(totalpurchasedToken);
+  };
+
+  
+  
 
   return (
     <>
