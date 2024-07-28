@@ -553,10 +553,10 @@ export default function Presale() {
                 </form>
             </div>
 
-            {/* <div className="mt-6 text-center w-full flex justify-center cursor-pointer  border-t-2 border-t-[#FFFFFF1A] py-3 text-sm md:text-base  font-normal">
+            <div className="mt-6 text-center w-full flex justify-center cursor-pointer  border-t-2 border-t-[#FFFFFF1A] py-3 text-sm md:text-base  font-normal">
             
               History of your transactions
-            </div> */}
+            </div>
           </div>
           <button
             onClick={getRebelCount}
@@ -573,7 +573,7 @@ export default function Presale() {
             Your Rebel Count
           </button>
           <div className="text-center text-md mt-2">
-            {userRebelCount > 0 ? userRebelCount.toFixed(2) : "0"} Rebel
+            {userRebelCount > 0 ? userRebelCount.toFixed(2) : "0"} $REB
           </div>
         </div>
       </div>
