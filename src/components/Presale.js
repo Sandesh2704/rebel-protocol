@@ -341,8 +341,6 @@ export default function Presale() {
     setTotalUSDC(usdcResult);
     setTotalPurchasedToken(totalpurchasedToken);
   };
-
-  
   
 
   return (
