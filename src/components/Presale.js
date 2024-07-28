@@ -39,6 +39,7 @@ import {
   BrowserProvider,
   BigNumber,
 } from "ethers";
+import Histroy from "./Histroy";
 
 export default function Presale() {
   const [tab, setTab] = useState("crypto");
@@ -318,6 +319,11 @@ export default function Presale() {
     setPopover(!popover);
   };
 
+  const [histroyPopover, setHistroyPopover] = useState(false);
+  const histroyPopoverHandler = () => {
+    setHistroyPopover(!histroyPopover);
+  };
+
   const [width, setWidth] = useState(0);
   const value = 89;
   useEffect(() => {
@@ -509,66 +515,66 @@ export default function Presale() {
                   </ul>
                 </div>
 
-                <div className="relative inline-block w-full mt-3 md:mt-4">
-                  <div className="flex item-center text-base bg-black rounded-lg border-2 border-[#FFFFFF1A]">
-                    <div
-                      className={`w-fit p-3 md:p-4 flex items-center justify-between`}
-                      onClick={() => setCurrencyOpen(!CurrencyOpen)}
-                    >
-                      {selectedCurrency.imgSrc && (
-                        <Image
-                          src={selectedCurrency.imgSrc}
-                          alt={selectedCurrency.value}
-                          className="w-8 h-8 mr-2 rounded-full"
-                          width={100}
-                          height={100}
-                          priority
-                        />
-                      )}
-                      <span
-                        className={`text-base ${CurrencyOpen === false ? "rotate-0" : "rotate-180"
-                          }`}
+                  <div className="relative inline-block w-full mt-3 md:mt-4">
+                    <div className="flex item-center text-base bg-black rounded-lg border-2 border-[#FFFFFF1A] ">
+                      <div
+                        className={`w-fit p-3 md:p-4 flex items-center justify-between`}
+                        onClick={() => setCurrencyOpen(!CurrencyOpen)}
                       >
-                        <FaAngleDown />
-                      </span>
+                        {selectedCurrency.imgSrc && (
+                          <Image
+                            src={selectedCurrency.imgSrc}
+                            alt={selectedCurrency.value}
+                            className="w-8 h-8 mr-2 rounded-full"
+                            width={100}
+                            height={100}
+                            priority
+                          />
+                        )}
+                        <span
+                          className={`text-base ${CurrencyOpen === false ? "rotate-0" : "rotate-180"
+                            }`}
+                        >
+                          <FaAngleDown />
+                        </span>
+                      </div>
+                      <input
+                        type="number"
+                        name="numberOfChain"
+                        className="p-3 md:p-4 w-full bg-black border-0 focus:outline-none focus:border-0"
+                        value={numberOfChain}
+                        onChange={(e) => setNumberOfChain(e.target.value)}
+                      />
                     </div>
-                    <input
-                      type="number"
-                      name="numberOfChain"
-                      className="p-3 md:p-4 w-full bg-black border-0 focus:outline-none focus:border-0"
-                      value={numberOfChain}
-                      onChange={(e) => setNumberOfChain(e.target.value)}
-                    />
+                    <ul
+                      className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1 overflow-y-scroll ${CurrencyOpen === false ? "hidden" : "block"
+                        }`}
+                    >
+                      {Currency.map((country) => (
+                        <li
+                          key={country.value}
+                          className="flex items-center py-2 px-3 border-b-2 border-b-[#FFFFFF1A] hover:bg-gray-900 cursor-pointer"
+                          onClick={() => {
+                            SetSelectedCurrency({
+                              value: country.value,
+                              imgSrc: country.imgSrc,
+                            });
+                            setCurrencyOpen(false);
+                          }}
+                        >
+                          <Image
+                            src={country.imgSrc}
+                            alt={country.value}
+                            className="w-8 h-8 mr-4 rounded-full"
+                            width={100}
+                            height={100}
+                            priority
+                          />
+                          {country.value}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <ul
-                    className={`absolute z-10 w-full bg-black border-2 border-[#FFFFFF1A] rounded-lg mt-1 overflow-y-scroll ${CurrencyOpen === false ? "hidden" : "block"
-                      }`}
-                  >
-                    {Currency.map((country) => (
-                      <li
-                        key={country.value}
-                        className="flex items-center py-2 px-3 border-b-2 border-b-[#FFFFFF1A] hover:bg-gray-900 cursor-pointer"
-                        onClick={() => {
-                          SetSelectedCurrency({
-                            value: country.value,
-                            imgSrc: country.imgSrc,
-                          });
-                          setCurrencyOpen(false);
-                        }}
-                      >
-                        <Image
-                          src={country.imgSrc}
-                          alt={country.value}
-                          className="w-8 h-8 mr-4 rounded-full"
-                          width={100}
-                          height={100}
-                          priority
-                        />
-                        {country.value}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
 
                 <div className="flex items-center text-base mt-3 md:mt-4 p-3 md:p-4 bg-black rounded-lg border-2 border-[#FFFFFF1A]">
                   <Image
@@ -600,14 +606,11 @@ export default function Presale() {
               </form>
             </div>
 
-            <div className="mt-6 text-center w-full flex justify-center cursor-pointer  border-t-2 border-t-[#FFFFFF1A] py-3 text-sm md:text-base  font-normal">
-
+            <div className="mt-6 text-center w-full flex justify-center cursor-pointer  border-t-2 border-t-[#FFFFFF1A] py-3 text-sm md:text-base  font-normal" onClick={histroyPopoverHandler}>
               History of your transactions
             </div>
+            { histroyPopover  && <Histroy histroyPopoverHandler={histroyPopoverHandler} />}
 
-            <div className=" bg-blue-900 h-7">
-
-            </div>
 
           </div>
           <button
@@ -624,7 +627,7 @@ export default function Presale() {
             />{" "}
             Your Rebel Count
           </button>
-          <div className="text-center text-md mt-2">
+          <div className="text-center bg-[#0f0f11] text-[#cc3cd9] rounded-lg flex text-sm md:text-base  justify-center  py-4 mt-4">
             {userRebelCount > 0 ? userRebelCount.toFixed(2) : "0"} $REB
           </div>
         </div>

@@ -27,7 +27,8 @@ export default function Heropage() {
         </div>
 
 
-    <motion.div
+
+    {/* <motion.div
       className="cube hidden lg:flex  absolute right-2 md:left-5 top-2 lg:top-12 transform -translate-y-1/2"
       animate={{ rotateX: 360, rotateY: 360 }}
       transition={{
@@ -42,7 +43,7 @@ export default function Heropage() {
       <div className="absolute w-16 h-16    border-4 border-[#cc3cd9]  cube__face--left"></div>
       <div className="absolute w-16 h-16    border-4 border-[#cc3cd9]  cube__face--top"></div>
       <div className="absolute w-16 h-16    border-4 border-[#cc3cd9]  cube__face--bottom"></div>
-    </motion.div>
+    </motion.div> */}
 
     <motion.div 
         animate={{

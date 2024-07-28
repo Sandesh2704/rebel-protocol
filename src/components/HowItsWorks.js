@@ -6,12 +6,12 @@ export default function HowItsWorks() {
   const steps = [
     {
       step: 1,
-      title: 'Buy real-world Asset Token ',
+      title: 'Buy real-world asset token',
       description: 'With the Rebel App , you can easily purchase RWA tokens,like Rebel Gold Token , using either crypto or Fiat currency'
     },
     {
       step: 2,
-      title: 'EARN YIELD AND GROW TREASURY',
+      title: 'Earn yield and grow treasury',
       description: 'Add your token to the REBEL Vaults and  earn yield so you can grow your treasury'
     },
     {
@@ -22,9 +22,11 @@ export default function HowItsWorks() {
     {
       step: 4,
       title: 'Redeem your token',
-      description: 'You can redeem your RWA tokens with REBEL for either crypto ,fiat , or the asset it self'
+      description: 'You can redeem your RWA tokens with $REB for either crypto ,fiat , or the asset it self'
     }
   ];
+
+  
   return (
     <>
       <div>
