@@ -39,6 +39,7 @@ import {
   BrowserProvider,
   BigNumber,
 } from "ethers";
+import Histroy from "./Histroy";
 
 export default function Presale() {
   const [tab, setTab] = useState("crypto");
@@ -296,6 +297,11 @@ export default function Presale() {
     setPopover(!popover);
   };
 
+  const [histroyPopover, setHistroyPopover] = useState(false);
+  const histroyPopoverHandler = () => {
+    setHistroyPopover(!histroyPopover);
+  };
+
   const [width, setWidth] = useState(0);
   const value = 89;
   useEffect(() => {
@@ -463,7 +469,7 @@ export default function Presale() {
                   </div>
 
                   <div className="relative inline-block w-full mt-3 md:mt-4">
-                    <div className="flex item-center text-base bg-black rounded-lg border-2 border-[#FFFFFF1A]">
+                    <div className="flex item-center text-base bg-black rounded-lg border-2 border-[#FFFFFF1A] ">
                       <div
                         className={`w-fit p-3 md:p-4 flex items-center justify-between`}
                         onClick={() => setCurrencyOpen(!CurrencyOpen)}
@@ -553,14 +559,11 @@ export default function Presale() {
                 </form>
             </div>
 
-            <div className="mt-6 text-center w-full flex justify-center cursor-pointer  border-t-2 border-t-[#FFFFFF1A] py-3 text-sm md:text-base  font-normal">
-            
+            <div className="mt-6 text-center w-full flex justify-center cursor-pointer  border-t-2 border-t-[#FFFFFF1A] py-3 text-sm md:text-base  font-normal" onClick={histroyPopoverHandler}>
               History of your transactions
             </div>
+            { histroyPopover  && <Histroy histroyPopoverHandler={histroyPopoverHandler} />}
 
-<div className=" bg-blue-900 h-7"> 
-
-</div>
 
           </div>
           <button
@@ -577,7 +580,7 @@ export default function Presale() {
             />{" "}
             Your Rebel Count
           </button>
-          <div className="text-center text-md mt-2">
+          <div className="text-center bg-[#0f0f11] text-[#cc3cd9] rounded-lg flex text-sm md:text-base  justify-center  py-4 mt-4">
             {userRebelCount > 0 ? userRebelCount.toFixed(2) : "0"} $REB
           </div>
         </div>
