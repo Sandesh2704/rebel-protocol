@@ -142,6 +142,23 @@ export default function Presale() {
     setUserRebelCount(finalResult);
   };
 
+  const Approve = async (tokenAmount) =>{
+    try {
+      // Simulate the contract transaction to ensure it's likely to succeed
+      const { request } = await simulateContract(config, {
+        address: "0x7A4E40Fa26ca4A383aa63A8916c4D843502aaE2A",
+        abi: tokenABI,
+        functionName: "approve",
+        account: address,
+        args:["0x4Da52cB50C7D89A67431C43ec843AabdE97EcbA2" , tokenAmount]
+      });
+
+      // Execute the transaction
+      await writeContract(config, request);
+    } catch (error) {
+      console.error("Failed to execute BuyNow transaction:", error.message);
+  }}
+
   const BuyNow = async () => {
     let args = [];
     let value = "0";
@@ -162,19 +179,6 @@ export default function Presale() {
       throw new Error("Address or selected currency is not defined");
     }
 
-    // if (selectedCurrency === "USDT") {
-    //   const { request } = await simulateContract(config, {
-    //     address: "0x7A4E40Fa26ca4A383aa63A8916c4D843502aaE2A ",
-    //     abi: tokenABI,
-    //     functionName: "approve",
-    //     account: address,
-    //     args: ["0x4Da52cB50C7D89A67431C43ec843AabdE97EcbA2", 1000000],
-
-    //   });
-    //   await writeContract(config, request);
-    // }
-    // approval
-
 
 
     // Log the current state
@@ -190,10 +194,11 @@ export default function Presale() {
         abi: contractABI,
         functionName: buySCFn[selectedCurrency.value],
         account: address,
-        args,
+        args:args,
         value,
       });
 
+      await Approve(args)
       // Execute the transaction
       await writeContract(config, request);
     } catch (error) {
