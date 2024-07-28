@@ -23,7 +23,7 @@ import US from "/public/images/otherimages/us_flag.png";
 import Link from "next/link";
 import Image from "next/image";
 import { CustomConnect } from "./CustomConnect";
-import { useAccount } from "wagmi";
+import { useAccount , useDisconnect} from "wagmi";
 import { config } from "../utils/config";
 import { contractABI } from "../utils/abi.js";
 import { tokenABI } from "../utils/tokenabi.js";
@@ -43,7 +43,10 @@ import {
 export default function Presale() {
   const [tab, setTab] = useState("crypto");
   const { address, isConnected } = useAccount();
-
+  const displayAddress = address
+        ? `${address.substring(0, 6)}...${address.substring(address.length - 4)}`
+        : 'No address';
+  const { disconnect } = useDisconnect();
   const [time, setTime] = useState({
     days: 15,
     hours: 24,
@@ -359,9 +362,15 @@ export default function Presale() {
 
         <div className="col-span-12  xl:col-span-6  shadow-lg w-full px-0 sm:px-20 md:px-32 lg:px-20 xl:px-20 ">
           <div className="bg-[#0f0f11] rounded-lg  py-4 px-4 md:px-5">
-            <h1 className="text-center text-xl md:text-2xl font-normal mb-8">
-              Buy <span className="font-bold text-[#cc3cd9]">Rebel</span> Now!
-            </h1>
+          <h1 className="text-center text-xl md:text-2xl font-normal mb-8">
+            <div className="flex justify-center items-center">
+              Buy <span className="font-bold text-[#cc3cd9] ml-2">Rebel</span> Now!
+              <button onClick={disconnect} className="ml-4 py-1 px-3 ">
+                Disconnect
+              </button>
+            </div>
+            <span>{displayAddress}</span>
+          </h1>
             <p className="text-center text-sm md:text-base font-medium">
               USD Raise:{" "}
               <span className="font-extrabold"> $2,079,416 / $2,086,196 </span>
