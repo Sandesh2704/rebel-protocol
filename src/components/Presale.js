@@ -557,6 +557,11 @@ export default function Presale() {
             
               History of your transactions
             </div>
+
+<div className=" bg-blue-900 h-7"> 
+
+</div>
+
           </div>
           <button
             onClick={getRebelCount}
