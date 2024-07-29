@@ -48,7 +48,7 @@ export default function NavBar() {
         <div className='elative  hidden xl:flex space-x-6 font-medium items-center'>
           <ScrollLink to="section1" smooth={true} duration={500} className="hover:text-[#cc3cd9 cursor-pointer">About Us</ScrollLink>
           <ScrollLink to="section2" smooth={true} duration={500} className="hover:text-[#cc3cd9] cursor-pointer">Presale</ScrollLink>
-          <ScrollLink to="section3" smooth={true} duration={500} className="hover:text-[#cc3cd9] cursor-pointer">How it’s Work</ScrollLink>
+          <ScrollLink to="section3" smooth={true} duration={500} className="hover:text-[#cc3cd9] cursor-pointer">How It’s Work</ScrollLink>
           <ScrollLink to="section4" smooth={true} duration={500} className="hover:text-[#cc3cd9] cursor-pointer">Why</ScrollLink>
           <ScrollLink to="section5" smooth={true} duration={500} className="hover:text-[#cc3cd9] cursor-pointer">Tokenomic</ScrollLink>
           <ScrollLink to="section6" smooth={true} duration={500} className="hover:text-[#cc3cd9] cursor-pointer">Roadmap</ScrollLink>
