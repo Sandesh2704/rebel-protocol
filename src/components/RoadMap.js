@@ -18,12 +18,12 @@ export default function RoadMap() {
     },
     {
       year: 'Q1 2025',
-      points: ['Marketing Boost'],
+      points: ['Marketing Boost', 'Rebel Platform Update Feature'],
       position: 'bottom'
     },
     {
       year: 'Q2 2025',
-      points: [`RWA's Expansion II`, 'Dao Implementation', 'Sector Compunds & MultiRWA Token'],
+      points: [`RWA's Expansion II`, 'Dao Implementation', 'Sector Compunds & MultiRWA-Token'],
       position: 'top'
     }
   ];

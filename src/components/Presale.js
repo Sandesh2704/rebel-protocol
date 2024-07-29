@@ -355,9 +355,8 @@ export default function Presale() {
   };
   
 
-  const fullAddress = '0x9F98Ca79a341039761D84CaC32D8B215c0EaEC93';
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(fullAddress).then(
+    navigator.clipboard.writeText(address).then(
       () => {
         alert('Address copied to clipboard!');
       },
@@ -448,10 +447,9 @@ export default function Presale() {
                   height={100}
                   priority />
                 <h1 className="text-[#cc3cd9]  text-base md:text-lg font-semibold break-all">
-                  {fullAddress.slice(0, 23)}...
+                  {address ? address.slice(0, 10) : "No address"}...
                 </h1>
               </div>
-
               <div className="text-lg absolute p-3 right-0 bg-[#cc3cd9]/15 flex items-center h-full rounded-r-lg   cursor-pointer" onClick={copyToClipboard}>
                 <IoCopySharp />
               </div>

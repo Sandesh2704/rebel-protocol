@@ -26,7 +26,7 @@ export default function UpScrolbutton() {
   };
 
   return (
-    <div className='fixed bottom-3 right-3  lg:bottom-6 lg:right-5 '>
+    <div className='fixed bottom-3 right-3 cursor-pointer  lg:bottom-6 lg:right-5 '>
       <span className={`duration-200 shadow-2xl text-2xl  border-2 border-[#cc3cd9] hover:bg-[#cc3cd9] hover:text-black font-semibold text-[#cc3cd9] p-2 lg:p-2 rounded-full  ${isVisible === true ? "flex" : "hidden"}`} onClick={goToTop}>
         <IoArrowUpOutline />
       </span>

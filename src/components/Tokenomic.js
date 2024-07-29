@@ -12,7 +12,7 @@ export default function Tokenomic() {
     <>
 
 
-      <div class="flex flex-col md:grid    md:grid-rows-4 lg:grid-rows-3 grid-flow-col gap-4">
+      <div className="flex flex-col md:grid    md:grid-rows-4 lg:grid-rows-3 grid-flow-col gap-4">
         <Card text="Presale" percentage={15} subtext='40% unlock TGE , 60% vesting 3 month with monthly claim' />
         <Card text="Liquidity" percentage={40} />
         <Card text="Community and user incentives" percentage={15} subtext='20% unlock after 7days TGE , 80% vesting 4month with monthly claim' />
