@@ -7,7 +7,7 @@ import { IoMdClose } from "react-icons/io";
 import { Link, Link as ScrollLink } from 'react-scroll';
 import logo from '/public/logo.png'
 import Image from 'next/image';
-
+import { useDisconnect} from "wagmi";
 
 export default function NavBar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -15,6 +15,7 @@ export default function NavBar() {
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
+  const { disconnect } = useDisconnect();
 
     return (
         <>
@@ -22,18 +23,22 @@ export default function NavBar() {
             <ScrollLink to="/" smooth={true} duration={500}>
               <Image className="w-36  lg:w-46" src={logo} alt="Corporate Logo" width={100} height={100} priority/>
             </ScrollLink>
-            <div className='hidden xl:flex space-x-8 font-medium'>
-            <ScrollLink to="section1" smooth={true} duration={500} className="hover:text-[#cc3cd9]">About us</ScrollLink>
-            <ScrollLink to="section2" smooth={true} duration={500} className="hover:text-[#cc3cd9]">WHY ?</ScrollLink>
-            <ScrollLink to="section3" smooth={true} duration={500}  className="hover:text-[#cc3cd9]">How It’s Work</ScrollLink>
+            <div className='hidden xl:flex space-x-6 font-medium items-center'>
+            <ScrollLink to="section1" smooth={true} duration={500} className="hover:text-[#cc3cd9]">About Us</ScrollLink>
+            <ScrollLink to="section6" smooth={true} duration={500}  className="hover:text-[#cc3cd9]">Presale</ScrollLink>
+            <ScrollLink to="section3" smooth={true} duration={500}  className="hover:text-[#cc3cd9]">How it’s Work</ScrollLink>
+            <ScrollLink to="section2" smooth={true} duration={500} className="hover:text-[#cc3cd9]">Why?</ScrollLink>
             <ScrollLink to="section4" smooth={true} duration={500}  className="hover:text-[#cc3cd9]">Tokenomic</ScrollLink>
             <ScrollLink to="section5" smooth={true} duration={500}  className="hover:text-[#cc3cd9]">Roadmap</ScrollLink>
-            <ScrollLink to="section6" smooth={true} duration={500}  className="hover:text-[#cc3cd9]">Presale</ScrollLink>
+          
             <a href="https://app.gitbook.com/o/ioClQ7WLvbjNjU7qZrL0/s/xjyEG72qduPrWHW4ogEE/" target="_blanks"  className="hover:text-[#cc3cd9]">WhitePaper</a>
-             <div className="flex items-center space-x-7">
+             <div className="flex items-center space-x-5">
               <a href="https://t.me/rebelprotocol" target="_blank" className="hover:text-[#cc3cd9] text-2xl"><FaTelegram/></a>
               <a  href="https://x.com/rebelprotocol" target="_blank"  className="hover:text-[#cc3cd9] text-2xl"><FaSquareXTwitter/></a>
               </div>
+              <div className="rounded-lg bg-[#cc3cd9]/15 py-2 px-5" onClick={disconnect}>
+            Disconnect
+            </div>
             </div>
  
 
@@ -52,17 +57,22 @@ export default function NavBar() {
               </button>
             </div>
             <div className='flex flex-col mt-8 px-4 font-medium'>
-            <ScrollLink to="section1" smooth={true} duration={500}  className="hover:text-[#cc3cd9] py-2" style={{ borderBottom: '1px solid hsla(0, 0%, 100%, 0.1)'}} onClick={toggleMobileMenu}>About us</ScrollLink>
-            <ScrollLink to="section2" smooth={true} duration={500} className="hover:text-[#cc3cd9] py-2" style={{ borderBottom: '1px solid hsla(0, 0%, 100%, 0.1)'}} onClick={toggleMobileMenu}>WHY ?</ScrollLink>
+            <ScrollLink to="section1" smooth={true} duration={500}  className="hover:text-[#cc3cd9] py-2" style={{ borderBottom: '1px solid hsla(0, 0%, 100%, 0.1)'}} onClick={toggleMobileMenu}>About Us</ScrollLink>
+            <ScrollLink to="section2" smooth={true} duration={500} className="hover:text-[#cc3cd9] py-2" style={{ borderBottom: '1px solid hsla(0, 0%, 100%, 0.1)'}} onClick={toggleMobileMenu}>Why?</ScrollLink>
             <ScrollLink to="section3" smooth={true} duration={500} href="how" className="hover:text-[#cc3cd9] py-2" style={{ borderBottom: '1px solid hsla(0, 0%, 100%, 0.1)'}} onClick={toggleMobileMenu}>How It’s Work</ScrollLink>
             <ScrollLink to="section4" smooth={true} duration={500} href="tokenomic1"className="hover:text-[#cc3cd9] py-2" style={{ borderBottom: '1px solid hsla(0, 0%, 100%, 0.1)'}} onClick={toggleMobileMenu}>Tokenomic</ScrollLink>
             <ScrollLink to="section5" smooth={true} duration={500} href="roadmap" className="hover:text-[#cc3cd9] py-2" style={{ borderBottom: '1px solid hsla(0, 0%, 100%, 0.1)'}} onClick={toggleMobileMenu}>Roadmap</ScrollLink>
             <ScrollLink to="section6" smooth={true} duration={500} href="presale" className="hover:text-[#cc3cd9] py-2" style={{ borderBottom: '1px solid hsla(0, 0%, 100%, 0.1)'}} onClick={toggleMobileMenu}>Presale</ScrollLink>
             <a  href="https://app.gitbook.com/o/ioClQ7WLvbjNjU7qZrL0/s/xjyEG72qduPrWHW4ogEE/" target="_blanks"  className="hover:text-[#cc3cd9] py-2" style={{ borderBottom: '1px solid hsla(0, 0%, 100%, 0.1)'}}onClick={toggleMobileMenu}>WhitePaper</a>
-             <div className="flex items-center space-x-5 py-4 justify-center">
+             <div className="flex items-center space-x-3 py-4 justify-center">
               <a href="https://t.me/rebelprotocol" target="_blank" className="hover:text-[#cc3cd9] text-3xl"><FaTelegram/></a>
               <a  href="https://x.com/rebelprotocol"target="_blank" className="hover:text-[#cc3cd9] text-3xl"><FaSquareXTwitter/></a>
               </div>
+            </div>
+            <div className="flex items-center  mt-4 justify-center">
+            <div className="text-white  w-fit rounded-lg bg-[#cc3cd9] py-2 px-5 " onClick={disconnect}>
+            Disconnect
+            </div>
             </div>
           </div>
         </nav>

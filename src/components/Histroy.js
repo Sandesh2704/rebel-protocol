@@ -42,18 +42,35 @@ export default function Histroy({histroyPopoverHandler}) {
           <div className="absolute right-2 top-2 text-base p-2 border border-stone-500" onClick={histroyPopoverHandler}><CgClose /></div>
            <h1 className="text-lg md:text-xl lg:text-2xl font-medium text-white text-center pt-10">Trasection Histroy</h1>
           <div className="flex flex-col text-center gap-2 lg:gap-3 py-4 md:py-5 mt-5 rounded-lg  bg-[#cc3cd9]/5">
-            <h1 className=" text-sm text-white">Total Purchased Tokens</h1>
+            <h1 className=" text-sm md:text-base text-white">Total Purchased Tokens</h1>
             <p className="text-[#cc3cd9] text-2xl lg:text-3xl font-semibold">{totalPurchasedToken} $REB</p>
-            <h1 className=" text-sm text-white">Total BNB</h1>
+            {/* <h1 className=" text-sm text-white">Total BNB</h1>
             <p className="text-[#cc3cd9] text-2xl lg:text-3xl font-semibold">{totalBNB}</p>
             <h1 className=" text-sm text-white">Total USDT</h1>
             <p className="text-[#cc3cd9] text-2xl lg:text-3xl font-semibold">{totalUSDT}</p>
             <h1 className=" text-sm text-white">Total USDC</h1>
-            <p className="text-[#cc3cd9] text-2xl lg:text-3xl font-semibold">{totalUSDC}</p>
-            
-
-
+            <p className="text-[#cc3cd9] text-2xl lg:text-3xl font-semibold">{totalUSDC}</p> */}
          </div>
+
+
+
+          <div className="flex flex-col text-center gap-3 lg:gap-5 p-4 md:py-5 mt-5 rounded-lg  bg-[#cc3cd9]/5">
+            <div className=" flex justify-between">
+            <h1 className="text-sm md:text-base  text-white">Total BNB</h1>
+            <p className="text-[#cc3cd9] text-base md:text-lg font-semibold">{totalBNB}</p>
+            </div>
+            <div className="flex justify-between ">
+              <h1 className="text-sm md:text-base text-white">Total USDT</h1>
+              <p className="text-[#cc3cd9] text-base md:text-lg font-semibold">{totalUSDT}</p>
+            </div>
+            <div className="flex justify-between ">
+              <h1 className="text-sm md:text-base  text-white">Total USDC</h1>
+              <p className="text-[#cc3cd9] text-base md:text-lg font-semibold">{totalUSDC}</p>
+            </div>
+          </div>
+
+
+
         </div>
       </div>
     </>

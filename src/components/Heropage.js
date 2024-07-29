@@ -1,5 +1,6 @@
 'use client'
 import carcousel from '/public/images/otherimages/carousel.png'
+import gif from '/public/images/otherimages/heropage.gif'
 import earthbg from '/public/images/otherimages/pngegg.png'
 import React  from 'react';
 import { motion } from 'framer-motion';
@@ -12,7 +13,7 @@ export default function Heropage() {
     <>
       <div className='relative px-4 sm:px-7  lg:px-40 grid grid-cols-1 md:grid-cols-2  gap-y-10 lg:gap-16 pt-24 md:py-10 lg:py-28 overflow-hidden'>
         <div className='flex items-center justify-center md:justify-start lg:justify-center'>
-          <Image src={carcousel} height={100} width={100} alt="carousel" className='w-64 md:w-80  lg:w-full' priority/>
+          <Image src={gif} height={100} width={100} alt="carousel" className='w-64 md:w-80  lg:w-full' priority/>
         </div>
         <div className=''>
           <h1 className=" text-start text-white  text-4xl lg:text-[56px] leading-[2.5rem] md:leading-[2.7rem] lg:leading-[4.2rem] font-bold mb-5 md:mb-4  lg:my-7 px-4 md:px-0 z-40">
