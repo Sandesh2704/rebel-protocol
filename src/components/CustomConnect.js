@@ -36,7 +36,7 @@ export const CustomConnect = () => {
                     type="button"
                     className="mt-6 text-center w-full rounded-full bg-[#cc3cd9] py-3 text-white text-base md:text-lg  font-medium"
                   >
-                    Connect wallet first
+                    Connect wallet 
                   </button>
                 );
               }

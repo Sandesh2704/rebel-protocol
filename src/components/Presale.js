@@ -7,6 +7,8 @@ import { BsFillCreditCard2FrontFill } from "react-icons/bs";
 import { FaAngleDown } from "react-icons/fa6";
 import { FaQuestion } from "react-icons/fa";
 import logo from "/public/logo192.png";
+import { IoCopySharp } from "react-icons/io5";
+import metamask from '/public/images/otherimages/metamask.png'
 import BSC from "/public/images/chainlogo/bsc.png";
 import PLG from "/public/images/chainlogo/plg.png";
 import ARB from "/public/images/chainlogo/arb.png";
@@ -347,6 +349,17 @@ export default function Presale() {
   };
   
 
+  const fullAddress = '0x9F98Ca79a341039761D84CaC32D8B215c0EaEC93';
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(fullAddress).then(
+      () => {
+        alert('Address copied to clipboard!');
+      },
+      (err) => {
+        console.error('Failed to copy: ', err);
+      }
+    );
+  };
 
   return (
     <>
@@ -359,7 +372,7 @@ export default function Presale() {
 
 
           <h1 className="text-3xl md:text-5xl  xl:text-6xl text-center xl:text-start  text-white font-semibold mb-12 lg:mb-16 lg:mt-7">
-            Real-World Asset Tokenized ecosystem
+            Real-World Asset Tokenized Ecosystem
           </h1>
           <div className="flex justify-center w-full  mb-5 md:mb-7 lg:mb-10">
             <div className="flex flex-col px-3 md:px-6 py-4 border-2 rounded-lg border-[#FFFFFF1A] relative">
@@ -419,9 +432,23 @@ export default function Presale() {
               {/* <span>{displayAddress}</span> */}
             </h1>
 
-      
-            <div className="mt-4 flex flex-col text-center  p-4 md:p-5  rounded-lg  bg-[#cc3cd9]/5 ">
-              <h1 className="text-[#cc3cd9] text-base md:text-lg font-semibold">{displayAddress}</h1>
+            {/* {displayAddress} */}
+            <div className="mt-4 flex relative  bg-[#cc3cd9]/5  rounded-lg   ">
+              <div className="flex items-center flex-row gap-2 p-4 md:p-5 ">
+                <Image src={metamask}
+                  alt="metamask"
+                  className="w-7 h-7 mr-2"
+                  width={100}
+                  height={100}
+                  priority />
+                <h1 className="text-[#cc3cd9]  text-base md:text-lg font-semibold break-all">
+                  {fullAddress.slice(0, 23)}...
+                </h1>
+              </div>
+
+              <div className="text-lg absolute p-3 right-0 bg-[#cc3cd9]/15 flex items-center h-full rounded-r-lg   cursor-pointer" onClick={copyToClipboard}>
+                <IoCopySharp />
+              </div>
             </div>
 
             <p className="mt-4 text-center text-sm md:text-base font-medium">

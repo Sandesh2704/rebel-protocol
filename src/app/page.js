@@ -26,12 +26,12 @@ export default function Home() {
         <div className="fixed  z-50  rainbow-gradient-circle "></div>
         <div className="fixed z-50  theme-pink"></div>
 
-        <div id='/' className='my-12 md:mt-20 lg:mt-16'  >
+        <div id='/' className='my-10 md:mt-20 lg:mt-8'  >
           <Heropage />
         </div>
 
         <div className='relative flex flex-col px-3 sm:px-7 lg:px-16  xl:px-28 overflow-hidden gap-y-16 md:gap-y-20 xl:gap-y-24'>
-          <div id='section6'>
+          <div id='section2'>
             <Presale />
           </div>
           <div id='section1' >
@@ -40,7 +40,7 @@ export default function Home() {
             </h1>
             <AboutUs />
           </div>
-          <div id='section2' >
+          <div id='section4' >
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-white mb-8 md:mb-12">
               Why
             </h1>
@@ -48,17 +48,17 @@ export default function Home() {
           </div>
           <div id='section3'>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-white mb-8 md:mb-16">
-              How it Works
+              {`How It's Works`}
             </h1>
             <HowItsWorks />
           </div>
-          <div id='section4'  >
+          <div id='section5'  >
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-white mb-6 md:mb-10">
               Tokenomic
             </h1>
             <Tokenomic />
           </div>
-          <div id='section5 '>
+          <div id='section6'>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-white mb-8 md:mb-10 lg:pb-20">
               RoadMap
             </h1>

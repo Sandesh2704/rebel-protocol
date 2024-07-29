@@ -1,9 +1,8 @@
 'use client'
 import React from 'react'
-import digitalmoney from '/public/images/otherimages/digital-money.png'
+import digitalmoney from '/public/images/otherimages/ae.webp'
 import { motion } from "framer-motion";
 import Image from 'next/image';
-
 
 
 export default function Why() {
@@ -93,7 +92,7 @@ export default function Why() {
                                         A Golden Foundation
                                     </h5>
                                     <span className="text-xs md:text-sm lg:text-base leading-snug">
-                                        REBEL inaugural RWA token is backed 1:1 by Investor Grade LBMA-certified gold, vaulted securely in The Channel Islands.
+                                        REBEL inaugural RWA token is backed 1:1 by investor grade LBMA-certified gold, vaulted securely in the channel islands.
                                     </span>
                                 </div>
                             </motion.div>
@@ -137,7 +136,7 @@ export default function Why() {
                                         Grow Your Gold
                                     </h5>
                                     <span className="text-xs md:text-sm lg:text-base leading-snug">
-                                        Let your REBEL Gold Grow in the REBEL Digital Vaults, where the underlying gold is monetised and earns you yield.
+                                        Let your $REB token grow in the REBEL digital vaults, where the underlying gold is monetised and earns you yield.
                                     </span>
                                 </div>
                             </motion.div>
