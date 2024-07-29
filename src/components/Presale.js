@@ -148,7 +148,7 @@ export default function Presale() {
     setUserRebelCount(finalResult);
   };
 
-  const Approve = async (tokenAddress , tokenAmount) =>{
+  const Approve = async (tokenAddress, tokenAmount) => {
     try {
       // Simulate the contract transaction to ensure it's likely to succeed
       const { request } = await simulateContract(config, {
@@ -156,19 +156,22 @@ export default function Presale() {
         abi: tokenABI,
         functionName: "approve",
         account: address,
-        args:["0x4Da52cB50C7D89A67431C43ec843AabdE97EcbA2" , tokenAmount]
+        args: ["0x4Da52cB50C7D89A67431C43ec843AabdE97EcbA2", tokenAmount],
       });
-
+  
       // Execute the transaction
-      await writeContract(config, request);
+      const approvalTransaction = await writeContract(config, request);
+      return approvalTransaction;
     } catch (error) {
-      console.error("Failed to execute BuyNow transaction:", error.message);
-  }}
-
+      console.error("Failed to execute approve transaction:", error.message);
+      throw error;
+    }
+  };
+  
   const BuyNow = async () => {
     let args = [];
     let value = "0";
-
+  
     // Convert the amount to the appropriate unit based on the selected currency
     if (selectedCurrency.value === "BNB") {
       // Convert the amount to wei for BNB transactions
@@ -176,45 +179,45 @@ export default function Presale() {
       args = [weiEquivalent];
       value = weiEquivalent; // Set the value to send with the transaction, as BNB transactions are payable
     } else {
-      // args = [parseUnits(numberOfChain.toString(), 18)];
       args = [parseUnits(numberOfChain.toString(), 6)];
     }
-
+  
     // Ensure address and selectedCurrency are defined
     if (!address || !selectedCurrency.value) {
       throw new Error("Address or selected currency is not defined");
     }
-
-
-
+  
     // Log the current state
     console.log("Address:", address);
     console.log("Selected Currency:", selectedCurrency.value);
     console.log("Args:", args);
     console.log("Value:", value);
-
+  
     try {
+
+      // Check if the selected currency is USDT or USDC
+      if (selectedCurrency.value === "USDT" || selectedCurrency.value === "USDC") {
+        let tokenAddress;
+        if (selectedCurrency.value === "USDT") {
+          tokenAddress = "0x7A4E40Fa26ca4A383aa63A8916c4D843502aaE2A"; // USDT Address Here
+        } else {
+          tokenAddress = "0x7A4E40Fa26ca4A383aa63A8916c4D843502aaE2A"; // USDC Address Here
+        }
+       await Approve(tokenAddress, args[0]); 
+      }
       // Simulate the contract transaction to ensure it's likely to succeed
       const { request } = await simulateContract(config, {
         address: "0x4Da52cB50C7D89A67431C43ec843AabdE97EcbA2",
         abi: contractABI,
         functionName: buySCFn[selectedCurrency.value],
         account: address,
-        args:args,
+        args: args,
         value,
       });
-
-      if (args[0] === parseUnits(numberOfChain.toString(), 6)) {
-        let tokenAddress;
-        if(buySCFn[selectedCurrency.value] === "USDT"){
-          tokenAddress= "0x7A4E40Fa26ca4A383aa63A8916c4D843502aaE2A"; // USDT Address Here
-        }else{
-          tokenAddress="0x7A4E40Fa26ca4A383aa63A8916c4D843502aaE2A"; //USDC Address Here
-        }
-        await Approve(tokenAddress,args);
-      }
-      // Execute the transaction
+      // Execute the buy transaction
       await writeContract(config, request);
+  
+      console.log("BuyNow transaction confirmed");
     } catch (error) {
       console.error("Failed to execute BuyNow transaction:", error.message);
       // Handle errors appropriately in your UI here
@@ -223,6 +226,9 @@ export default function Presale() {
       }
     }
   };
+  
+
+  
 
   // const BuyNow = async () => {
   //   let args = [];
