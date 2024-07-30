@@ -29,7 +29,8 @@ import { useAccount , useDisconnect} from "wagmi";
 import { config } from "../utils/config";
 import { contractABI } from "../utils/abi.js";
 import { tokenABI } from "../utils/tokenabi.js";
-import { readContract, simulateContract, writeContract } from "@wagmi/core";
+import { readContract, simulateContract, writeContract , getBalance } from "@wagmi/core";
+
 import HowToBuy from "./HowToBuy";
 import { motion } from "framer-motion";
 import {
@@ -46,6 +47,9 @@ import Histroy from "./Histroy";
 export default function Presale() {
   const [tab, setTab] = useState("crypto");
   const { address, isConnected } = useAccount();
+  getBalance(config, { address: address },{unit: 'ether'} )
+  .then(balance => console.log(balance.formatted))
+  .catch(error => console.error('Error fetching balance:', error));
   const { disconnect } = useDisconnect();
   const displayAddress = address
         ? `${address.substring(0, 6)}...${address.substring(address.length - 4)}`
@@ -182,6 +186,10 @@ export default function Presale() {
       args = [weiEquivalent];
       value = weiEquivalent; // Set the value to send with the transaction, as BNB transactions are payable
     } else {
+      if (parseFloat(numberOfChain) <= 40) {
+        alert('Purchase amount must be greater than $40.');
+        return; 
+      }
       args = [parseUnits(numberOfChain.toString(), 6)];
     }
   
@@ -645,8 +653,13 @@ export default function Presale() {
                     onClick={BuyNow}
                     type="button"
                     className="mt-6 text-center w-full rounded-full bg-[#cc3cd9] py-3 text-white text-base md:text-lg  font-medium"
+                    disabled={selectedCurrency.value === "BNB" ? parseFloat(numberOfChain) < 0.075 : parseFloat(numberOfChain) < 40 || numberOfChain === ""}
                   >
-                    Buy Now
+                  {
+                    (selectedCurrency.value === "BNB" ? parseFloat(numberOfChain) < 0.075 : parseFloat(numberOfChain) < 40) || numberOfChain === ""
+                    ? "Minimum purchase is $40"
+                    : "Buy Now"
+                  }
                   </button>
                 )}
               </form>
