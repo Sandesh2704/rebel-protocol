@@ -1,19 +1,130 @@
 'use client'
 import earthbg from '/public/images/otherimages/pngegg.png'
-import carcual from '/public/images/otherimages/onooks-ooks.gif'
-import React from 'react';
-import { motion } from 'framer-motion';
+import carcual from '/public/images/otherimages/Rebel.png'
+import { useEffect, useState } from 'react';
+import { motion, useAnimation } from 'framer-motion';
 import '../style/HeroPage.css'
 import Image from 'next/image';
+import logo from '/public/logo192.png'
 
 export default function Heropage() {
 
+  // const controls = useAnimation();
+
+  // useEffect(() => {
+  //   const sequence = async () => {
+  //     await controls.start({
+  //       x: 0,
+  //       rotate: 360,
+  //       transition: { duration: 2, ease: "easeInOut" },
+  //     });
+  //     controls.start({
+  //       rotate: 0, // Stop rotation after the entrance animation
+  //       transition: { duration: 0 },
+  //     });
+  //     controls.start({
+  //       rotateY: [0, 180, 0], 
+  //       y: [0, -20, 0], 
+  //       transition: {
+  //         duration: 3,
+  //         ease: "easeInOut",
+  //         repeat: Infinity,
+  //       },
+  //     });
+  //   };
+  //   sequence();
+  // }, [controls]);
+
+  const controls = useAnimation();
+
+  useEffect(() => {
+    const sequence = async () => {
+      await controls.start({
+        x: 0,
+        rotate: 360,
+        transition: { duration: 1.5, ease: "easeInOut" },
+      });
+      controls.start({
+        rotate: 0, // Stop rotation after the entrance animation
+        transition: { duration: 0 },
+      });
+      controls.start({
+        rotateY: [0, 180, 0], // Flip like a coin
+        y: [0, -20, 0], // Bounce up and down
+        transition: {
+          duration: 3,
+          ease: "easeInOut",
+          repeat: Infinity,
+        },
+      });
+    };
+    sequence();
+  }, [controls]);
+
   return (
     <>
-      <div className='relative px-4 sm:px-7  lg:px-40 grid grid-cols-1 md:grid-cols-2   gap-7 lg:gap-16 pt-16 md:py-10 lg:py-28 overflow-hidden'>
-        <div className='flex items-center justify-center md:justify-start lg:justify-center'>
-          <Image src={carcual} height={100} width={100} alt="carousel" className='w-[80%] lg:w-[90%]' priority />
+      <div className='relative px-4 sm:px-7  lg:px-40 grid grid-cols-1 md:grid-cols-2   gap-7 lg:gap-16 pt-20 md:py-10 lg:py-28 overflow-hidden'>
+
+      <div className="flex justify-center items-center">
+      <motion.div
+        className="relative px-10 xl:px-16 py-12 xl:py-20 w-[70%] md:w-[75%]"
+        initial={{ x: '-100vw', rotate: 0 }}
+        animate={controls}
+      >
+        <motion.div
+          className="rounded-full border-[0.4rem] md:border-[0.6rem] xl:border-[0.7rem] border-[#CC3CD9] absolute inset-0"
+          style={{ rotate: 0 }}
+        />
+        <Image src={logo} alt="Logo" width={1000} height={1000} className='h-full w-full' />
+        <div className="absolute inset-0 hidden lg:flex justify-center items-end bottom-6">
+          <div className="text-center flex flex-col text-white text-base font-serif -gap-1">
+            <span>REBEL</span>
+            <span>PROTOCOL</span>
+            
+          </div>
         </div>
+      </motion.div>
+    </div>
+
+        {/* <div className="flex justify-center items-center">
+          <motion.div
+            className="relative px-10 xl:px-16 py-12 xl:py-20 w-[70%] md:w-[75%]"
+            initial={{ x: '-100vw', rotate: 0 }}
+            animate={controls}
+          >
+            <motion.div
+              className="rounded-full border-[0.4rem]  md:border-[0.6rem]  xl:border-[0.7rem] border-[#CC3CD9] absolute inset-0"
+              style={{ rotate: 0 }}
+            />
+            <Image src={logo} alt="Logo" width={1000} height={1000} className='h-full w-full' />
+           
+          </motion.div>
+         
+        </div> */}
+       
+{/* <div className="flex justify-center items-center">
+      <motion.div
+        className="relative px-16 py-20 w-[80%]"
+        initial={{ x: '-100vw', rotate: 0 }}
+        animate={controls}
+      >
+        <motion.div
+          className="rounded-full border-[1rem] border-[#CC3CD9] absolute inset-0"
+          animate={{
+            rotateY: [0, 180, 0], 
+            y: [0, -20, 0], 
+          }}
+          transition={{
+            duration: 3,
+            ease: "easeInOut",
+            repeat: Infinity,
+          }}
+        />
+        <Image src={logo} alt="Logo" width={1000} height={1000} className='h-full w-full' />
+      </motion.div>
+    </div> */}
+
+
         <div className=''>
           <h1 className=" text-start text-white  text-4xl lg:text-[56px] leading-[2.5rem] md:leading-[2.7rem] lg:leading-[4.2rem] font-bold mb-5 md:mb-4  lg:my-7 px-4 md:px-0 z-40">
             Legacy Meets Liquidity Is At Intersection

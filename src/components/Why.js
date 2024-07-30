@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import digitalmoney from '/public/images/otherimages/ae.webp'
+import digitalmoney from '/public/logo192.png'
 import { motion } from "framer-motion";
 import Image from 'next/image';
 
