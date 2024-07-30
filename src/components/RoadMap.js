@@ -13,7 +13,7 @@ export default function RoadMap() {
     },
     {
       year: 'Q4 2024',
-      points: ['TGE $REB', 'Listing Dex & Cex', 'REBEL platfrom', `RWA's expansion I`],
+      points: ['TGE $REB', 'Listing on dex & cex', 'REBEL platfrom', `RWA's expansion I`],
       position: 'top'
     },
     {
