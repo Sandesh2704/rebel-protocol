@@ -72,7 +72,7 @@ export default function Heropage() {
         animate={controls}
       >
         <motion.div
-          className="rounded-full border-[0.4rem] md:border-[0.6rem] xl:border-[0.7rem] border-[#CC3CD9] absolute inset-0"
+          className="rounded-full border-[0.4rem] md:border-[0.6rem] xl:border-[0.7rem] border-white absolute inset-0"
           style={{ rotate: 0 }}
         />
         <Image src={logo} alt="Logo" width={1000} height={1000} className='h-full w-full' />

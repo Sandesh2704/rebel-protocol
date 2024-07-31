@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import Image from 'next/image';
-import logo from "/public/images/otherimages/coin-logo2.png";
+import logo from "/public/images/otherimages/logo50.png"
 
 
 export default function Tokenomic() {
@@ -18,7 +18,7 @@ export default function Tokenomic() {
           <Image
             src={logo}
             alt="logo"
-            className="w-[70%] rounded-full"
+            className="w-[60%] rounded-full"
             width={100}
             height={100}
             priority
