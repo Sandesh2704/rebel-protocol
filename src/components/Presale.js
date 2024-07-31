@@ -47,9 +47,6 @@ import Moralis from 'moralis';
 export default function Presale() {
   const [tab, setTab] = useState("crypto");
   const { address, isConnected } = useAccount();
-  getBalance(config, { address: address },{unit: 'ether'} )
-  .then(balance => console.log(balance.formatted))
-  .catch(error => console.error('Error fetching balance:', error));
   const { disconnect } = useDisconnect();
   const displayAddress = address
         ? `${address.substring(0, 6)}...${address.substring(address.length - 4)}`
