@@ -8,22 +8,22 @@ export default function RoadMap() {
   const timelineSteps = [
     {
       year: 'Q3 2024',
-      points: ['White Paper', 'Dashboard',  'Presale', ],
+      points: ['White peper', 'Dashboard',  'Presale', ],
       position: 'bottom'
     },
     {
       year: 'Q4 2024',
-      points: ['TGE $REB', 'Listing Dex & Cex', 'REBEL Platfrom', `RWA's Expansion I`],
+      points: ['TGE $REB', 'Listing on DEX & CEX', 'REBEL platfrom', `RWA's expansion I`],
       position: 'top'
     },
     {
       year: 'Q1 2025',
-      points: ['Marketing Boost', 'Rebel Platform Update Feature'],
+      points: ['Marketing boost', 'Rebel platform update feature'],
       position: 'bottom'
     },
     {
       year: 'Q2 2025',
-      points: [`RWA's Expansion II`, 'Dao Implementation', 'Sector Compunds & MultiRWA-Token'],
+      points: [`RWA's expansion II`, 'Dao implementation', 'Sector compunds & MultiRWA-Token'],
       position: 'top'
     }
   ];

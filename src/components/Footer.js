@@ -17,7 +17,7 @@ export default function Footer() {
                         </div>
                     </div>
                 </div>
-                <p className='text-center'>@Rebel</p>
+                <p className='text-center text-[#CC3CD9]'>@RebelProtocol</p>
             </div>
         </>
     )
