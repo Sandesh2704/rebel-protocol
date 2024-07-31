@@ -65,17 +65,24 @@ export default function Presale() {
   const [fortyDollarsInBNB, setFortyDollarsInBNB] = useState(0);
 
   useEffect(() => {
-    fetch('https://api.coincap.io/v2/assets/binance-coin')
-      .then(response => response.json())
-      .then(data => {
-        const currentPrice = data.data.priceUsd;
-        setBNBPrice(currentPrice);
-        const amountInBNB = 40 / currentPrice;
-        setFortyDollarsInBNB(amountInBNB);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
+    const fetchBNBPrice = () => {
+      fetch('https://api.coincap.io/v2/assets/binance-coin')
+        .then(response => response.json())
+        .then(data => {
+          const currentPrice = data.data.priceUsd;
+          setBNBPrice(currentPrice);
+          const amountInBNB = 40 / currentPrice;
+          setFortyDollarsInBNB(amountInBNB);
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+        });
+    };
+
+    fetchBNBPrice();
+    const interval = setInterval(fetchBNBPrice, 300000); 
+
+    return () => clearInterval(interval); /
   }, []);
 
 
