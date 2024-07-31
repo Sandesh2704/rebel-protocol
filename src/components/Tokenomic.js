@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import Image from 'next/image';
-import logo from "/public/images/otherimages/Logo_prev_ui.png";
+import logo from "/public/images/otherimages/coin-logo2.png";
 
 
 export default function Tokenomic() {
@@ -10,8 +10,6 @@ export default function Tokenomic() {
 
   return (
     <>
-
-
       <div className="flex flex-col md:grid    md:grid-rows-4 lg:grid-rows-3 grid-flow-col gap-4">
         <Card text="Presale" percentage={15} subtext='40% unlock TGE , 60% vesting 3 month with monthly claim' />
         <Card text="Liquidity" percentage={40} />

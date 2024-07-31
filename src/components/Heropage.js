@@ -76,13 +76,13 @@ export default function Heropage() {
           style={{ rotate: 0 }}
         />
         <Image src={logo} alt="Logo" width={1000} height={1000} className='h-full w-full' />
-        <div className="absolute inset-0 hidden lg:flex justify-center items-end bottom-6">
+        {/* <div className="absolute inset-0 hidden lg:flex justify-center items-end bottom-6">
           <div className="text-center flex flex-col text-white text-base font-serif -gap-1">
             <span>REBEL</span>
             <span>PROTOCOL</span>
             
           </div>
-        </div>
+        </div> */}
       </motion.div>
     </div>
 
