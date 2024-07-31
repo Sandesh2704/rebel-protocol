@@ -43,7 +43,7 @@ import {
   BigNumber,
 } from "ethers";
 import Histroy from "./Histroy";
-
+import Moralis from 'moralis';
 export default function Presale() {
   const [tab, setTab] = useState("crypto");
   const { address, isConnected } = useAccount();
@@ -61,6 +61,23 @@ export default function Presale() {
     minutes: 0,
     seconds: 0,
   });
+  const [BNBPrice, setBNBPrice] = useState(0);
+  const [fortyDollarsInBNB, setFortyDollarsInBNB] = useState(0);
+
+  useEffect(() => {
+    fetch('https://api.coincap.io/v2/assets/binance-coin')
+      .then(response => response.json())
+      .then(data => {
+        const currentPrice = data.data.priceUsd;
+        setBNBPrice(currentPrice);
+        const amountInBNB = 40 / currentPrice;
+        setFortyDollarsInBNB(amountInBNB);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+
 
   useEffect(() => {
     const countdown = setInterval(() => {
@@ -653,10 +670,10 @@ export default function Presale() {
                     onClick={BuyNow}
                     type="button"
                     className="mt-6 text-center w-full rounded-full bg-[#cc3cd9] py-3 text-white text-base md:text-lg  font-medium"
-                    disabled={selectedCurrency.value === "BNB" ? parseFloat(numberOfChain) < 0.075 : parseFloat(numberOfChain) < 40 || numberOfChain === ""}
+                    disabled={selectedCurrency.value === "BNB" ? parseFloat(numberOfChain) < fortyDollarsInBNB : parseFloat(numberOfChain) < 40 || numberOfChain === ""}
                   >
                   {
-                    (selectedCurrency.value === "BNB" ? parseFloat(numberOfChain) < 0.075 : parseFloat(numberOfChain) < 40) || numberOfChain === ""
+                    (selectedCurrency.value === "BNB" ? parseFloat(numberOfChain) < fortyDollarsInBNB: parseFloat(numberOfChain) < 40) || numberOfChain === ""
                     ? "Minimum purchase is $40"
                     : "Buy Now"
                   }
