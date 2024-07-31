@@ -82,7 +82,7 @@ export default function Presale() {
     fetchBNBPrice();
     const interval = setInterval(fetchBNBPrice, 300000); 
 
-    return () => clearInterval(interval); /
+    return () => clearInterval(interval); 
   }, []);
 
 
