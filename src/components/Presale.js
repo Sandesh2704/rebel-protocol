@@ -43,7 +43,6 @@ import {
   BigNumber,
 } from "ethers";
 import Histroy from "./Histroy";
-import Moralis from 'moralis';
 export default function Presale() {
   const [tab, setTab] = useState("crypto");
   const { address, isConnected } = useAccount();
