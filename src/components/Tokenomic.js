@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import Image from 'next/image';
-import logo from "/public/images/otherimages/logo50.png"
+import logo from "/public/logo192.png"
 
 
 export default function Tokenomic() {
@@ -18,7 +18,7 @@ export default function Tokenomic() {
           <Image
             src={logo}
             alt="logo"
-            className="w-[60%] rounded-full"
+            className="w-[60%] rounded-full border-8 border-white p-12"
             width={100}
             height={100}
             priority
@@ -29,46 +29,6 @@ export default function Tokenomic() {
         <div><Card text="Startegic partnership and ecosystem" percentage={10} subtext="20% unlock TGE , Cliff 1Month , 80%vesting 4month with monthly claim" /></div>
         <div><Card text="Marketing and community growth" percentage={10} /></div>
       </div>
-
-
-      {/*
-      <div>
-        <div className='flex justify-center mb-5 '>
-          <div className=' px-10 py-3 rounded-lg bg-[#cc3cd9]/10'>
-            <h1 className='text-center text-sm text-[#cc3cd9]'>Total Supply</h1>
-            <p className='text-3xl font-semibold text-[#cc3cd9]'>1,000,000,000</p>
-          </div>
-        </div>
-        <div className='relative grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-3 lg:gap-4'>
-          <div className='absolute w-full h-full hidden md:flex justify-center items-center'>
-            <Image
-              src={img}
-              alt="Background"
-              className=" lg:w-60 xl:w-96 z-0"
-            />
-          </div>
-          <div className='col-start-1 lg:col-start-2  col-span-12 md:col-span-6 lg:col-span-3'>
-            <Card text="Presale" percentage={15} />
-          </div>
-          <div className='col-start-1 lg:col-start-9 col-span-12  md:col-span-6  lg:col-span-3'>
-            <Card text="Liquidity" percentage={40} />
-          </div>
-          <div className='col-start-1 lg:col-start-3 col-span-12  md:col-span-6  lg:col-span-3'>
-            <Card text="Community and user incentives" percentage={15} />
-          </div>
-          <div className='col-start-1 lg:col-start-8 col-span-12  md:col-span-6  lg:col-span-3'>
-            <Card text="Team and advisor" percentage={10} />
-          </div>
-          <div className='col-start-1 lg:col-start-2 col-span-12 md:col-span-6 lg:col-span-3'>
-            <Card text="Marketing and community growth" percentage={10} />
-          </div>
-          <div className='col-start-1 lg:col-start-9 col-span-12  md:col-span-6  lg:col-span-3'>
-            <Card text="Startegic partnership and ecosystem" percentage={10} />
-          </div>
-        </div>
-      </div>
-       */}
-
 
     </>
   )
