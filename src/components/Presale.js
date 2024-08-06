@@ -88,33 +88,31 @@ export default function Presale() {
     return () => clearInterval(interval);
   }, []);
 
+  const staticTimestamp = 1724176837000;
+  const [remainingTime, setRemainingTime] = useState(null);
+
   useEffect(() => {
-    const countdown = setInterval(() => {
-      setTime((prevTime) => {
-        const totalSeconds =
-          prevTime.days * 86400 +
-          prevTime.hours * 3600 +
-          prevTime.minutes * 60 +
-          prevTime.seconds -
-          1;
-        const days = Math.floor(totalSeconds / 86400);
-        const hours = Math.floor((totalSeconds % 86400) / 3600);
-        const minutes = Math.floor((totalSeconds % 3600) / 60);
-        const seconds = totalSeconds % 60;
-
-        if (totalSeconds <= 0) {
-          clearInterval(countdown);
-          return { days: 0, hours: 0, minutes: 0, seconds: 0 };
-        }
-
-        return { days, hours, minutes, seconds };
-      });
+    const interval = setInterval(() => {
+      const currentTime = Date.now();
+      const remaining = staticTimestamp - currentTime;
+      setRemainingTime(remaining > 0 ? remaining : 0);
     }, 1000);
 
-    return () => clearInterval(countdown);
-  }, []);
+    return () => clearInterval(interval);
+  }, [staticTimestamp]);
 
-  const formatTime = (value) => value.toString().padStart(2, "0");
+  const calculateCountdown = (time) => {
+    const days = Math.floor(time / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((time % (1000 * 60)) / 1000);
+
+    return { days, hours, minutes, seconds };
+  };
+
+  const { days, hours, minutes, seconds } = calculateCountdown(
+    remainingTime || 0
+  );
 
   const chain = [
     { value: "BSC", imgSrc: BSC },
@@ -417,13 +415,13 @@ export default function Presale() {
                 Before Price Increase
               </h1>
               <div className="flex items-center">
-                <TimeBlock label="Days" value={formatTime(time.days)} />
+                <TimeBlock label="Days" value={days} />
                 <h3 className="font-semibold  text-2xl px-2 lg:px-3">:</h3>
-                <TimeBlock label="Hours" value={formatTime(time.hours)} />
+                <TimeBlock label="Hours" value={hours} />
                 <h3 className=" font-semibold text-2xl px-2 md:px-3">:</h3>
-                <TimeBlock label="Minutes" value={formatTime(time.minutes)} />
+                <TimeBlock label="Minutes" value={minutes} />
                 <h3 className=" font-semibold text-2xl px-2 md:px-3">:</h3>
-                <TimeBlock label="Seconds" value={formatTime(time.seconds)} />
+                <TimeBlock label="Seconds" value={seconds} />
               </div>
 
               <div className="absolute text-center -top-7 -right-2 md:-top-7 md:-right-7 bg-[#0f0f11] px-3 py-1 rounded-lg">
@@ -741,13 +739,13 @@ const TimeBlock = ({ label, value }) => {
   return (
     <div className="text-center">
       <div className="flex items-center justify-center space-x-0.5 md:space-x-1">
-        {value.split("").map((digit, index) => (
-          <div key={index} className="p-2 lg:p-3 bg-[#cc3cd9] rounded-md">
-            <div className="inset-0 flex items-center justify-center text-2xl md:text-3xl lg:text-5xl font-bold text-white">
-              {digit}
-            </div>
+        {/* {value.split("").map((digit, index) => ( */}
+        <div className="p-2 lg:p-3 bg-[#cc3cd9] rounded-md">
+          <div className="inset-0 flex items-center justify-center text-2xl md:text-3xl lg:text-5xl font-bold text-white">
+            {value}
           </div>
-        ))}
+        </div>
+        {/* ))} */}
       </div>
       <span className="block mt-2 text-xs lg:text-sm font-medium">{label}</span>
     </div>
